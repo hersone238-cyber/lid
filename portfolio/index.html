@@ -3,633 +3,168 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Степан — сайты и онлайн-запись для бизнеса</title>
-<meta name="description" content="Сайты-визитки, онлайн-запись и Telegram-боты для кафе, салонов и клиник в Кирове.">
+<title>Степан — сайты и онлайн-запись для бизнеса в Кирове</title>
+<meta name="description" content="Делаю сайты и онлайн-запись для кафе, салонов и клиник в Кирове.">
 <style>
-/* ============ Basalt design tokens ============ */
-:root{
-  --ground:#18181b;          /* page — basalt zinc */
-  --panel:#27272a;           /* cards, nav pill, chips */
-  --panel-glow:rgba(39,39,42,.85); /* hover halo behind cards */
-  --raised:#3f3f46;          /* hover pills, contact header */
-  --line:#27272a;            /* card hairlines */
-  --line-soft:rgba(63,63,70,.6);   /* nav pill border */
-  --line-strong:#52525b;     /* bordered buttons */
-  --ink:#fafafa;             /* h1 headings */
-  --bright:#f4f4f5;          /* card titles */
-  --soft:#e4e4e7;            /* blog text, footer copy */
-  --body:#a1a1aa;            /* paragraphs */
-  --muted:#71717a;           /* meta, stats, icons at rest */
-  --faint:#52525b;           /* quietest text */
-  --accent:#06b6d4;          /* THE cyan — spans, links, beams */
-  --accent-soft:#22d3ee;     /* beam tail highlight */
-  --good:#22c55e;            /* form success only */
-  --bad:#ef4444;             /* form errors only */
-  --font:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+:root {
+  --bg: #f7f3ec;
+  --paper: #fffdf9;
+  --ink: #221d19;
+  --text: #4a423b;
+  --muted: #8a8077;
+  --line: #e6ddd0;
+  --accent: #b9583a;
+  --accent-ink: #fff;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--ground);color:var(--body);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
-input,textarea{font:inherit;color:inherit}
-img,svg{display:block;max-width:100%}
-[hidden]{display:none !important}
-.wrap{max-width:64rem;margin:0 auto;padding:0 2rem}
-.narrow{max-width:42rem}
-.ic{flex-shrink:0}
-
-/* ============ Type scale ============ */
-.h-page{font-weight:700;font-size:1.875rem;line-height:1.25;color:var(--ink);max-width:48rem}
-.h-sect{font-weight:700;font-size:1.5rem;color:#fff}
-.lede{color:var(--body);font-size:.875rem;max-width:42rem;margin-top:2rem;line-height:2;letter-spacing:.025em}
-.accent{color:var(--accent)}
-@media(min-width:768px){
-  .h-page{font-size:3rem}
-  .h-sect{font-size:1.875rem}
-  .lede{font-size:1rem}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+a { color: var(--accent); }
+.wrap { width: min(760px, 100% - 32px); margin: 0 auto; }
 
-/* ============ Nav ============ */
-.nav-row{display:flex;align-items:center;justify-content:space-between;max-width:64rem;margin:0 auto;padding:2rem;position:relative;z-index:100}
-.nav-desktop{display:none;width:100%;justify-content:space-between;align-items:center}
-.nav-pill{display:flex;align-items:center;gap:2rem;border:1px solid var(--line-soft);background:var(--panel);border-radius:1rem;padding:.5rem 1rem}
-.logo{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.875rem;color:#fff}
-.logo-mark{width:30px;height:30px;border-radius:999px;background:linear-gradient(135deg,#164e63,#0e7490);color:#e0feff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:.02em}
-.nav-link{position:relative;color:#fff;font-size:.875rem}
-.nav-link::before{content:"";position:absolute;inset:-.4rem -.55rem;background:var(--raised);border-radius:.75rem;opacity:0;transform:scale(.92);transition:opacity .15s ease,transform .15s ease}
-.nav-link:hover::before{opacity:1;transform:scale(1)}
-.nav-link span{position:relative;z-index:1;display:inline-block;padding:.5rem 0}
-.btn-cv{display:inline-flex;align-items:center;gap:.5rem;font-weight:500;color:#fff;border-radius:10px;background:linear-gradient(to bottom,#464d55,#25292e);font-size:.875rem;padding:.5rem 1rem;box-shadow:0 10px 20px rgba(0,0,0,.1),0 3px 6px rgba(0,0,0,.05);transition:opacity .15s ease,box-shadow .15s ease}
-.btn-cv:hover{opacity:.8;box-shadow:0 2px 8px rgba(0,1,0,.2)}
-.nav-mobile{display:flex;width:100%;justify-content:space-between;align-items:center}
-.nav-burger{color:var(--bright);padding:.25rem}
-.mobile-menu{position:fixed;inset:0;background:var(--panel);z-index:500;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;font-size:1.25rem;font-weight:700;opacity:0;pointer-events:none;transition:opacity .15s ease}
-.mobile-menu.open{opacity:1;pointer-events:auto}
-.mobile-menu a{color:var(--soft)}
-.mobile-menu .menu-close{position:absolute;right:2rem;top:3.5rem;color:var(--bright)}
-.mobile-menu>*{transform:translateX(-2vw);opacity:0;transition:transform .25s ease,opacity .25s ease}
-.mobile-menu.open>*{transform:translateX(0);opacity:1}
-@media(min-width:1024px){
-  .nav-desktop{display:flex}
-  .nav-mobile{display:none}
+header { padding: 28px 0; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.name { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 18px; }
+.tg { display: inline-block; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 600; font-size: 15px; padding: 9px 16px; border-radius: 8px; }
+.tg:hover { filter: brightness(.93); }
+
+.intro { padding: 40px 0 24px; }
+h1 { font-size: clamp(30px, 5.4vw, 44px); line-height: 1.15; color: var(--ink); margin: 0 0 22px; letter-spacing: -.01em; }
+.intro p { margin: 0 0 14px; max-width: 36em; }
+.offer { margin-top: 26px; padding: 16px 18px; background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; }
+
+section { padding: 56px 0 8px; }
+h2 { font-size: 26px; color: var(--ink); margin: 0 0 22px; }
+
+.prices { border-top: 1px solid var(--line); }
+.price { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.price b { color: var(--ink); font-size: 18px; }
+.price .sum { font-weight: 700; color: var(--ink); white-space: nowrap; }
+.price p { grid-column: 1 / -1; margin: 0; }
+.note { color: var(--muted); font-size: 15px; margin-top: 14px; }
+
+.work { margin-bottom: 40px; }
+.shot { display: block; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); }
+.shot img { display: block; width: 100%; height: auto; }
+.shot.empty { padding: 28px 22px; color: var(--muted); font-size: 15px; }
+.work h3 { margin: 14px 0 4px; font-size: 19px; color: var(--ink); }
+.work p { margin: 0; }
+.work .links { margin-top: 6px; font-size: 15px; }
+
+ol.steps { margin: 0; padding-left: 22px; }
+ol.steps li { margin-bottom: 12px; padding-left: 4px; }
+ol.steps b { color: var(--ink); }
+
+.contact { margin: 56px 0 0; padding: 28px 24px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+.contact h2 { margin-bottom: 8px; }
+.contact p { margin: 0 0 18px; }
+.contact ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+
+footer { color: var(--muted); font-size: 14px; padding: 36px 0 48px; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .tg { padding: 8px 12px; font-size: 14px; }
+  .price { grid-template-columns: 1fr; }
 }
-
-/* ============ Hero ============ */
-.hero{max-width:64rem;margin:2.5rem auto 0;padding:0 2rem}
-.hero .building{margin-top:2rem;color:var(--body);font-size:.875rem;max-width:42rem;line-height:2;letter-spacing:.025em}
-.hero .building a{color:var(--soft);font-weight:700;transition:color .15s ease}
-.hero .building a:hover{color:var(--accent)}
-@media(min-width:768px){.hero{margin-top:5rem}.hero .building{font-size:1rem}}
-
-/* ============ Section shells ============ */
-.section{max-width:64rem;margin:0 auto;padding:0 2rem}
-.section-gap{margin-top:5rem}
-@media(min-width:768px){.section-gap{margin-top:10rem}}
-.sect-sub{color:var(--body);font-size:.875rem;max-width:42rem;margin-top:1rem;line-height:2;letter-spacing:.025em}
-@media(min-width:768px){.sect-sub{font-size:1rem}}
-
-/* ============ Beam (falling light on vertical rails) ============ */
-.beam-track{position:absolute;top:0;bottom:0;width:1px;overflow:hidden}
-.beam{position:absolute;left:0;top:-30%;width:1px;height:var(--beam-len,110px);border-radius:999px;background:linear-gradient(to bottom,transparent,var(--accent-soft),var(--accent));opacity:0;animation:beam-fall var(--beam-dur,2.4s) linear var(--beam-delay,.2s) 1}
-@keyframes beam-fall{0%{top:-30%;opacity:0}15%{opacity:1}70%{opacity:1}100%{top:105%;opacity:0}}
-@media(prefers-reduced-motion:reduce){.beam{animation:none;opacity:0}}
-
-/* ============ Experience ============ */
-.xp{display:flex;flex-direction:column;gap:1rem;margin:5rem auto 0;max-width:42rem}
-.xp-rail{display:flex;flex-direction:row;position:relative;overflow-x:auto}
-.xp-line{position:absolute;left:-1.5rem;top:0;bottom:0;width:1px;background:var(--line);overflow:hidden;display:none}
-.xp-tab{position:relative;margin:.25rem 0}
-.xp-btn{display:flex;align-items:center;gap:.5rem;width:100%;min-width:8rem;text-align:left;padding:.5rem 1rem;border-radius:.375rem;color:var(--body);position:relative;z-index:1;transition:background .15s ease,color .15s ease;white-space:nowrap}
-.xp-btn:hover{background:var(--panel)}
-.xp-btn[aria-selected="true"]{background:var(--panel);color:var(--soft)}
-.xp-logo{width:1.5rem;height:1.5rem;border-radius:999px;background:linear-gradient(135deg,#3f3f46,#27272a);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--soft);flex-shrink:0}
-.xp-panel{flex:1;padding-top:1rem}
-.xp-panel h3{font-size:1.5rem;font-weight:700;color:var(--bright)}
-.xp-dates{color:var(--body);font-size:.875rem;letter-spacing:.1em;margin-top:.5rem}
-.xp-loc{color:var(--body);font-size:.875rem;margin-top:.25rem}
-.xp-points{margin-top:1rem}
-.xp-point{display:flex;gap:.5rem;align-items:flex-start;margin:.5rem 0;color:var(--body);font-size:.875rem}
-.xp-point .ic{color:var(--accent);margin-top:3px}
-.xp-panel .pane{animation:fade-in .2s ease}
-@keyframes fade-in{from{opacity:0}to{opacity:1}}
-@media(min-width:768px){
-  .xp{flex-direction:row;gap:.5rem}
-  .xp-rail{flex-direction:column;overflow-x:visible}
-  .xp-line{display:block}
-  .xp-panel{padding-left:2.5rem;padding-top:0}
-}
-
-/* ============ Hover-glow cards (projects, repos, blogs) ============ */
-.glow{position:relative;display:block}
-.glow::before{content:"";position:absolute;inset:0;background:var(--panel-glow);border-radius:1.5rem;opacity:0;transform:scale(.97);transition:opacity .18s ease,transform .18s ease}
-.glow:hover::before{opacity:1;transform:scale(1)}
-.glow>*{position:relative;z-index:1}
-
-/* ============ Projects ============ */
-.proj-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;margin-top:5rem}
-@media(min-width:768px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.proj-grid{grid-template-columns:repeat(3,1fr)}}
-.proj{padding:.5rem}
-.proj-card{border-radius:1rem;overflow:hidden;background:var(--panel);border:1px solid transparent;transition:border-color .2s ease}
-.proj:hover .proj-card{border-color:var(--raised)}
-.proj-media{height:11rem;width:100%;position:relative;background:rgba(0,0,0,.1)}
-.proj-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
-.proj-media .media-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#1f2a30,#18181b);color:var(--accent)}
-.proj-body{padding:1rem}
-.proj-body h3{color:var(--bright);font-weight:700;letter-spacing:.025em;margin-top:1rem;font-size:1rem}
-.proj-body p{margin-top:2rem;color:var(--body);letter-spacing:.025em;line-height:1.65;font-size:.875rem}
-.proj-stack{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;color:var(--muted)}
-.proj-src{display:flex;align-items:center;gap:.5rem;margin-top:1rem;padding:0 .125rem;color:var(--muted);font-size:.75rem;transition:color .15s ease}
-.proj:hover .proj-src{color:var(--accent)}
-
-/* ============ Open-source repo cards ============ */
-.repo-wrap{position:relative;margin-bottom:5rem;overflow:hidden}
-.repo-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;margin-top:5rem}
-@media(min-width:640px){.repo-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.repo-grid{grid-template-columns:repeat(3,1fr)}}
-.repo{border-radius:1rem;border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.3);padding:1rem;background:linear-gradient(to bottom,var(--panel),var(--ground));display:flex;flex-direction:column;justify-content:space-between;transition:border-color .2s ease}
-.repo:hover{border-color:var(--raised)}
-.repo h3{font-size:1rem;color:var(--bright);font-weight:700}
-.repo p{color:var(--body);font-size:.875rem;line-height:2;margin-top:1rem;letter-spacing:.025em}
-.repo-stats{margin-top:1rem;display:flex;gap:1rem;align-items:center;color:var(--muted);font-size:.875rem;transition:color .15s ease}
-.repo:hover .repo-stats{color:var(--accent)}
-.repo-stat{display:flex;gap:.25rem;align-items:center}
-.repo-fade{position:absolute;left:0;right:0;bottom:0;height:14rem;background:linear-gradient(to bottom,transparent,var(--ground) 10rem,var(--ground));pointer-events:none;z-index:2}
-.repo-more{display:flex;justify-content:center;position:relative;z-index:3;margin-top:-1rem}
-.btn-ghost{color:var(--soft);border:1px solid var(--line-strong);background:var(--ground);padding:.5rem 2rem;border-radius:.5rem;transition:border-color .2s ease,background .2s ease}
-.btn-ghost:hover{border-color:var(--raised);background:var(--panel-glow)}
-
-/* ============ Writing + uses ============ */
-.split{display:grid;grid-template-columns:1fr;gap:2.5rem}
-@media(min-width:1024px){.split{grid-template-columns:2fr 1fr}}
-.blog-list{display:flex;flex-direction:column;gap:4rem;max-width:48rem}
-.blog{padding:0}
-.blog time{display:block;color:var(--muted);font-size:.8rem}
-.blog h3{color:var(--soft);font-weight:700;font-size:1.125rem;margin-top:1rem}
-.blog p{color:var(--soft);font-size:.875rem;margin-top:1rem;line-height:2;max-width:56rem}
-.blog .more{color:var(--accent);font-size:.875rem;margin-top:1.5rem;display:block}
-@media(min-width:768px){
-  .blog{padding:2rem}
-  .blog time{border-left:1px solid var(--raised);padding-left:1rem}
-}
-.uses h2{font-weight:700;color:var(--ink);margin-bottom:.5rem;font-size:1rem}
-.uses-item{margin:2rem 0}
-.uses-item h3{font-size:1rem;font-weight:700;color:var(--bright)}
-.uses-item p{font-size:.875rem;color:var(--body);line-height:2}
-
-/* ============ Timeline ============ */
-.timeline{max-width:48rem;margin-top:3rem;position:relative;padding-left:1.5rem}
-.tl-line{position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);overflow:hidden}
-.tl-year{border-bottom:1px solid var(--line);padding-bottom:2rem}
-.tl-year h3{font-size:1.25rem;font-weight:700;color:var(--soft);margin:2rem 0;position:relative}
-.tl-dot{position:absolute;left:-2rem;top:.35rem;width:.75rem;height:.75rem;border:2px solid var(--accent);background:var(--panel);border-radius:999px}
-.tl-point{display:flex;gap:.5rem;align-items:flex-start;margin:.5rem 0;color:var(--body);font-size:.875rem}
-.tl-point .ic{color:var(--accent);margin-top:3px}
-@media(min-width:768px){.timeline{padding-left:2.5rem}.tl-dot{left:-3.05rem;width:1rem;height:1rem;top:.25rem}.tl-point{font-size:1rem}}
-
-/* ============ Talks ============ */
-.talks{max-width:48rem;margin:5rem auto 0}
-.talk{display:flex;flex-direction:column;gap:1rem;margin-bottom:5rem;align-items:flex-start}
-.talk-thumb{width:18rem;max-width:100%;aspect-ratio:16/9;border-radius:.375rem;overflow:hidden;position:relative;background:linear-gradient(145deg,#1f2a30,#18181b);border:1px solid var(--line);flex-shrink:0}
-.talk-thumb .bars{position:absolute;left:12%;right:12%;bottom:18%;display:flex;align-items:flex-end;gap:6%;height:40%}
-.talk-thumb .bars i{flex:1;background:var(--accent);opacity:.55;border-radius:2px 2px 0 0}
-.talk-thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(250,250,250,.85)}
-.talk-body .venue{color:var(--muted);font-size:.875rem;border-left:2px solid var(--line);padding-left:1rem;margin-bottom:1rem}
-.talk-body h3{font-weight:700;font-size:1rem;letter-spacing:-.01em;color:#d4d4d8;margin-bottom:.5rem}
-.talk-body p{color:var(--body);font-size:.875rem}
-.talk-watch{display:inline-flex;align-items:center;gap:.4rem;color:var(--faint);font-size:.875rem;margin-top:.5rem;transition:color .2s ease}
-.talk:hover .talk-watch{color:var(--accent)}
-@media(min-width:768px){.talk{flex-direction:row;gap:1rem}.talk-body h3{font-size:1.25rem}}
-
-/* ============ Footer ============ */
-footer{border-top:1px solid rgba(15,23,42,.05);padding:2.5rem 2rem;max-width:72rem;margin:0 auto}
-.foot-inner{display:flex;flex-direction:column;align-items:center;padding:2.5rem 0}
-.foot-links{display:flex;flex-direction:column;gap:1rem;margin-top:1rem;align-items:center}
-.foot-links a{color:var(--bright);font-size:.875rem;padding:.5rem}
-.foot-links a:hover{color:var(--accent)}
-.foot-copy{color:var(--soft);font-size:.875rem;font-weight:300;text-align:center;margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem}
-.foot-social{display:flex;gap:.5rem;margin-top:.5rem}
-.foot-social a{color:var(--muted);padding:.5rem;transition:color .15s ease}
-.foot-social a:hover{color:var(--accent)}
-@media(min-width:640px){.foot-links{flex-direction:row;gap:1rem}}
-
-/* ============ Contact widget ============ */
-.contact{position:fixed;right:1rem;bottom:2.5rem;display:flex;flex-direction:column;align-items:flex-end;z-index:400}
-.contact{pointer-events:none}.contact-toggle{pointer-events:auto}
-@media(min-width:768px){.contact{right:2.5rem}}
-.contact-toggle{background:var(--raised);width:3.5rem;height:3.5rem;border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--bright);box-shadow:0 10px 15px rgba(0,0,0,.35);transition:transform .2s ease,box-shadow .2s ease}
-.contact-toggle:hover{transform:scale(1.05);box-shadow:0 20px 25px rgba(0,0,0,.45)}
-.contact-panel{margin-bottom:1rem;border-radius:.75rem;box-shadow:0 25px 50px rgba(0,0,0,.5);background:var(--panel);overflow:hidden;width:min(20rem,calc(100vw - 2rem));opacity:0;transform:translateY(4vh);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
-.contact.open .contact-panel{opacity:1;transform:translateY(0);pointer-events:auto}
-.contact-head{padding:1rem;background:var(--raised)}
-.contact-head h2{color:var(--soft);font-weight:700;font-size:.95rem}
-.contact-head small{display:block;font-size:.75rem;color:var(--body);margin-top:.25rem}
-.contact-body{padding:1.5rem;display:flex;flex-direction:column}
-.contact-body label{font-size:.875rem;color:var(--body);margin-bottom:.5rem}
-.contact-body input,.contact-body textarea{color:var(--body);border-radius:.375rem;border:1px solid var(--raised);background:var(--panel);padding:.25rem .5rem;margin-bottom:.25rem;outline:none;resize:vertical}
-.contact-body input:focus,.contact-body textarea:focus{border-color:var(--muted)}
-.contact-body small{min-height:1rem;font-weight:600;font-size:.75rem;color:var(--bad);margin-bottom:.5rem}
-.contact-send{color:var(--bright);width:100%;padding:.5rem 1rem;border:2px solid var(--panel);background:var(--raised);border-radius:.375rem;font-size:.875rem;transition:opacity .2s ease}
-.contact-send:hover{opacity:.85}
-.contact-note{min-height:1rem;font-size:.8rem;margin-top:.75rem}
-.contact-note.ok{color:var(--good);font-weight:600}
 </style>
 </head>
 <body>
 
-<!-- ================= NAV ================= -->
-<header class="nav-row">
-  <div class="nav-desktop">
-    <nav class="nav-pill" aria-label="Основное меню">
-      <a class="logo" href="#top">
-        <span class="logo-mark">СТ</span>
-        <span>Степан</span>
-      </a>
-      <a class="nav-link" href="#about"><span>Обо мне</span></a>
-      <a class="nav-link" href="#services"><span>Услуги и цены</span></a>
-      <a class="nav-link" href="#projects"><span>Работы</span></a>
-      <a class="nav-link" href="#how"><span>Как работаю</span></a>
-    </nav>
-    <a class="btn-cv" href="https://t.me/stepan_devs" target="_blank" rel="noopener">
-      <svg class="ic" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-      Написать в Telegram
-    </a>
-  </div>
-  <div class="nav-mobile">
-    <a class="logo" href="#top"><span class="logo-mark">СТ</span><span>Степан</span></a>
-    <button class="nav-burger" id="menu-open" aria-label="Открыть меню">
-      <svg class="ic" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
-    </button>
+<header>
+  <div class="wrap">
+    <a class="name" href="#">Степан</a>
+    <a class="tg" href="https://t.me/stepan_devs" target="_blank" rel="noopener">Написать в Telegram</a>
   </div>
 </header>
-<div class="mobile-menu" id="mobile-menu">
-  <button class="menu-close" id="menu-close" aria-label="Закрыть меню">
-    <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-  </button>
-  <a href="#about">Обо мне</a>
-  <a href="#services">Услуги и цены</a>
-  <a href="#projects">Работы</a>
-  <a href="#how">Как работаю</a>
-  <a href="https://t.me/stepan_devs" target="_blank" rel="noopener">Написать в Telegram</a>
-</div>
 
-<main id="top">
+<main class="wrap">
 
-  <!-- ================= HERO / BIO ================= -->
-  <section class="hero" id="about">
-    <h1 class="h-page">
-      Делаю сайты для местного бизнеса <span class="accent">и пока беру за них отзывы.</span>
-    </h1>
-    <p class="lede">
-      Меня зовут Степан, я из Кирова. Делаю сайты-визитки, онлайн-запись
-      и Telegram-ботов для кафе, салонов и клиник: чтобы клиент оставлял заявку сам,
-      а администратор получал её сразу, а не через три дня в личке.
-    </p>
-    <p class="building">
-      Сейчас собираю портфолио: первым трём бизнесам делаю сайт бесплатно, взамен на отзыв.
-      Пример — <a href="#projects">демо-сайт стоматологии</a> с онлайн-записью.
-    </p>
-  </section>
+  <div class="intro">
+    <h1>Делаю сайты, на&nbsp;которых клиенты сами записываются</h1>
+    <p>Привет, я Степан из Кирова. Делаю сайты и онлайн-запись для кафе, салонов и клиник.</p>
+    <p>Обычно всё начинается с того, что заявки теряются в личке, а администратор отвечает через день. Я делаю так, чтобы клиент сам выбрал услугу и время, а заявка сразу пришла вам.</p>
+    <div class="offer">Сейчас собираю портфолио, поэтому первым трём бизнесам делаю сайт бесплатно. От вас — честный отзыв.</div>
+  </div>
 
-  <!-- ================= SERVICES (experience engine) ================= -->
-  <section class="section section-gap" id="services">
-    <h2 class="h-sect">Услуги и цены</h2>
-    <p class="sect-sub">Цены ниже рынка, пока набираю портфолио. Оплата через «Мой налог», с чеком.</p>
-    <div class="xp">
-      <div class="xp-rail" role="tablist" aria-label="Услуги">
-        <div class="xp-line"><span class="beam"></span></div>
-        <div class="xp-tab"><button class="xp-btn" role="tab" data-xp="0" aria-selected="true"><span class="xp-logo">ЗП</span><span>Онлайн-запись</span></button></div>
-        <div class="xp-tab"><button class="xp-btn" role="tab" data-xp="1" aria-selected="false"><span class="xp-logo">СВ</span><span>Сайт-визитка</span></button></div>
-        <div class="xp-tab"><button class="xp-btn" role="tab" data-xp="2" aria-selected="false"><span class="xp-logo">ТГ</span><span>Telegram-бот</span></button></div>
-        <div class="xp-tab"><button class="xp-btn" role="tab" data-xp="3" aria-selected="false"><span class="xp-logo">ПД</span><span>Поддержка</span></button></div>
+  <section id="prices">
+    <h2>Что делаю и сколько стоит</h2>
+    <div class="prices">
+      <div class="price">
+        <b>Онлайн-запись</b><span class="sum">от 5 000 ₽</span>
+        <p>Клиент выбирает услугу, день и время, оставляет телефон. Можно добавить к сайту, который у вас уже есть, или к группе VK.</p>
       </div>
-      <div class="xp-panel" id="xp-panel" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <!-- ================= PROJECTS ================= -->
-  <section class="section section-gap" id="projects">
-    <h2 class="h-sect">Что уже сделал</h2>
-    <div class="proj-grid">
-      <a class="glow proj" href="../" target="_blank" rel="noopener">
-        <div class="proj-card">
-          <div class="proj-media">
-            <img alt="Скриншот демо-сайта стоматологии Дента Плюс" src="data:image/webp;base64,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">
-          </div>
-          <div class="proj-body">
-            <h3>Дента Плюс — демо стоматологии</h3>
-            <p>Сайт клиники с ценами, врачами и записью в три шага. Заявка сразу попадает в панель администратора.</p>
-            <div class="proj-stack">
-              <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
-              <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
-            </div>
-            <div class="proj-src">
-              <svg class="ic" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
-              <span>Открыть демо</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="glow proj" href="https://para-schedule.vercel.app" target="_blank" rel="noopener">
-        <div class="proj-card">
-          <div class="proj-media">
-            <div class="media-fallback">
-              <svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
-            </div>
-          </div>
-          <div class="proj-body">
-            <h3>Пара — расписание колледжа</h3>
-            <p>Расписание занятий в виде приложения: открывается с телефона и ставится на главный экран.</p>
-            <div class="proj-stack">
-              <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
-              <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
-            </div>
-            <div class="proj-src">
-              <svg class="ic" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
-              <span>Открыть сайт</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="glow proj" href="https://t.me/brisai_bot" target="_blank" rel="noopener">
-        <div class="proj-card">
-          <div class="proj-media">
-            <div class="media-fallback">
-              <svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
-            </div>
-          </div>
-          <div class="proj-body">
-            <h3>Telegram-бот</h3>
-            <p>Мой бот в Telegram. Проще открыть и попробовать, чем читать описание.</p>
-            <div class="proj-stack">
-              <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
-              <svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
-            </div>
-            <div class="proj-src">
-              <svg class="ic" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
-              <span>Открыть бота</span>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- ================= HOW I WORK (static card grid) ================= -->
-  <section class="section section-gap" id="how">
-    <h2 class="h-sect">Как работаю</h2>
-    <div class="repo-wrap">
-      <div class="repo-grid" id="repo-grid">
-        <div class="repo">
-          <div>
-            <h3>Сначала демо, потом разговор</h3>
-            <p>Собираю пример под ваш бизнес до любых договорённостей. Не понравится — просто расходимся.</p>
-          </div>
-          <div class="repo-stats">
-            <span class="repo-stat"><svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>без предоплаты</span></span>
-          </div>
-        </div>
-        <div class="repo">
-          <div>
-            <h3>Первым трём — бесплатно</h3>
-            <p>Пока собираю портфолио, первые три сайта делаю за отзыв. Дальше — по ценам выше.</p>
-          </div>
-          <div class="repo-stats">
-            <span class="repo-stat"><svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>осталось 3 места</span></span>
-          </div>
-        </div>
-        <div class="repo">
-          <div>
-            <h3>Цена до начала работы</h3>
-            <p>Называю итоговую сумму сразу. Без «а это уже отдельная услуга» в середине проекта.</p>
-          </div>
-          <div class="repo-stats">
-            <span class="repo-stat"><svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>фиксированная цена</span></span>
-          </div>
-        </div>
-        <div class="repo">
-          <div>
-            <h3>Оплата с чеком</h3>
-            <p>Работаю как самозанятый, чек приходит через «Мой налог».</p>
-          </div>
-          <div class="repo-stats">
-            <span class="repo-stat"><svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>официально</span></span>
-          </div>
-        </div>
-        <div class="repo">
-          <div>
-            <h3>Доступы остаются у вас</h3>
-            <p>Сайт, домен и админка оформляются на вас. Можно уйти к другому разработчику в любой момент.</p>
-          </div>
-          <div class="repo-stats">
-            <span class="repo-stat"><svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>без привязки</span></span>
-          </div>
-        </div>
-        <div class="repo">
-          <div>
-            <h3>Отвечаю в Telegram</h3>
-            <p>Пишите в рабочее время, отвечаю в тот же день.</p>
-          </div>
-          <div class="repo-stats">
-            <span class="repo-stat"><svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>@stepan_devs</span></span>
-          </div>
-        </div>
+      <div class="price">
+        <b>Сайт-визитка</b><span class="sum">от 10 000 ₽</span>
+        <p>Услуги и цены, контакты, карта, кнопка «Позвонить». Нормально открывается с телефона.</p>
+      </div>
+      <div class="price">
+        <b>Telegram-бот</b><span class="sum">по задаче</span>
+        <p>Отвечает на частые вопросы и собирает заявки. Цену скажу после короткого разговора.</p>
+      </div>
+      <div class="price">
+        <b>Поддержка</b><span class="sum">1 000–2 000 ₽ в месяц</span>
+        <p>Меняю цены, фото и расписание, слежу, чтобы заявки доходили. Можно отказаться в любой месяц.</p>
       </div>
     </div>
+    <p class="note">Работаю как самозанятый, чек приходит через «Мой налог». Цену называю до начала работы.</p>
   </section>
+
+  <section id="work">
+    <h2>Мои работы</h2>
+
+    <div class="work">
+      <a class="shot" href="../" target="_blank" rel="noopener"><img src="denta.webp" alt="Главная страница демо-сайта стоматологии" width="1280" height="800"></a>
+      <h3>Стоматология «Дента Плюс» — демо</h3>
+      <p>Сайт клиники с ценами, врачами и записью в три шага. Клиника вымышленная: это пример, чтобы показать, как всё работает. Попробуйте записаться, а потом откройте панель администратора — там видна ваша заявка.</p>
+      <div class="links"><a href="../" target="_blank" rel="noopener">Открыть сайт</a> · <a href="../admin.html" target="_blank" rel="noopener">Панель администратора</a></div>
+    </div>
+
+    <div class="work">
+      <a class="shot empty" href="https://para-schedule.vercel.app" target="_blank" rel="noopener">Скриншот скоро будет — пока можно открыть сам сайт.</a>
+      <h3>«Пара» — расписание колледжа</h3>
+      <p>Расписание занятий, которое открывается с телефона и ставится на главный экран как приложение.</p>
+      <div class="links"><a href="https://para-schedule.vercel.app" target="_blank" rel="noopener">Открыть сайт</a></div>
+    </div>
+
+    <div class="work">
+      <a class="shot empty" href="https://t.me/brisai_bot" target="_blank" rel="noopener">Скриншот скоро будет — пока можно открыть бота.</a>
+      <h3>Telegram-бот</h3>
+      <p>Мой бот в Telegram. Проще открыть и попробовать.</p>
+      <div class="links"><a href="https://t.me/brisai_bot" target="_blank" rel="noopener">Открыть бота</a></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>Как работаю</h2>
+    <ol class="steps">
+      <li><b>Созваниваемся или переписываемся.</b> Рассказываете, что сейчас неудобно и что хочется.</li>
+      <li><b>Делаю пример под вас.</b> Бесплатно и до любых договорённостей. Не понравится — просто расходимся.</li>
+      <li><b>Договариваемся о цене и сроке.</b> Сумма фиксируется до начала работы.</li>
+      <li><b>Делаю и запускаю.</b> Показываю промежуточные версии, вношу правки.</li>
+      <li><b>Передаю доступы.</b> Сайт и домен оформлены на вас, а не на меня.</li>
+    </ol>
+  </section>
+
+  <div class="contact" id="contact">
+    <h2>Напишите мне</h2>
+    <p>Опишите в двух словах, чем занимаетесь и что хотите. Отвечаю в тот же день.</p>
+    <ul>
+      <li>Telegram: <a href="https://t.me/stepan_devs" target="_blank" rel="noopener">@stepan_devs</a></li>
+      <li>ВКонтакте: <a href="https://vk.ru/hersonchik123" target="_blank" rel="noopener">vk.ru/hersonchik123</a></li>
+      <li>Почта: <a href="mailto:hersone237@gmail.com">hersone237@gmail.com</a></li>
+    </ul>
+  </div>
 
 </main>
 
-<!-- ================= FOOTER ================= -->
 <footer>
-  <div class="foot-inner">
-    <a class="logo" href="#top" style="font-size:1.25rem"><span class="logo-mark">СТ</span><span>Степан</span></a>
-    <nav class="foot-links" aria-label="Меню в подвале">
-      <a href="#about">Обо мне</a>
-      <a href="#services">Услуги и цены</a>
-      <a href="#projects">Работы</a>
-      <a href="#how">Как работаю</a>
-    </nav>
-    <p class="foot-copy">&copy; 2026 Степан · Киров · самозанятый</p>
-    <div class="foot-social">
-      <a href="https://t.me/stepan_devs" target="_blank" rel="noopener" aria-label="Telegram"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg></a>
-      <a href="https://vk.ru/hersonchik123" target="_blank" rel="noopener" aria-label="ВКонтакте"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></a>
-      <a href="mailto:hersone237@gmail.com" aria-label="Почта"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></a>
-    </div>
-  </div>
+  <div class="wrap">Степан · Киров · 2026</div>
 </footer>
 
-<!-- ================= CONTACT WIDGET ================= -->
-<div class="contact" id="contact">
-  <div class="contact-panel" id="contact-panel">
-    <div class="contact-head">
-      <h2>Есть задача? Напишите в двух словах</h2>
-      <small>Форма ничего не отправляет сама: текст скопируется, и откроется мой Telegram.</small>
-    </div>
-    <div class="contact-body">
-      <label for="c-email">Как к вам обращаться</label>
-      <input id="c-email" type="text" placeholder="Имя и бизнес" autocomplete="off">
-      <small id="c-email-err"></small>
-      <label for="c-msg">Что нужно</label>
-      <textarea id="c-msg" rows="3" placeholder="Например: сайт с записью для салона"></textarea>
-      <small id="c-msg-err"></small>
-      <button class="contact-send" id="c-send" type="button">Скопировать и открыть Telegram</button>
-      <div class="contact-note" id="c-note"></div>
-    </div>
-  </div>
-  <button class="contact-toggle" id="contact-toggle" aria-label="Открыть форму связи" aria-expanded="false">
-    <svg class="ic" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-  </button>
-</div>
-
-<script>
-var XP = [
-  {
-    company: "от 5 000 ₽",
-    role: "Онлайн-запись",
-    dates: "Для салонов, клиник, студий",
-    location: "Можно поверх текущего сайта или группы VK",
-    points: [
-      "Клиент выбирает услугу, день и время, оставляет телефон",
-      "Заявка сразу приходит администратору, без переписки в личке",
-      "Пример — запись в демо стоматологии ниже"
-    ]
-  },
-  {
-    company: "от 10 000 ₽",
-    role: "Сайт-визитка",
-    dates: "Для кафе, доставки, небольших компаний",
-    location: "Одна страница или несколько, нормально выглядит с телефона",
-    points: [
-      "Услуги и цены, контакты, карта, кнопка «Позвонить»",
-      "Форма заявки или запись — по желанию",
-      "Публикую сам, домен и доступы передаю вам"
-    ]
-  },
-  {
-    company: "по задаче",
-    role: "Telegram-бот",
-    dates: "Когда клиенты и так пишут в Telegram",
-    location: "Цену называю после короткого разговора",
-    points: [
-      "Отвечает на частые вопросы: цены, адрес, график",
-      "Собирает заявку и пересылает её администратору",
-      "Сначала показываю, как будет работать, потом договариваемся"
-    ]
-  },
-  {
-    company: "1 000–2 000 ₽ в месяц",
-    role: "Поддержка",
-    dates: "После запуска",
-    location: "Без договора на год, можно отказаться в любой месяц",
-    points: [
-      "Меняю цены, фото, расписание по вашей просьбе",
-      "Слежу, чтобы сайт открывался и заявки доходили"
-    ]
-  }
-];
-
-/* ============ Experience tabs ============ */
-(function () {
-  var panel = document.getElementById("xp-panel");
-  var tabs = Array.prototype.slice.call(document.querySelectorAll(".xp-btn"));
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-  function render(i) {
-    var xp = XP[i];
-    if (!xp || !panel) return;
-    var check = '<svg class="ic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
-    var html = '<div class="pane"><h3>' + esc(xp.role) + ' <span class="accent">· ' + esc(xp.company) + "</span></h3>";
-    html += '<div class="xp-dates">' + esc(xp.dates) + "</div>";
-    html += '<div class="xp-loc">' + esc(xp.location) + "</div>";
-    html += '<div class="xp-points">';
-    for (var p = 0; p < xp.points.length; p++) {
-      html += '<div class="xp-point">' + check + "<span>" + esc(xp.points[p]) + "</span></div>";
-    }
-    html += "</div></div>";
-    panel.innerHTML = html;
-    tabs.forEach(function (t, j) { t.setAttribute("aria-selected", i === j ? "true" : "false"); });
-  }
-  tabs.forEach(function (t) {
-    t.addEventListener("click", function () { render(parseInt(t.getAttribute("data-xp"), 10)); });
-  });
-  render(0);
-})();
-
-/* ============ Beam randomizer (restart with fresh vars on end) ============ */
-(function () {
-  var beams = document.querySelectorAll(".beam");
-  function rand(min, max) { return Math.random() * (max - min) + min; }
-  beams.forEach(function (b) {
-    function roll() {
-      b.style.setProperty("--beam-dur", rand(1.8, 4).toFixed(2) + "s");
-      b.style.setProperty("--beam-delay", rand(0.2, 2.6).toFixed(2) + "s");
-      b.style.setProperty("--beam-len", Math.round(rand(80, 150)) + "px");
-    }
-    roll();
-    b.addEventListener("animationend", function () {
-      roll();
-      b.style.animation = "none";
-      void b.offsetWidth;
-      b.style.animation = "";
-    });
-  });
-})();
-
-/* ============ Mobile menu ============ */
-(function () {
-  var menu = document.getElementById("mobile-menu");
-  var open = document.getElementById("menu-open");
-  var close = document.getElementById("menu-close");
-  if (!menu) return;
-  if (open) open.addEventListener("click", function () { menu.classList.add("open"); });
-  if (close) close.addEventListener("click", function () { menu.classList.remove("open"); });
-  menu.querySelectorAll("a").forEach(function (a) {
-    a.addEventListener("click", function () { menu.classList.remove("open"); });
-  });
-})();
-
-/* ============ Contact widget: copies the note and opens Telegram, sends nothing itself ============ */
-(function () {
-  var root = document.getElementById("contact");
-  var toggle = document.getElementById("contact-toggle");
-  var who = document.getElementById("c-email");
-  var msg = document.getElementById("c-msg");
-  var whoErr = document.getElementById("c-email-err");
-  var msgErr = document.getElementById("c-msg-err");
-  var note = document.getElementById("c-note");
-  var send = document.getElementById("c-send");
-  if (!root || !toggle) return;
-  toggle.addEventListener("click", function () {
-    var opened = root.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", opened ? "true" : "false");
-    if (opened) {
-      whoErr.textContent = ""; msgErr.textContent = "";
-      note.textContent = ""; note.className = "contact-note";
-    }
-  });
-  send.addEventListener("click", function () {
-    whoErr.textContent = ""; msgErr.textContent = "";
-    note.textContent = ""; note.className = "contact-note";
-    if (!who.value.trim()) { whoErr.textContent = "Напишите, как к вам обращаться."; return; }
-    if (!msg.value.trim()) { msgErr.textContent = "Опишите задачу хотя бы парой слов."; return; }
-    var text = "Здравствуйте, Степан. " + who.value.trim() + ". " + msg.value.trim();
-    var done = function (copied) {
-      note.textContent = copied
-        ? "Текст скопирован. Вставьте его в открывшийся чат."
-        : "Не получилось скопировать. Откройте @stepan_devs и напишите текст там.";
-      note.className = copied ? "contact-note ok" : "contact-note";
-      window.open("https://t.me/stepan_devs", "_blank", "noopener");
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
-    } else {
-      done(false);
-    }
-  });
-})();
-</script>
 </body>
 </html>
