@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дента Плюс — стоматология с онлайн-записью</title>
+<meta name="description" content="Демо-сайт стоматологии: услуги, цены, врачи и онлайн-запись за 30 секунд.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="demo-bar">Демо-сайт · пример работы · заявки уходят в <a href="admin.html">панель администратора</a></div>
+
+<header class="header">
+  <div class="wrap header__in">
+    <a class="logo" href="#top"><span class="logo__mark">+</span>Дента Плюс</a>
+    <nav class="nav">
+      <a href="#services">Услуги и цены</a>
+      <a href="#doctors">Врачи</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn--sm" href="#booking">Записаться</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero__in">
+    <div class="hero__text">
+      <p class="eyebrow">Стоматология рядом с домом</p>
+      <h1>Запись к стоматологу за&nbsp;30&nbsp;секунд, без звонков</h1>
+      <p class="lead">Выберите услугу и удобное время. Администратор перезвонит в течение 15 минут и подтвердит визит.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#booking">Записаться онлайн</a>
+        <a class="btn btn--ghost" href="#services">Цены</a>
+      </div>
+      <ul class="facts">
+        <li><b>12 лет</b><span>работаем</span></li>
+        <li><b>4,9 ★</b><span>на картах</span></li>
+        <li><b>0 ₽</b><span>консультация</span></li>
+      </ul>
+    </div>
+    <div class="hero__card" aria-hidden="true">
+      <div class="slot-card">
+        <p class="slot-card__title">Ближайшие окна</p>
+        <div class="slot-card__day">Сегодня</div>
+        <div class="slots"><span>15:30</span><span>17:00</span><span class="is-busy">18:30</span></div>
+        <div class="slot-card__day">Завтра</div>
+        <div class="slots"><span>09:00</span><span>11:30</span><span>14:00</span><span>16:30</span></div>
+        <div class="slot-card__note">✓ Заявка сразу приходит администратору</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="wrap">
+    <h2>Услуги и цены</h2>
+    <p class="sub">Цена известна до начала лечения. Без «а ещё вот это».</p>
+    <div class="services" id="servicesList"></div>
+  </div>
+</section>
+
+<section class="section section--alt" id="doctors">
+  <div class="wrap">
+    <h2>Врачи</h2>
+    <p class="sub">Можно выбрать конкретного врача при записи.</p>
+    <div class="doctors">
+      <article class="doctor">
+        <div class="doctor__ph" style="--c:#cfe9e4">АС</div>
+        <h3>Анна Соколова</h3>
+        <p>Терапевт · стаж 11 лет</p>
+        <span class="tag">Лечение кариеса</span>
+      </article>
+      <article class="doctor">
+        <div class="doctor__ph" style="--c:#f3e0c7">ИМ</div>
+        <h3>Игорь Мельников</h3>
+        <p>Хирург-имплантолог · стаж 15 лет</p>
+        <span class="tag">Имплантация</span>
+      </article>
+      <article class="doctor">
+        <div class="doctor__ph" style="--c:#dfe3f5">ЕО</div>
+        <h3>Елена Орлова</h3>
+        <p>Гигиенист · стаж 7 лет</p>
+        <span class="tag">Чистка и отбеливание</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Как проходит первый визит</h2>
+    <ol class="steps">
+      <li><b>Заявка</b><span>Оставляете заявку на сайте — 30 секунд.</span></li>
+      <li><b>Звонок</b><span>Администратор перезванивает и подтверждает время.</span></li>
+      <li><b>Осмотр</b><span>Врач смотрит, делает снимок, объясняет план.</span></li>
+      <li><b>План и цена</b><span>Получаете план лечения с итоговой суммой.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--alt" id="reviews">
+  <div class="wrap">
+    <h2>Отзывы</h2>
+    <div class="reviews">
+      <blockquote><p>Записалась вечером через сайт, утром уже перезвонили. Чистка без боли, всё объяснили.</p><cite>Мария, 2 недели назад</cite></blockquote>
+      <blockquote><p>Боялся имплантации. Игорь Сергеевич расписал всё по шагам и по деньгам — итог совпал с планом.</p><cite>Дмитрий, месяц назад</cite></blockquote>
+      <blockquote><p>Удобно, что видно цены сразу. Пришла на консультацию — бесплатно, как и обещали.</p><cite>Ольга, 2 месяца назад</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="booking">
+  <div class="wrap booking">
+    <div class="booking__info">
+      <h2>Онлайн-запись</h2>
+      <p class="sub">Заполните три шага. Администратор перезвонит и подтвердит время.</p>
+      <ul class="checks">
+        <li>Без регистрации</li>
+        <li>Перезвоним в течение 15 минут</li>
+        <li>Консультация бесплатно</li>
+      </ul>
+    </div>
+
+    <form class="form" id="bookingForm" novalidate>
+      <div class="progress"><span data-step="1" class="is-on">Услуга</span><span data-step="2">Время</span><span data-step="3">Контакты</span></div>
+
+      <fieldset class="step is-active" data-step="1">
+        <legend>Что беспокоит?</legend>
+        <div class="choices" id="serviceChoices"></div>
+        <label class="field"><span>Врач</span>
+          <select name="doctor">
+            <option>Любой свободный</option>
+            <option>Анна Соколова — терапевт</option>
+            <option>Игорь Мельников — хирург</option>
+            <option>Елена Орлова — гигиенист</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="step" data-step="2">
+        <legend>Когда удобно?</legend>
+        <div class="days" id="days"></div>
+        <div class="choices choices--time" id="times"></div>
+      </fieldset>
+
+      <fieldset class="step" data-step="3">
+        <legend>Как с вами связаться?</legend>
+        <label class="field"><span>Имя</span><input name="name" autocomplete="given-name" required placeholder="Как к вам обращаться"></label>
+        <label class="field"><span>Телефон</span><input name="phone" type="tel" autocomplete="tel" required placeholder="+7 (___) ___-__-__"></label>
+        <label class="field"><span>Комментарий</span><textarea name="comment" rows="2" placeholder="Например: болит зуб слева внизу"></textarea></label>
+        <label class="agree"><input type="checkbox" name="agree" required> Согласен на обработку персональных данных</label>
+      </fieldset>
+
+      <p class="form__error" id="formError" role="alert"></p>
+
+      <div class="form__nav">
+        <button type="button" class="btn btn--ghost" id="prevBtn" hidden>Назад</button>
+        <button type="button" class="btn" id="nextBtn">Далее</button>
+      </div>
+    </form>
+
+    <div class="done" id="done" hidden>
+      <div class="done__icon">✓</div>
+      <h3>Заявка отправлена</h3>
+      <p id="doneText"></p>
+      <a class="btn btn--ghost" href="admin.html">Посмотреть, что видит администратор →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="contacts">
+  <div class="wrap footer__in">
+    <div>
+      <a class="logo" href="#top"><span class="logo__mark">+</span>Дента Плюс</a>
+      <p>Пн–Сб 9:00–20:00</p>
+    </div>
+    <div>
+      <p>ул. Примерная, 10</p>
+      <p><a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
+    </div>
+    <p class="footer__note">Демо-сайт. Сделан как пример: сайт с онлайн-записью для стоматологии.</p>
+  </div>
+</footer>
+
+<a class="sticky-cta" href="#booking">Записаться онлайн</a>
+
+<script src="app.js"></script>
+</body>
+</html>
