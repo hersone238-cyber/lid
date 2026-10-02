@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Пион — студия красоты с онлайн-записью</title>
+<meta name="description" content="Демо-сайт студии красоты: прайс, мастера, отзывы и онлайн-запись к мастеру на свободное время.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="demo-bar">Демо-сайт · пример работы · заявки уходят в <a href="admin.html">панель администратора</a></div>
+
+<header class="header">
+  <div class="wrap header__in">
+    <a class="logo" href="#top"><b>Пион</b><small>студия красоты</small></a>
+    <nav class="nav">
+      <a href="#prices">Прайс</a>
+      <a href="#masters">Мастера</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn--sm" href="#booking">Записаться</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero__in">
+    <div>
+      <p class="eyebrow">Маникюр · волосы · брови · ресницы</p>
+      <h1>Свободное время мастера видно прямо на&nbsp;сайте</h1>
+      <p class="lead">Выберите услугу, мастера и окошко. Не нужно писать в директ и ждать ответа до вечера.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#booking">Записаться онлайн</a>
+        <a class="btn btn--ghost" href="#prices">Смотреть прайс</a>
+      </div>
+      <ul class="facts">
+        <li><b>4,9</b><span>на Яндекс Картах</span></li>
+        <li><b>300+</b><span>оттенков гель-лака</span></li>
+        <li><b>с 9 до 21</b><span>без выходных</span></li>
+      </ul>
+    </div>
+    <div class="today" aria-hidden="true">
+      <p class="today__title">Свободно сегодня <span id="todayDate"></span></p>
+      <div class="master-row">
+        <div class="avatar" style="--c:#f6dbe4">АВ</div>
+        <p><b>Алина</b> · маникюр</p>
+        <div class="chips"><span class="is-busy">11:00</span><span>14:30</span><span>17:00</span></div>
+      </div>
+      <div class="master-row">
+        <div class="avatar" style="--c:#efe2d2">ЮК</div>
+        <p><b>Юлия</b> · стрижки и окрашивание</p>
+        <div class="chips"><span>12:00</span><span class="is-busy">15:00</span><span>18:30</span></div>
+      </div>
+      <div class="master-row">
+        <div class="avatar" style="--c:#e3e0f1">ДС</div>
+        <p><b>Дарья</b> · брови и ресницы</p>
+        <div class="chips"><span>10:00</span><span>13:00</span><span>19:00</span></div>
+      </div>
+      <p class="today__note">✓ Заявка сразу приходит администратору в Telegram</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="prices">
+  <div class="wrap">
+    <h2>Прайс</h2>
+    <p class="sub">Цена зависит от уровня мастера. Время указано с учётом снятия и дизайна.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="pricelist">
+      <div>
+        <div class="levels"><span>Услуга</span><span>Мастер</span><span>Топ</span></div>
+        <div id="priceRows"></div>
+      </div>
+      <aside class="aside">
+        <h3>Палитра гель-лаков</h3>
+        <p>Больше 300 оттенков. Самые популярные этой осенью:</p>
+        <div class="palette">
+          <i style="--c:#7b1e3a" title="Бордо"></i><i style="--c:#c9877a" title="Пыльная роза"></i><i style="--c:#e9d3c7" title="Молочный нюд"></i>
+          <i style="--c:#3f2a2e" title="Горький шоколад"></i><i style="--c:#b3532f" title="Терракота"></i><i style="--c:#f3ece6" title="Молочный"></i>
+          <i style="--c:#5b6b4a" title="Олива"></i><i style="--c:#d9a7b2" title="Пион"></i><i style="--c:#20233a" title="Тёмно-синий"></i>
+          <i style="--c:#a8443f" title="Красная глина"></i><i style="--c:#c8b6a6" title="Капучино"></i><i style="--c:#e1c26b" title="Шампань"></i>
+        </div>
+        <p>Цвет можно выбрать на месте или прислать фото-пример в комментарии к записи.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="masters">
+  <div class="wrap">
+    <h2>Мастера</h2>
+    <p class="sub">При записи можно выбрать конкретного мастера или любого свободного.</p>
+    <div class="masters">
+      <article class="master"><div class="avatar" style="--c:#f6dbe4">АВ</div><h3>Алина Вершинина</h3><p>Маникюр и педикюр · 8 лет</p><span class="level level--top">Топ-мастер</span></article>
+      <article class="master"><div class="avatar" style="--c:#fbe9dc">КМ</div><h3>Ксения Малых</h3><p>Маникюр, дизайн · 3 года</p><span class="level">Мастер</span></article>
+      <article class="master"><div class="avatar" style="--c:#efe2d2">ЮК</div><h3>Юлия Кротова</h3><p>Стрижки и окрашивание · 11 лет</p><span class="level level--top">Топ-мастер</span></article>
+      <article class="master"><div class="avatar" style="--c:#e3e0f1">ДС</div><h3>Дарья Смирнова</h3><p>Брови и ресницы · 4 года</p><span class="level">Мастер</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="wrap">
+    <h2>Отзывы</h2>
+    <p class="sub">С Яндекс Карт и 2ГИС.</p>
+    <div class="reviews">
+      <blockquote><p>Записалась в 11 вечера, когда вспомнила, что нужен маникюр к пятнице. Утром пришло подтверждение. Алина — золото.</p><cite>Екатерина, 2ГИС</cite></blockquote>
+      <blockquote><p>Удобно, что сразу видно цену у топ-мастера и у обычного. Выбрала Юлию на окрашивание, итог совпал с прайсом.</p><cite>Наталья, Яндекс Карты</cite></blockquote>
+      <blockquote><p>Хожу на брови к Дарье уже полгода. Раньше писала в VK и ждала ответа, теперь записываюсь за минуту.</p><cite>Полина, Яндекс Карты</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="booking">
+  <div class="wrap booking">
+    <div>
+      <h2>Онлайн-запись</h2>
+      <p class="sub">Три шага, около минуты. Администратор подтвердит запись сообщением.</p>
+      <ul class="checks">
+        <li>Без регистрации и паролей</li>
+        <li>Видно только свободное время</li>
+        <li>Напомним о визите за день</li>
+      </ul>
+    </div>
+
+    <div>
+      <form class="form" id="bookingForm" novalidate>
+        <div class="progress"><span data-step="1" class="is-on">Услуга</span><span data-step="2">Мастер и время</span><span data-step="3">Контакты</span></div>
+
+        <fieldset class="step is-active" data-step="1">
+          <legend>Какая услуга?</legend>
+          <div class="choices" id="serviceChoices"></div>
+        </fieldset>
+
+        <fieldset class="step" data-step="2">
+          <legend>К кому и когда?</legend>
+          <label class="field"><span>Мастер</span><select name="master" id="masterSelect"></select></label>
+          <h4>День</h4>
+          <div class="choices choices--days" id="days"></div>
+          <h4>Время</h4>
+          <div class="choices choices--time" id="times"></div>
+        </fieldset>
+
+        <fieldset class="step" data-step="3">
+          <legend>Как с вами связаться?</legend>
+          <label class="field"><span>Имя</span><input name="name" id="name" autocomplete="given-name" required placeholder="Как к вам обращаться"></label>
+          <label class="field"><span>Телефон</span><input name="phone" id="phone" type="tel" autocomplete="tel" required placeholder="+7 (___) ___-__-__"></label>
+          <label class="field"><span>Пожелания</span><textarea name="comment" id="comment" rows="2" placeholder="Например: френч, длина короткая"></textarea></label>
+          <label class="agree"><input type="checkbox" name="agree" id="agree" required> Согласна(-ен) на обработку персональных данных</label>
+        </fieldset>
+
+        <p class="form__error" id="formError" role="alert"></p>
+
+        <div class="form__nav">
+          <button type="button" class="btn btn--ghost" id="prevBtn" hidden>Назад</button>
+          <button type="button" class="btn" id="nextBtn">Далее</button>
+        </div>
+      </form>
+
+      <div class="done" id="done" hidden>
+        <div class="done__icon">✓</div>
+        <h3>Вы записаны</h3>
+        <p id="doneText"></p>
+        <a class="btn btn--ghost" href="admin.html">Посмотреть, что видит администратор →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="contacts">
+  <div class="wrap footer__in">
+    <div>
+      <a class="logo" href="#top"><b>Пион</b><small>студия красоты</small></a>
+      <p>Ежедневно 9:00–21:00</p>
+    </div>
+    <div>
+      <p>ул. Примерная, 24</p>
+      <p><a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
+    </div>
+    <p class="footer__note">Демо-сайт. Студия вымышленная: это пример сайта с онлайн-записью для салона красоты.</p>
+  </div>
+</footer>
+
+<a class="sticky-cta" href="#booking">Записаться онлайн</a>
+
+<script src="app.js"></script>
+</body>
+</html>

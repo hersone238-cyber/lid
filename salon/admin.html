@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Записи — Пион</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .admin { padding: 40px 0 80px; }
+  .admin__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+  .stat b { display: block; font: 400 28px "Prata", Georgia, serif; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: 14px; }
+  .notify { display: flex; gap: 12px; align-items: center; background: #e8f1fb; border: 1px solid #c9dcf2; border-radius: 16px; padding: 14px 18px; margin-bottom: 24px; font-size: 15px; }
+  .notify__ic { flex: none; width: 36px; height: 36px; border-radius: 50%; background: #2aa3e0; color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .list { display: grid; gap: 12px; }
+  .req { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; }
+  .req__who { font-weight: 700; font-size: 17px; }
+  .req__meta { color: var(--muted); font-size: 14px; }
+  .req__what { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+  .req__what span { font-size: 14px; padding: 4px 10px; border-radius: 8px; background: var(--bg-alt); }
+  .req__comment { grid-column: 1 / -1; margin: 0; font-size: 15px; }
+  .req__actions { display: flex; gap: 8px; align-items: start; }
+  .badge { font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+  .badge--new { background: #fff1d6; color: #8a5a00; }
+  .badge--done { background: var(--accent-soft); color: var(--accent); }
+  @media (max-width: 600px) { .stat b { font-size: 22px; } .req { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Демо · так администратор студии видит записи с сайта · <a href="index.html">вернуться на сайт</a></div>
+
+<header class="header">
+  <div class="wrap header__in">
+    <a class="logo" href="index.html"><b>Пион</b><small>студия красоты</small></a>
+    <span class="nav" style="display:flex">Панель администратора</span>
+  </div>
+</header>
+
+<main class="admin">
+  <div class="wrap">
+    <div class="admin__head">
+      <h2>Записи</h2>
+      <a class="btn btn--sm" href="index.html#booking">+ Тестовая запись</a>
+    </div>
+
+    <div class="notify">
+      <div class="notify__ic">✈</div>
+      <div>Каждая новая запись также приходит администратору в Telegram: имя, телефон, услуга, мастер и время.</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="sTotal">0</b><span>всего</span></div>
+      <div class="stat"><b id="sNew">0</b><span>новых</span></div>
+      <div class="stat"><b id="sDone">0</b><span>подтверждено</span></div>
+    </div>
+
+    <div class="list" id="list"></div>
+  </div>
+</main>
+
+<script>
+const KEY = "pion_requests";
+const SAMPLE = [
+  { id: 1, createdAt: new Date(Date.now() - 36e5).toISOString(), service: "Маникюр с покрытием гель-лаком", price: "2 300 ₽", duration: "2 ч", master: "Алина Вершинина", day: "", time: "14:30", name: "Екатерина", phone: "+7 (912) 000-00-01", comment: "Френч, короткая длина", status: "done" },
+  { id: 2, createdAt: new Date(Date.now() - 3 * 36e5).toISOString(), service: "Ламинирование ресниц", price: "1 800 ₽", duration: "1 ч 15 мин", master: "Дарья Смирнова", day: "", time: "19:30", name: "Полина", phone: "+7 (912) 000-00-02", comment: "", status: "new" },
+];
+
+function load() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
+}
+function save(items) {
+  try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {}
+}
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+function dayLabel(r) {
+  if (!r.day) return "сегодня";
+  const [y, m, d] = r.day.split("-").map(Number);
+  return new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", weekday: "short" }).format(new Date(y, m - 1, d));
+}
+function ago(iso) {
+  const min = Math.round((Date.now() - new Date(iso)) / 6e4);
+  if (min < 1) return "только что";
+  if (min < 60) return `${min} мин назад`;
+  return `${Math.round(min / 60)} ч назад`;
+}
+
+function render() {
+  const own = load();
+  const items = [...own, ...SAMPLE];
+  const list = document.getElementById("list");
+  list.replaceChildren();
+  document.getElementById("sTotal").textContent = items.length;
+  document.getElementById("sNew").textContent = items.filter((r) => r.status === "new").length;
+  document.getElementById("sDone").textContent = items.filter((r) => r.status === "done").length;
+
+  for (const r of items) {
+    const card = el("article", "req");
+    const left = el("div");
+    left.append(el("div", "req__who", `${r.name} · ${r.phone}`));
+    left.append(el("div", "req__meta", `Запись ${ago(r.createdAt)}`));
+    const actions = el("div", "req__actions");
+    actions.append(el("span", `badge badge--${r.status}`, r.status === "new" ? "Новая" : "Подтверждена"));
+    if (r.status === "new" && own.some((o) => o.id === r.id)) {
+      const b = el("button", "btn btn--sm", "Подтвердить");
+      b.addEventListener("click", () => {
+        save(own.map((o) => (o.id === r.id ? { ...o, status: "done" } : o)));
+        render();
+      });
+      actions.append(b);
+    }
+    const what = el("div", "req__what");
+    what.append(
+      el("span", "", r.service),
+      el("span", "", `${dayLabel(r)}, ${r.time}`),
+      el("span", "", r.master),
+      el("span", "", `${r.price} · ${r.duration}`),
+    );
+    card.append(left, actions, what);
+    if (r.comment) card.append(el("p", "req__comment", `«${r.comment}»`));
+    list.append(card);
+  }
+}
+render();
+</script>
+</body>
+</html>
