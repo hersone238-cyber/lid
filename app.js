@@ -66,7 +66,8 @@ function renderDays() {
   while (added < 7) {
     if (date.getDay() !== 0) {
       const [wd, ...rest] = fmt.format(date).split(", ");
-      const label = added === 0 ? "Сегодня" : added === 1 ? "Завтра" : wd;
+      const diff = Math.round((parseYmd(ymd(date)) - parseYmd(ymd(new Date()))) / 864e5);
+      const label = diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd;
       days.append(choice("day", ymd(date), label, rest.join(" ") || fmt.format(date)));
       added++;
     }

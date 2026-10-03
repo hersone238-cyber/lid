@@ -104,6 +104,7 @@ h3 { font-size: 17px; font-weight: 500; }
 .reviews cite { color: var(--muted); font-style: normal; font-size: 14px; }
 
 .booking { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: start; }
+.booking > * { min-width: 0; }
 .checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .checks li::before { content: "✓"; color: var(--accent); font-weight: 800; margin-right: 10px; }
 
@@ -111,12 +112,13 @@ h3 { font-size: 17px; font-weight: 500; }
 .progress { display: flex; gap: 8px; margin-bottom: 24px; }
 .progress span { flex: 1; font-size: 13px; font-weight: 700; color: #a7aeac; padding-top: 10px; border-top: 3px solid var(--line); }
 .progress .is-on { color: var(--accent); border-color: var(--accent); }
-.step { display: none; border: 0; padding: 0; margin: 0; }
+.step { display: none; border: 0; padding: 0; margin: 0; min-width: 0; }
 .step.is-active { display: block; }
 legend { font: 500 20px "Unbounded", sans-serif; margin-bottom: 18px; padding: 0; }
 
 .choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px; }
 .choices--time { grid-template-columns: repeat(4, 1fr); }
+.choice { position: relative; }
 .choice input { position: absolute; opacity: 0; pointer-events: none; }
 .choice span { display: block; padding: 13px 14px; border-radius: 12px; border: 1.5px solid var(--line); cursor: pointer; font-weight: 600; font-size: 15px; text-align: center; transition: border-color .15s, background .15s; }
 .choice span small { display: block; color: var(--muted); font-weight: 500; font-size: 13px; }
