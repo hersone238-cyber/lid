@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.suslovdev.ru" }],
+      "destination": "/portfolio/",
+      "permanent": false
+    }
+  ]
+}
