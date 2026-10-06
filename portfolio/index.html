@@ -3,9 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Степан и Дмитрий: сайты, боты и приложения для бизнеса в Кирове</title>
-<meta name="description" content="Делаем сайты, Telegram-боты, онлайн-запись и приложения под задачи бизнеса в Кирове.">
+<title>Сайт под ключ в Кирове от 10 000 ₽ | Степан и Дмитрий</title>
+<meta name="description" content="Делаем сайты под ключ в Кирове: визитки, магазины, онлайн-запись, Telegram-боты и приложения. Сайт от 10 000 ₽, работаем официально, чек через «Мой налог».">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.suslovdev.ru/portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Степан и Дмитрий">
+<meta property="og:title" content="Сайт под ключ в Кирове от 10 000 ₽ | Степан и Дмитрий">
+<meta property="og:description" content="Сайты, Telegram-боты и приложения для бизнеса в Кирове. Примеры работ, цены и онлайн-расчёт.">
+<meta property="og:url" content="https://www.suslovdev.ru/portfolio/">
+<meta property="og:image" content="https://www.suslovdev.ru/portfolio/irina.webp">
+<meta name="geo.region" content="RU-KIR">
+<meta name="geo.placename" content="Киров">
 <meta name="theme-color" content="#07080b">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Степан и Дмитрий", "description": "Сайты под ключ, Telegram-боты, онлайн-запись и приложения для бизнеса в Кирове.", "url": "https://www.suslovdev.ru/portfolio/", "image": "https://www.suslovdev.ru/portfolio/irina.webp", "email": "hersone237@gmail.com", "priceRange": "от 1 000 ₽", "areaServed": {"@type": "City", "name": "Киров"}, "address": {"@type": "PostalAddress", "addressLocality": "Киров", "addressCountry": "RU"}, "sameAs": ["https://t.me/stepan_devs"], "makesOffer": [{"@type": "Offer", "name": "Сайт-визитка", "priceCurrency": "RUB", "price": "10000"}, {"@type": "Offer", "name": "Сайт с онлайн-записью", "priceCurrency": "RUB", "price": "15000"}, {"@type": "Offer", "name": "Telegram-бот", "priceCurrency": "RUB", "price": "7000"}, {"@type": "Offer", "name": "Онлайн-запись", "priceCurrency": "RUB", "price": "5000"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит сайт под ключ в Кирове?", "acceptedAnswer": {"@type": "Answer", "text": "Сайт-визитка стоит от 10 000 ₽, сайт с онлайн-записью от 15 000 ₽, Telegram-бот от 7 000 ₽. Точную цену называем до начала работы и фиксируем её."}}, {"@type": "Question", "name": "Что входит в сайт под ключ?", "acceptedAnswer": {"@type": "Answer", "text": "Делаем сайт от первого разговора до запуска: структуру, дизайн, настройку, регистрацию домена и подключение. Сайт и домен оформляем на вас, доступы передаём вам."}}, {"@type": "Question", "name": "Как проходит работа?", "acceptedAnswer": {"@type": "Answer", "text": "Знакомимся и узнаём, что вам нужно. Делаем пример под вас бесплатно и до договорённостей. Фиксируем цену и срок, показываем промежуточные версии, вносим правки и передаём доступы."}}, {"@type": "Question", "name": "Вы работаете официально?", "acceptedAnswer": {"@type": "Answer", "text": "Да, работаем через самозанятость. Чек приходит через «Мой налог»."}}, {"@type": "Question", "name": "Вы делаете только онлайн-запись?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Делаем сайты-визитки, интернет-магазины, сайты с онлайн-записью, Telegram-боты, мини-приложения, доработки и поддержку сайтов."}}, {"@type": "Question", "name": "Где вы находитесь?", "acceptedAnswer": {"@type": "Answer", "text": "Мы из Кирова. Пишите в Telegram, отвечаем в тот же день."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -317,6 +330,16 @@
     .sc, .sc-lid, .scene-card .shelf, .scene-card .ln, .scene-card .typed, .scene-card .cur, .scene-card .glow { opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
   }
 
+  /* Частые вопросы */
+  .qas { max-width: 820px; margin: 0 auto; display: grid; gap: 10px; }
+  .qa { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 0 24px; transition: border-color .3s; }
+  .qa[open] { border-color: rgb(77 124 255 / .55); }
+  .qa summary { list-style: none; cursor: pointer; padding: 20px 0; font: 600 18px var(--f-head); letter-spacing: -.02em; color: var(--ink); display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after { content: '+'; flex: none; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-weight: 400; color: var(--text); transition: transform .3s var(--ease); }
+  .qa[open] summary::after { transform: rotate(45deg); }
+  .qa p { margin: 0 0 20px; font-size: 16px; line-height: 1.6; max-width: 70ch; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .rv, .hero .tagline, .hero .from, .hero .actions { opacity: 1; transform: none; }
@@ -335,6 +358,7 @@
       <a href="#prices">Цены</a>
       <a href="#how">Как работаем</a>
       <a href="#reviews">Отзывы</a>
+      <a href="#faq">Вопросы</a>
       <a href="#contacts">Контакты</a>
     </nav>
     <a href="https://t.me/stepan_devs" class="btn" target="_blank" rel="noopener">Написать</a>
@@ -345,8 +369,8 @@
   <section class="hero">
     <div class="hero-art" aria-hidden="true"><canvas></canvas></div>
     <div class="hero-text">
-      <div class="tagline">сайты, боты, приложения · Киров</div>
-      <h1>Сайты, боты и&nbsp;приложения для&nbsp;вашего бизнеса</h1>
+      <div class="tagline">сайты под ключ · Telegram-боты · приложения · Киров</div>
+      <h1>Сайт под&nbsp;ключ в&nbsp;Кирове, боты и&nbsp;приложения для&nbsp;бизнеса</h1>
       <p class="from">Привет, мы Степан и Дмитрий из Кирова. Делаем сайты, Telegram-боты, онлайн-запись и приложения под задачи вашего бизнеса. Клиенты находят вас, а заявки сразу приходят вам.</p>
       <div class="actions">
         <a href="https://t.me/stepan_devs" class="btn" target="_blank" rel="noopener">Написать в Telegram</a>
@@ -536,6 +560,20 @@
           <p>«Сделал всё быстро, учёл мои пожелания, результат шикарный, я в восторге. Всё рассказал и объяснил, что как работает. Всё супер, спасибо»</p>
           <div class="who">София<span>мастер по ламинированию ресниц и бровей</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>Частые вопросы</h2>
+      <div class="qas">
+        <details class="qa"><summary>Сколько стоит сайт под ключ в Кирове?</summary><p>Сайт-визитка стоит от 10 000 ₽, сайт с онлайн-записью от 15 000 ₽, Telegram-бот от 7 000 ₽. Точную цену называем до начала работы и фиксируем её.</p></details>
+        <details class="qa"><summary>Что входит в сайт под ключ?</summary><p>Делаем сайт от первого разговора до запуска: структуру, дизайн, настройку, регистрацию домена и подключение. Сайт и домен оформляем на вас, доступы передаём вам.</p></details>
+        <details class="qa"><summary>Как проходит работа?</summary><p>Знакомимся и узнаём, что вам нужно. Делаем пример под вас бесплатно и до договорённостей. Фиксируем цену и срок, показываем промежуточные версии, вносим правки и передаём доступы.</p></details>
+        <details class="qa"><summary>Вы работаете официально?</summary><p>Да, работаем через самозанятость. Чек приходит через «Мой налог».</p></details>
+        <details class="qa"><summary>Вы делаете только онлайн-запись?</summary><p>Нет. Делаем сайты-визитки, интернет-магазины, сайты с онлайн-записью, Telegram-боты, мини-приложения, доработки и поддержку сайтов.</p></details>
+        <details class="qa"><summary>Где вы находитесь?</summary><p>Мы из Кирова. Пишите в Telegram, отвечаем в тот же день.</p></details>
       </div>
     </div>
   </section>
