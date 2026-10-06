@@ -37,6 +37,7 @@
   b, strong { font-weight: 600; color: var(--ink); }
   .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
   h1, h2, h3 { margin: 0; color: var(--ink); font-family: var(--f-head); line-height: 1.1; letter-spacing: -.03em; }
+  h2 { font-variation-settings: 'wght' 600; } h3 { font-variation-settings: 'wght' 600; }
   h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 600; margin-bottom: 40px; }
   h3 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
   section { padding: 80px 0; position: relative; }
@@ -89,7 +90,7 @@
   .hero .tagline { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: rgb(255 255 255 / .75); margin-bottom: 20px; padding: 6px 14px; border: 1px solid rgb(255 255 255 / .18); border-radius: 999px; background: rgb(255 255 255 / .04); }
   .hero .tagline::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 0 rgb(122 167 255 / .6); animation: pulse 2s infinite; }
   @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgb(122 167 255 / 0); } 100% { box-shadow: 0 0 0 0 rgb(122 167 255 / 0); } }
-  .hero h1 { color: #fff; font-size: clamp(34px, 5.6vw, 60px); font-weight: 600; letter-spacing: -.035em; line-height: 1.04; }
+  .hero h1 { color: #fff; font-size: clamp(34px, 5.6vw, 60px); font-weight: 600; font-variation-settings: 'wght' 600; letter-spacing: -.035em; line-height: 1.04; }
   .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; }
   .hero h1 .w > i { display: inline-block; font-style: normal; transform: translateY(110%); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i) * 70ms + 150ms); }
   @keyframes rise { to { transform: none; } }
@@ -568,9 +569,12 @@
   // Заголовок по словам
   var h1 = document.querySelector('.hero h1');
   if (h1) {
-    h1.innerHTML = h1.textContent.trim().split(' ').map(function (w, i) {
+    var h1Text = h1.textContent.trim(), h1Words = h1Text.split(' ');
+    h1.innerHTML = h1Words.map(function (w, i) {
       return '<span class="w"><i style="--i:' + i + '">' + w + '</i></span>';
     }).join(' ');
+    // после анимации возвращаем обычный текст: Safari иначе оставляет слова отдельными слоями с тонкой отрисовкой
+    setTimeout(function () { h1.textContent = h1Text; }, h1Words.length * 70 + 1500);
   }
   // Полоска прогресса и тень шапки
   var bar = document.createElement('div'); bar.className = 'progress'; document.body.appendChild(bar);
