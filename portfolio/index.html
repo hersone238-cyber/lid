@@ -43,9 +43,9 @@
   .muted { color: var(--muted); }
 
   /* Фон: медленно плывущее свечение */
-  body::before, body::after { content: ''; position: fixed; z-index: -1; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(90px); opacity: .5; pointer-events: none; }
-  body::before { top: -25vmax; left: -15vmax; background: radial-gradient(circle, rgb(77 124 255 / .35), transparent 65%); animation: drift1 22s ease-in-out infinite alternate; }
-  body::after { bottom: -25vmax; right: -15vmax; background: radial-gradient(circle, rgb(122 167 255 / .22), transparent 65%); animation: drift2 26s ease-in-out infinite alternate; }
+  body::before, body::after { content: ''; position: fixed; z-index: -1; width: 60vmax; height: 60vmax; border-radius: 50%; opacity: .5; pointer-events: none; will-change: transform; }
+  body::before { top: -25vmax; left: -15vmax; background: radial-gradient(circle, rgb(77 124 255 / .35), transparent 65%);  }
+  body::after { bottom: -25vmax; right: -15vmax; background: radial-gradient(circle, rgb(122 167 255 / .22), transparent 65%);  }
   @keyframes drift1 { to { transform: translate(18vmax, 14vmax) scale(1.15); } }
   @keyframes drift2 { to { transform: translate(-16vmax, -12vmax) scale(1.1); } }
 
@@ -67,7 +67,7 @@
   .link:hover { background: var(--accent-soft); border-color: rgb(77 124 255 / .5); transform: translateY(-1px); }
 
   /* Шапка */
-  header { position: sticky; top: 0; z-index: 20; padding: 12px 0; background: rgb(13 14 18 / .72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  header { position: sticky; top: 0; z-index: 20; padding: 12px 0; background: rgb(13 14 18 / .72);  border-bottom: 1px solid transparent; transition: border-color .3s; }
   header.scrolled { border-bottom-color: var(--line); }
   header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 48px; }
   .logo { text-decoration: none; color: var(--ink); line-height: 1; display: flex; align-items: baseline; gap: 10px; }
@@ -83,7 +83,7 @@
 
   /* Первый экран */
   .hero { position: relative; max-width: 1120px; width: calc(100% - 40px); margin: 8px auto 0; border-radius: 28px; min-height: min(78vh, 620px); overflow: hidden; display: flex; align-items: center; padding: 56px clamp(24px, 6vw, 72px); color: #fff; background: var(--card); border: 1px solid var(--line); isolation: isolate; }
-  .hero::before { content: ''; position: absolute; inset: -40%; z-index: -1; background: conic-gradient(from 0deg at 70% 30%, rgb(77 124 255 / .35), transparent 25%, rgb(122 167 255 / .25) 50%, transparent 75%, rgb(77 124 255 / .35)); filter: blur(60px); animation: spin 28s linear infinite; }
+  .hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(55% 70% at 78% 8%, rgb(77 124 255 / .30), transparent 70%), radial-gradient(45% 55% at 8% 95%, rgb(122 167 255 / .14), transparent 70%);  }
   @keyframes spin { to { transform: rotate(360deg); } }
   .hero-text { max-width: 720px; }
   .hero .tagline { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: rgb(255 255 255 / .75); margin-bottom: 20px; padding: 6px 14px; border: 1px solid rgb(255 255 255 / .18); border-radius: 999px; background: rgb(255 255 255 / .04); }
@@ -175,7 +175,7 @@
   /* Контакты */
   #contacts { padding-bottom: 40px; }
   #contacts .side { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; max-width: 1120px; background: var(--card-2); border: 1px solid var(--line); color: #fff; border-radius: 28px; padding: 64px 24px; }
-  #contacts .side::before { content: ''; position: absolute; inset: -50%; z-index: -1; background: conic-gradient(from 90deg at 30% 70%, rgb(122 167 255 / .28), transparent 30%, rgb(77 124 255 / .32) 60%, transparent 85%); filter: blur(70px); animation: spin 32s linear infinite reverse; }
+  #contacts .side::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 60% at 15% 90%, rgb(122 167 255 / .22), transparent 70%), radial-gradient(50% 60% at 90% 10%, rgb(77 124 255 / .26), transparent 70%);  }
   #contacts h2 { margin: 0; color: #fff; }
   #contacts p { margin: 0; max-width: 520px; color: rgb(255 255 255 / .72); }
   .contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 10px 0; }
@@ -189,7 +189,7 @@
 
   /* Руки на первом экране */
   .hero { padding-bottom: clamp(200px, 30vw, 330px); min-height: min(86vh, 720px); align-items: flex-start; padding-top: clamp(48px, 7vw, 80px); }
-  .hero-art { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(190px, 34vw, 380px); z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 35%); mask-image: linear-gradient(to bottom, transparent 0, #000 35%); }
+  .hero-art { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(190px, 34vw, 380px); z-index: -1; pointer-events: none;  }
   .hero-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 56%; mix-blend-mode: screen; opacity: .85; }
   .hero-art .l { clip-path: inset(0 50% 0 0); animation: handL 2.6s var(--ease) .3s both; }
   .hero-art .r { clip-path: inset(0 0 0 50%); animation: handR 2.6s var(--ease) .3s both; }
@@ -270,14 +270,12 @@
   @media (max-width: 900px) { .calc { grid-template-columns: 1fr; } .calc-total { position: static; order: -1; } .opt { grid-template-columns: 30px 1fr; } .opt .pr { grid-column: 2; grid-row: auto; text-align: left; } .opt .pr s { display: inline; margin-right: 8px; } }
 
   /* Свечение рук за курсором */
-  .hero-art .glow { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; pointer-events: none; opacity: 0; transition: opacity .5s; }
   .hero-art .glow.on { opacity: 1; }
 
   /* Сцена со столом: каждый предмет заезжает, на мониторе печатается надпись */
   .scene-card { aspect-ratio: 16 / 10; max-height: 580px; background: radial-gradient(90% 80% at 50% 0%, #0c1020, #05060a); }
   .scene-card svg { width: 100%; height: 100%; display: block; }
-  .scene-card svg * { vector-effect: non-scaling-stroke; }
-  .scene-card .obj, .scene-card .shelf { fill: #080a12; stroke: #5f84ff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgb(77 124 255 / .35)); }
+  .scene-card .obj, .scene-card .shelf { fill: #080a12; stroke: #5f84ff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .scene-card .obj line, .scene-card .obj path { fill: none; }
   .scene-card .obj text { fill: #6f93ff; stroke: none; font: 600 19px ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 3px; }
   .scene-card .obj .t3 { font-size: 15px; letter-spacing: 2px; }
@@ -331,7 +329,7 @@
 
 <header>
   <div class="wrap">
-    <a href="#" class="logo"><b>Степан</b><span>Сайты · Киров</span></a>
+    <a href="#" class="logo"><b>Степан и Дмитрий</b><span>Сайты · Киров</span></a>
     <nav>
       <a href="#works">Работы</a>
       <a href="#prices">Цены</a>
@@ -561,7 +559,7 @@
 
 <footer>
   <div class="wrap">
-    <a href="#" class="logo"><b>Степан</b></a>
+    <a href="#" class="logo"><b>Степан и Дмитрий</b></a>
     <span>Киров · 2026</span>
   </div>
 </footer>
@@ -632,7 +630,7 @@
   function poly(g, pts, fill, stroke) {
     g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
     for (var i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
-    g.closePath(); if (fill) { g.fillStyle = fill; g.fill(); }
+    g.closePath(); if (fill) { g.save(); g.globalCompositeOperation = 'destination-out'; g.fillStyle = '#000'; g.fill(); g.restore(); }
     g.strokeStyle = stroke || STROKE; g.lineWidth = LWU; g.stroke();
   }
   function box(g, x, d, z, w, dd, h, stroke) {
@@ -644,7 +642,7 @@
   function ring(g, x, d, z, r, stroke, fill) {
     g.beginPath();
     for (var i = 0; i <= 28; i++) { var a = i / 28 * 6.283, p = P(x + Math.cos(a) * r, d + Math.sin(a) * r, z); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
-    if (fill) { g.fillStyle = fill; g.fill(); }
+    if (fill) { g.save(); g.globalCompositeOperation = 'destination-out'; g.fillStyle = '#000'; g.fill(); g.restore(); }
     g.strokeStyle = stroke || STROKE; g.lineWidth = LWU; g.stroke();
   }
   function cable(g, a, b, sag, stroke) {
@@ -746,7 +744,7 @@
   }
   function size() {
     var r = lap.getBoundingClientRect();
-    dpr = Math.min(devicePixelRatio || 1, 2);
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
     cw = Math.round(r.width); ch = Math.round(r.height);
     cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
     V1 = fit(bounds(true)); V2 = fit(bounds(false));
@@ -808,76 +806,96 @@
     });
     if (glow > 0) screenContent(ctx, ease(clamp((T - 4) / .6)));
     ctx.globalAlpha = 1;
-
-    if (T > 3.4 && T < 6) {
-      var sp = ease(clamp((T - 3.4) / 1.6)), a = P(0, D, ZD), b = P(W, 0, ZD);
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .55 * (1 - sp);
-      var cx = mix(a[0], b[0], sp), cy = mix(a[1], b[1], sp);
-      var sg = ctx.createLinearGradient(cx - 70, cy - 40, cx + 70, cy + 40);
-      sg.addColorStop(0, 'rgba(77,124,255,0)'); sg.addColorStop(.5, 'rgba(140,175,255,.5)'); sg.addColorStop(1, 'rgba(77,124,255,0)');
-      ctx.fillStyle = sg; ctx.fillRect(-500, -500, 1200, 1200); ctx.restore();
-    }
   }
 
-  // ---- Всё из точек: каждый кадр сцена превращается в сетку точек, курсор её продавливает ----
-  var oc = document.createElement('canvas'), octx = oc.getContext('2d', { willReadFrequently: true });
-  var buf, img32, mouse = { x: -9999, y: -9999 }, ms = { x: -9999, y: -9999 }, strn = 0, DONE = 4.8;
-  function initBuf() {
-    oc.width = cw; oc.height = ch;
-    buf = new Uint32Array(cv.width * cv.height); img32 = new ImageData(new Uint8ClampedArray(buf.buffer), cv.width, cv.height);
+  // ---- Точки: сборка рисуется линиями с точечной маской, в конце всё превращается в WebGL-точки ----
+  var pat = null, glCv = null, gl = null, glProg = null, glN = 0, GL = {}, swapped = false, glowShown = false;
+  var mouse = { x: -9999, y: -9999 }, ms = { x: -9999, y: -9999 }, strn = 0, DONE = 4.8;
+  function initPattern() {
+    var b = Math.max(1, Math.round(dpr)), c = document.createElement('canvas'); c.width = c.height = b * 2;
+    var g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, b, b); g.fillRect(b, b, b, b);
+    pat = ctx.createPattern(c, 'repeat');
   }
-  function dots(T, v, now) {
-    RS = 1; octx.setTransform(1, 0, 0, 1, 0, 0); octx.clearRect(0, 0, cw, ch);
-    var kh = hover; hover = false; scene(octx, T, v, now); hover = kh;
-    var d = octx.getImageData(0, 0, cw, ch).data, b = Math.max(1, Math.round(dpr)), cwd = cv.width, chd = cv.height;
-    buf.fill(0);
-    var R = 56, mx = ms.x, my = ms.y, STEP = 1, S = strn * 15, on = strn > .01;
-    for (var y = 0; y < ch; y += STEP) for (var x = 0; x < cw; x += STEP) {
-      var i = (y * cw + x) * 4, a = d[i + 3];
-      if (a < 40 || ((x + y) & 1)) continue;
-      var m = Math.max(d[i], d[i + 1], d[i + 2]); if (m < 70) continue;
-      var px = x, py = y;
-      var dx = x - mx, dy = y - my, dd = dx * dx + dy * dy;
-      if (on && dd < R * R && dd > .5) { var dist = Math.sqrt(dd), k = 1 - dist / R, f = k * k * S; px += dx / dist * f; py += dy / dist * f; }
-      var X = (px * dpr) | 0, Y = (py * dpr) | 0;
-      if (X < 0 || Y < 0 || X > cwd - b || Y > chd - b) continue;
-      var al = Math.min(255, a * 2) | 0, col = ((al << 24) | (d[i + 2] << 16) | (d[i + 1] << 8) | d[i]) >>> 0;
-      for (var yy = 0; yy < b; yy++) for (var xx = 0; xx < b; xx++) buf[(Y + yy) * cwd + X + xx] = col;
+  function drawVector(T, v, now) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+    RS = dpr; scene(ctx, T, v, now);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'destination-in'; ctx.fillStyle = pat; ctx.fillRect(0, 0, cv.width, cv.height); ctx.globalCompositeOperation = 'source-over';
+  }
+  function shader(type, src) { var sh = gl.createShader(type); gl.shaderSource(sh, src); gl.compileShader(sh); return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null; }
+  function buildGL() {
+    var w = cv.width, h = cv.height, d = ctx.getImageData(0, 0, w, h).data, pos = [], col = [];
+    for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
+      var i = (y * w + x) * 4; if (d[i + 3] < 40) continue;
+      if (Math.max(d[i], d[i + 1], d[i + 2]) < 70) continue;
+      pos.push(x + .5, y + .5); col.push(d[i], d[i + 1], d[i + 2], d[i + 3]);
     }
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.putImageData(img32, 0, 0);
+    glCv = document.createElement('canvas'); glCv.width = w; glCv.height = h; glCv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none';
+    gl = glCv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false });
+    if (!gl) return false;
+    var vs = shader(gl.VERTEX_SHADER, 'attribute vec2 a_pos;attribute vec4 a_col;uniform vec2 u_res;uniform vec2 u_mouse;uniform float u_R,u_S,u_pt;varying vec4 v_col;void main(){vec2 p=a_pos;vec2 d=p-u_mouse;float dist=length(d);if(dist<u_R&&dist>.5){float k=1.0-dist/u_R;p+=d/dist*k*k*u_S;}gl_Position=vec4(p.x/u_res.x*2.0-1.0,1.0-p.y/u_res.y*2.0,0.0,1.0);gl_PointSize=u_pt;v_col=vec4(a_col.rgb*a_col.a,a_col.a);}');
+    var fs = shader(gl.FRAGMENT_SHADER, 'precision mediump float;varying vec4 v_col;void main(){gl_FragColor=v_col;}');
+    if (!vs || !fs) return false;
+    glProg = gl.createProgram(); gl.attachShader(glProg, vs); gl.attachShader(glProg, fs); gl.linkProgram(glProg);
+    if (!gl.getProgramParameter(glProg, gl.LINK_STATUS)) return false;
+    gl.useProgram(glProg); glN = pos.length / 2;
+    var pb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, pb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pos), gl.STATIC_DRAW);
+    var ap = gl.getAttribLocation(glProg, 'a_pos'); gl.enableVertexAttribArray(ap); gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
+    var cb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, cb); gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(col), gl.STATIC_DRAW);
+    var ac = gl.getAttribLocation(glProg, 'a_col'); gl.enableVertexAttribArray(ac); gl.vertexAttribPointer(ac, 4, gl.UNSIGNED_BYTE, true, 0, 0);
+    ['u_res', 'u_mouse', 'u_R', 'u_S', 'u_pt'].forEach(function (n) { GL[n] = gl.getUniformLocation(glProg, n); });
+    lap.appendChild(glCv);
+    return true;
+  }
+  function drawGL() {
+    gl.viewport(0, 0, glCv.width, glCv.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(GL.u_res, glCv.width, glCv.height); gl.uniform2f(GL.u_mouse, ms.x * dpr, ms.y * dpr);
+    gl.uniform1f(GL.u_R, 56 * dpr); gl.uniform1f(GL.u_S, strn * 15 * dpr); gl.uniform1f(GL.u_pt, Math.max(1, Math.round(dpr)));
+    gl.drawArrays(gl.POINTS, 0, glN);
   }
   function pillGlow() {
     var s = V2.s, o0 = scrM; if (!o0) return;
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
     ctx.setTransform(dpr * s * o0.ax, dpr * s * o0.ay, dpr * s * o0.bx, dpr * s * o0.by, dpr * (V2.x + s * o0.o[0]), dpr * (V2.y + s * o0.o[1]));
     var px = 24, py = 78, pw = 236, ph = 56;
-    ctx.shadowColor = 'rgba(140,175,255,.9)'; ctx.shadowBlur = 14; ctx.strokeStyle = 'rgba(235,232,255,.85)'; ctx.lineWidth = 1.6;
+    ctx.shadowColor = 'rgba(140,175,255,.9)'; ctx.shadowBlur = 14 * dpr; ctx.strokeStyle = 'rgba(225,235,255,.85)'; ctx.lineWidth = 1.6;
     ctx.beginPath(); ctx.moveTo(px + ph / 2, py); ctx.arcTo(px + pw, py, px + pw, py + ph, ph / 2); ctx.arcTo(px + pw, py + ph, px, py + ph, ph / 2); ctx.arcTo(px, py + ph, px, py, ph / 2); ctx.arcTo(px, py, px + pw, py, ph / 2); ctx.closePath(); ctx.stroke();
     ctx.restore();
   }
+  function placeButton() {
+    var s0 = V2.s, o0 = scrM, pxu = 24, pyu = 78, pw = 236, ph = 56;
+    btn.style.width = pw + 'px'; btn.style.height = ph + 'px';
+    btn.style.transform = 'matrix(' + [o0.ax * s0, o0.ay * s0, o0.bx * s0, o0.by * s0, V2.x + s0 * (o0.o[0] + o0.ax * pxu + o0.bx * pyu), V2.y + s0 * (o0.o[1] + o0.ay * pxu + o0.by * pyu)].join(',') + ')';
+    lap.classList.add('ready'); ready = true;
+  }
 
+  var lapVisible = true, lapLoop = true, lapStatic = false;
   function frame(now) {
+    if (!lapVisible) { lapLoop = false; return; }
     if (!t0) t0 = now;
     var T = started ? (now - t0) / 1000 / 1.3 : 0;
     var gz = eio(clamp((T - .05) / 3.9));
     var v = { s: mix(V1.s, V2.s, gz), x: mix(V1.x, V2.x, gz), y: mix(V1.y, V2.y, gz) };
-    var inLap = mouse.x > -999;
-    strn += (((inLap && !hover) ? 1 : 0) - strn) * .07;          // плавно включается и гаснет
-    if (inLap) { if (ms.x < -999) { ms.x = mouse.x; ms.y = mouse.y; } else { ms.x += (mouse.x - ms.x) * .25; ms.y += (mouse.y - ms.y) * .25; } }
-    dots(T, v, now);
-    if (T > DONE && !ready && scrM) {
-      ready = true;
-      var s0 = V2.s, o0 = scrM, pxu = 24, pyu = 78, pw = 236, ph = 56;
-      btn.style.width = pw + 'px'; btn.style.height = ph + 'px';
-      btn.style.transform = 'matrix(' + [o0.ax * s0, o0.ay * s0, o0.bx * s0, o0.by * s0, V2.x + s0 * (o0.o[0] + o0.ax * pxu + o0.bx * pyu), V2.y + s0 * (o0.o[1] + o0.ay * pxu + o0.by * pyu)].join(',') + ')';
-      lap.classList.add('ready');
+    if (!swapped) {
+      drawVector(T, v, now);
+      if (T > DONE && scrM && !ready) {
+        placeButton();
+        if (buildGL()) { swapped = true; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); }
+      }
+    } else {
+      var inLap = mouse.x > -999;
+      strn += (((inLap && !hover) ? 1 : 0) - strn) * .07;
+      if (inLap) { if (ms.x < -999) { ms.x = mouse.x; ms.y = mouse.y; } else { ms.x += (mouse.x - ms.x) * .25; ms.y += (mouse.y - ms.y) * .25; } }
+      if (hover !== glowShown) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); if (hover) pillGlow(); glowShown = hover; }
+      var still = strn < .004 && !inLap;
+      if (!(still && lapStatic)) drawGL();
+      lapStatic = still;
     }
-    if (hover && ready) pillGlow();
     requestAnimationFrame(frame);
   }
 
-  size(); initBuf();
+  size(); initPattern();
   requestAnimationFrame(frame);
+  new IntersectionObserver(function (es) { lapVisible = es[0].isIntersecting; if (lapVisible && !lapLoop) { lapLoop = true; requestAnimationFrame(frame); } }, { rootMargin: '150px' }).observe(lap);
   if (reduce) { started = true; t0 = -1e9; }
   else {
     var io = new IntersectionObserver(function (es) {
@@ -968,74 +986,80 @@
     });
   });
 
-  // Руки из точек: собираются при загрузке, курсор их подсвечивает (не ломает)
+  // Руки из точек на видеокарте: собираются при загрузке, колышутся, курсор подсвечивает
   var art = document.querySelector('.hero-art'), hero = document.querySelector('.hero');
   if (art && hero) {
-    var cvs = art.querySelector('canvas'), g = cvs.getContext('2d'), im = new Image();
-    var W = 0, H = 0, dpr = 1, sc = 1, buf, img32, N = 0, hx, hy, sx, sy, dl, ph, mouse = { x: -9999, y: -9999 }, sm = { x: -9999, y: -9999 }, inside = 0, t0 = 0, ready = false;
-    var size = function () {
-      var r = art.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 2);
-      W = r.width; H = r.height; cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
-      buf = new Uint32Array(cvs.width * cvs.height); img32 = new ImageData(new Uint8ClampedArray(buf.buffer), cvs.width, cvs.height);
-      if (N) place();
-    };
-    var src = null;
-    var place = function () {
-      sc = W / src.w; var oy = H - src.h * sc;
-      for (var i = 0; i < N; i++) { hx[i] = src.xs[i] * sc; hy[i] = oy + src.ys[i] * sc; var side = src.xs[i] < src.w / 2 ? -1 : 1; sx[i] = hx[i] + side * (W * .28 + dl[i] * W * .3); sy[i] = hy[i] + (ph[i] - 3) * 18; }
-    };
-    im.onload = function () {
-      var o = document.createElement('canvas'); o.width = im.width; o.height = im.height;
-      var c = o.getContext('2d'); c.drawImage(im, 0, 0);
-      var d = c.getImageData(0, 0, o.width, o.height).data, xs = [], ys = [];
-      for (var y = 0; y < o.height; y++) for (var x = 0; x < o.width; x++) if (d[(y * o.width + x) * 4 + 3] > 128) { xs.push(x); ys.push(y); }
-      src = { w: o.width, h: o.height, xs: xs, ys: ys }; N = xs.length;
-      hx = new Float32Array(N); hy = new Float32Array(N); sx = new Float32Array(N); sy = new Float32Array(N); dl = new Float32Array(N); ph = new Float32Array(N);
-      for (var i = 0; i < N; i++) { dl[i] = Math.random(); ph[i] = Math.random() * 6.283; }
-      size(); ready = true; requestAnimationFrame(frame);
-    };
-    im.src = 'img/hands-dots.png';
-    addEventListener('resize', function () { if (ready) size(); });
-    hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; inside = 1; });
-    hero.addEventListener('pointerleave', function () { inside = 0; });
-    var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
-    var frame = function (now) {
-      if (!t0) t0 = now;
-      var T = reduce ? 9 : (now - t0) / 1000;
-      sm.x += (mouse.x - sm.x) * .2; sm.y += (mouse.y - sm.y) * .2;
-      var glow = inside ? 1 : 0; glowV += (glow - glowV) * .12;
-      var sweepX = ((T * 160) % (W + 500)) - 250;
-      var b = Math.max(1, Math.ceil(sc * dpr)), cw = cvs.width, ch = cvs.height, R = 190, R2 = R * R;
-      buf.fill(0);
-      for (var i = 0; i < N; i++) {
-        var p = ease(Math.min(Math.max((T - dl[i] * .9) / 1.9, 0), 1));
-        if (p <= 0) continue;
-        var x = sx[i] + (hx[i] - sx[i]) * p, y = sy[i] + (hy[i] - sy[i]) * p;
-        var wv = reduce ? 0 : p;
-        x += Math.sin(T * 1.3 + hx[i] * .011 + hy[i] * .017) * 2.4 * sc * wv; y += Math.cos(T * 1.1 + hx[i] * .015 - hy[i] * .012) * 2.4 * sc * wv;
-        var px = (x * dpr) | 0, py = (y * dpr) | 0;
-        if (px < 0 || py < 0 || px > cw - b || py > ch - b) continue;
-        var tw = reduce ? 1 : .86 + .14 * Math.sin(now / 600 + ph[i]);
-        var r = 238 * tw, gg = 240 * tw, bb = 246 * tw;
-        if (glowV > .02) {
-          var dx = x - sm.x, dy = y - sm.y, dd = dx * dx + dy * dy;
-          if (dd < R2) { var k = Math.pow(1 - Math.sqrt(dd) / R, 1.5) * glowV; r = r + (120 - r) * k * .85 + 40 * k; gg = gg + (170 - gg) * k * .8 + 40 * k; bb = bb + (255 - bb) * k; }
-        }
-        if (!reduce && p >= 1) { var sw = 1 - Math.abs(hx[i] - sweepX) / 110; if (sw > 0) { sw = sw * sw; r += (150 - r) * sw * .7 + 20 * sw; gg += (190 - gg) * sw * .7 + 20 * sw; bb += (255 - bb) * sw * .9; } }
-        var a = (p * 255) | 0;
-        var col = ((a << 24) | ((Math.min(bb, 255) | 0) << 16) | ((Math.min(gg, 255) | 0) << 8) | (Math.min(r, 255) | 0)) >>> 0;
-        for (var yy = 0; yy < b; yy++) for (var xx = 0; xx < b; xx++) buf[(py + yy) * cw + px + xx] = col;
-      }
-      g.setTransform(1, 0, 0, 1, 0, 0); g.putImageData(img32, 0, 0);
-      if (glowV > .02) {
-        g.globalCompositeOperation = 'lighter';
-        var gr = g.createRadialGradient(sm.x * dpr, sm.y * dpr, 0, sm.x * dpr, sm.y * dpr, R * dpr);
-        gr.addColorStop(0, 'rgba(90,140,255,' + (.22 * glowV) + ')'); gr.addColorStop(1, 'rgba(90,140,255,0)');
-        g.fillStyle = gr; g.fillRect(0, 0, cw, ch); g.globalCompositeOperation = 'source-over';
-      }
-      requestAnimationFrame(frame);
-    };
-    var glowV = 0;
+    var cvs = art.querySelector('canvas'), gl = cvs.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false });
+    if (gl) {
+      var im = new Image(), W = 0, H = 0, dpr = 1, sc = 1, N = 0, src = null, U = {}, pbuf = null;
+      var mouse = { x: -9999, y: -9999 }, sm = { x: -9999, y: -9999 }, inside = 0, glowV = 0, t0 = 0, ready = false, heroVisible = true, heroLoop = true;
+      var mk = function (t, s) { var sh = gl.createShader(t); gl.shaderSource(sh, s); gl.compileShader(sh); return sh; };
+      var prog = gl.createProgram();
+      gl.attachShader(prog, mk(gl.VERTEX_SHADER, [
+        'attribute vec2 a_home; attribute vec2 a_rnd;',
+        'uniform vec2 u_res; uniform vec2 u_mouse; uniform float u_T, u_dpr, u_pt, u_glow, u_sweep, u_wave;',
+        'varying vec4 v_col;',
+        'void main() {',
+        '  float side = a_home.x < u_res.x * .5 ? -1.0 : 1.0;',
+        '  vec2 start = a_home + vec2(side * (u_res.x * .28 + a_rnd.x * u_res.x * .3), (a_rnd.y - 3.0) * 18.0);',
+        '  float t = clamp((u_T - a_rnd.x * .9) / 1.9, 0.0, 1.0);',
+        '  float p = 1.0 - pow(1.0 - t, 3.0);',
+        '  vec2 pos = mix(start, a_home, p);',
+        '  pos += vec2(sin(u_T * 1.3 + a_home.x * .011 + a_home.y * .017), cos(u_T * 1.1 + a_home.x * .015 - a_home.y * .012)) * 2.4 * u_pt * p * u_wave;',
+        '  vec3 c = vec3(.93, .94, .96) * (.88 + .12 * sin(a_rnd.y));',
+        '  float k = pow(max(0.0, 1.0 - distance(pos, u_mouse) / 190.0), 1.5) * u_glow;',
+        '  c = mix(c, vec3(.47, .67, 1.0), k * .85) + .16 * k;',
+        '  float sw = max(0.0, 1.0 - abs(a_home.x - u_sweep) / 110.0); sw *= sw * step(0.999, p) * u_wave;',
+        '  c = mix(c, vec3(.59, .75, 1.0), sw * .7) + .08 * sw;',
+        '  float a = p * smoothstep(0.0, .35, a_home.y / u_res.y);',
+        '  gl_Position = vec4(pos.x / u_res.x * 2.0 - 1.0, 1.0 - pos.y / u_res.y * 2.0, 0.0, 1.0);',
+        '  gl_PointSize = max(1.0, ceil(u_pt * u_dpr));',
+        '  v_col = vec4(min(c, vec3(1.0)) * a, a);',
+        '}'].join('\n')));
+      gl.attachShader(prog, mk(gl.FRAGMENT_SHADER, 'precision mediump float; varying vec4 v_col; void main() { gl_FragColor = v_col; }'));
+      gl.linkProgram(prog); gl.useProgram(prog);
+      ['u_res', 'u_mouse', 'u_T', 'u_dpr', 'u_pt', 'u_glow', 'u_sweep', 'u_wave'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+      var homeB = gl.createBuffer(), rndB = gl.createBuffer();
+      var size = function () {
+        var r = art.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 1.5);
+        W = r.width; H = r.height; cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+        if (!src) return;
+        sc = W / src.w; var oy = H - src.h * sc, pos = new Float32Array(N * 2);
+        for (var i = 0; i < N; i++) { pos[i * 2] = src.xs[i] * sc; pos[i * 2 + 1] = oy + src.ys[i] * sc; }
+        gl.bindBuffer(gl.ARRAY_BUFFER, homeB); gl.bufferData(gl.ARRAY_BUFFER, pos, gl.STATIC_DRAW);
+        var h0 = gl.getAttribLocation(prog, 'a_home'); gl.enableVertexAttribArray(h0); gl.vertexAttribPointer(h0, 2, gl.FLOAT, false, 0, 0);
+      };
+      im.onload = function () {
+        var o = document.createElement('canvas'); o.width = im.width; o.height = im.height;
+        var c = o.getContext('2d'); c.drawImage(im, 0, 0);
+        var d = c.getImageData(0, 0, o.width, o.height).data, xs = [], ys = [];
+        for (var y = 0; y < o.height; y++) for (var x = 0; x < o.width; x++) if (d[(y * o.width + x) * 4 + 3] > 128) { xs.push(x); ys.push(y); }
+        src = { w: o.width, h: o.height, xs: xs, ys: ys }; N = xs.length;
+        var rnd = new Float32Array(N * 2); for (var i = 0; i < N; i++) { rnd[i * 2] = Math.random(); rnd[i * 2 + 1] = Math.random() * 6.283; }
+        gl.bindBuffer(gl.ARRAY_BUFFER, rndB); gl.bufferData(gl.ARRAY_BUFFER, rnd, gl.STATIC_DRAW);
+        var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.enableVertexAttribArray(r0); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0);
+        size(); ready = true; requestAnimationFrame(frame);
+      };
+      im.src = 'img/hands-dots.png';
+      addEventListener('resize', function () { if (ready) { size(); /* перепривязка буферов */ gl.bindBuffer(gl.ARRAY_BUFFER, rndB); var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0); } });
+      hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; inside = 1; });
+      hero.addEventListener('pointerleave', function () { inside = 0; });
+      new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; if (heroVisible && !heroLoop && ready) { heroLoop = true; requestAnimationFrame(frame); } }, { rootMargin: '100px' }).observe(hero);
+      var frame = function (now) {
+        if (!heroVisible) { heroLoop = false; return; }
+        if (!t0) t0 = now;
+        var T = reduce ? 9 : (now - t0) / 1000;
+        sm.x += (mouse.x - sm.x) * .2; sm.y += (mouse.y - sm.y) * .2;
+        glowV += ((reduce ? 0 : inside) - glowV) * .12;
+        gl.viewport(0, 0, cvs.width, cvs.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.bindBuffer(gl.ARRAY_BUFFER, homeB); var h0 = gl.getAttribLocation(prog, 'a_home'); gl.vertexAttribPointer(h0, 2, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, rndB); var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0);
+        gl.uniform2f(U.u_res, W, H); gl.uniform2f(U.u_mouse, sm.x, sm.y); gl.uniform1f(U.u_T, T); gl.uniform1f(U.u_dpr, dpr);
+        gl.uniform1f(U.u_pt, sc); gl.uniform1f(U.u_glow, glowV); gl.uniform1f(U.u_sweep, ((T * 160) % (W + 500)) - 250); gl.uniform1f(U.u_wave, reduce ? 0 : 1);
+        gl.drawArrays(gl.POINTS, 0, N);
+        requestAnimationFrame(frame);
+      };
+    }
   }
 })();
 </script>
