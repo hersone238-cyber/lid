@@ -213,6 +213,7 @@
   .lap-btn { position: absolute; left: 0; top: 0; transform-origin: 0 0; border-radius: 999px; opacity: 0; pointer-events: none; text-decoration: none; transition: box-shadow .3s, background .3s, opacity .6s; outline-offset: 4px; }
   .lap.ready .lap-btn { opacity: 1; pointer-events: auto; }
   .lap-btn:focus-visible { outline: 2px solid #fff; }
+  .lap-btn:hover, .lap-btn:focus-visible { background: rgb(120 165 255 / .10); box-shadow: 0 0 0 1px rgb(200 220 255 / .75), 0 0 26px rgb(77 124 255 / .6); }
   .lap-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
   /* Свет за курсором: шаги, отзывы, цены, плашка */
@@ -615,7 +616,7 @@
   var lap = document.querySelector('.lap');
   if (!lap) return;
   var cv = lap.querySelector('canvas'), ctx = cv.getContext('2d'), btn = lap.querySelector('.lap-btn');
-  var W = 300, D = 200, LH = 190, ZD = 33, RS = 1;
+  var W = 300, D = 200, LH = 190, ZD = 33, RS = 1, dprCap = 1.5;
   var cw, ch, dpr, started = false, t0 = 0, hover = false, ready = false, V1, V2, scrM = null;
 
   function mix(a, b, t) { return a + (b - a) * t; }
@@ -744,7 +745,7 @@
   }
   function size() {
     var r = lap.getBoundingClientRect();
-    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    dpr = Math.min(devicePixelRatio || 1, dprCap);
     cw = Math.round(r.width); ch = Math.round(r.height);
     cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
     V1 = fit(bounds(true)); V2 = fit(bounds(false));
@@ -823,6 +824,7 @@
   }
   function shader(type, src) { var sh = gl.createShader(type); gl.shaderSource(sh, src); gl.compileShader(sh); return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null; }
   function buildGL() {
+    if (location.search.indexOf('nogl') > -1) return false;
     var w = cv.width, h = cv.height, d = ctx.getImageData(0, 0, w, h).data, pos = [], col = [];
     for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
       var i = (y * w + x) * 4; if (d[i + 3] < 40) continue;
@@ -868,9 +870,51 @@
     lap.classList.add('ready'); ready = true;
   }
 
-  var lapVisible = true, lapLoop = true, lapStatic = false;
+  // Запасной вариант без WebGL: точки рисуются на 2D-холсте, перерисовывается только область вокруг курсора
+  var fb = null;
+  function buildFallback() {
+    var w = cv.width, h = cv.height, d = ctx.getImageData(0, 0, w, h).data, CELL = 48, cols = Math.ceil(w / CELL), styles = [], smap = {}, X = [], Y = [], S = [], bk = {};
+    for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
+      var i = (y * w + x) * 4; if (d[i + 3] < 40) continue;
+      if (Math.max(d[i], d[i + 1], d[i + 2]) < 70) continue;
+      var key = (d[i] >> 5) + ',' + (d[i + 1] >> 5) + ',' + (d[i + 2] >> 5) + ',' + (d[i + 3] >> 6);
+      if (smap[key] === undefined) { smap[key] = styles.length; styles.push('rgba(' + Math.min(255, (d[i] >> 5) * 36 + 18) + ',' + Math.min(255, (d[i + 1] >> 5) * 36 + 18) + ',' + Math.min(255, (d[i + 2] >> 5) * 36 + 18) + ',' + ((d[i + 3] >> 6) * .25 + .15) + ')'); }
+      var n = X.length; X.push(x); Y.push(y); S.push(smap[key]);
+      var cell = ((y / CELL) | 0) * cols + ((x / CELL) | 0); (bk[cell] || (bk[cell] = [])).push(n);
+    }
+    fb = { X: X, Y: Y, S: S, bk: bk, styles: styles, CELL: CELL, cols: cols, rows: Math.ceil(h / CELL), prev: null };
+  }
+  function fallbackFrame() {
+    var inLap = mouse.x > -999;
+    strn += (((inLap && !hover) ? 1 : 0) - strn) * .07;
+    if (inLap) { if (ms.x < -999) { ms.x = mouse.x; ms.y = mouse.y; } else { ms.x += (mouse.x - ms.x) * .25; ms.y += (mouse.y - ms.y) * .25; } }
+    var active = strn > .004;
+    if (!active && !fb.prev) return;
+    var R = 56 * dpr, M = R + 24 * dpr, cx = ms.x * dpr, cy = ms.y * dpr, S = strn * 15 * dpr, b = Math.max(1, Math.round(dpr));
+    var x0 = cx - M, y0 = cy - M, x1 = cx + M, y1 = cy + M;
+    if (fb.prev) { x0 = Math.min(x0, fb.prev[0]); y0 = Math.min(y0, fb.prev[1]); x1 = Math.max(x1, fb.prev[2]); y1 = Math.max(y1, fb.prev[3]); }
+    x0 = Math.max(0, x0 | 0); y0 = Math.max(0, y0 | 0); x1 = Math.min(cv.width, Math.ceil(x1)); y1 = Math.min(cv.height, Math.ceil(y1));
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(x0, y0, x1 - x0, y1 - y0);
+    var C = fb.CELL, cx0 = (x0 / C) | 0, cx1 = ((x1 - 1) / C) | 0, cy0 = (y0 / C) | 0, cy1 = ((y1 - 1) / C) | 0, last = -1;
+    for (var gy = cy0; gy <= cy1; gy++) for (var gx = cx0; gx <= cx1; gx++) {
+      var list = fb.bk[gy * fb.cols + gx]; if (!list) continue;
+      for (var k = 0; k < list.length; k++) {
+        var n = list[k], px = fb.X[n], py = fb.Y[n];
+        if (px < x0 || px >= x1 || py < y0 || py >= y1) continue;
+        var dx = px - cx, dy = py - cy, dd = dx * dx + dy * dy;
+        if (active && dd < R * R && dd > .5) { var dist = Math.sqrt(dd), q = 1 - dist / R, f = q * q * S; px += dx / dist * f; py += dy / dist * f; }
+        if (fb.S[n] !== last) { last = fb.S[n]; ctx.fillStyle = fb.styles[last]; }
+        ctx.fillRect(px, py, b, b);
+      }
+    }
+    fb.prev = active ? [cx - M, cy - M, cx + M, cy + M] : null;
+  }
+
+  var lapVisible = true, lapLoop = true, lapStatic = false, lastNow = 0, slow = 0, nFrames = 0;
   function frame(now) {
     if (!lapVisible) { lapLoop = false; return; }
+    if (lastNow && !swapped) { slow = slow * .92 + (now - lastNow) * .08; nFrames++; if (nFrames > 25 && slow > 48 && dprCap > 1) { dprCap = 1; size(); initPattern(); nFrames = -99999; } }
+    lastNow = now;
     if (!t0) t0 = now;
     var T = started ? (now - t0) / 1000 / 1.3 : 0;
     var gz = eio(clamp((T - .05) / 3.9));
@@ -880,12 +924,14 @@
       if (T > DONE && scrM && !ready) {
         placeButton();
         if (buildGL()) { swapped = true; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); }
+        else { buildFallback(); swapped = 'fb'; }
       }
+    } else if (swapped === 'fb') {
+      fallbackFrame();
     } else {
       var inLap = mouse.x > -999;
       strn += (((inLap && !hover) ? 1 : 0) - strn) * .07;
       if (inLap) { if (ms.x < -999) { ms.x = mouse.x; ms.y = mouse.y; } else { ms.x += (mouse.x - ms.x) * .25; ms.y += (mouse.y - ms.y) * .25; } }
-      if (hover !== glowShown) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); if (hover) pillGlow(); glowShown = hover; }
       var still = strn < .004 && !inLap;
       if (!(still && lapStatic)) drawGL();
       lapStatic = still;
@@ -989,8 +1035,32 @@
   // Руки из точек на видеокарте: собираются при загрузке, колышутся, курсор подсвечивает
   var art = document.querySelector('.hero-art'), hero = document.querySelector('.hero');
   if (art && hero) {
-    var cvs = art.querySelector('canvas'), gl = cvs.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false });
-    if (gl) {
+    var cvs = art.querySelector('canvas'), gl = null;
+    try { if (location.search.indexOf('nogl') > -1) throw 0; gl = cvs.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false }); } catch (e) { gl = null; }
+    var heroFallback = function () {
+      var c2 = document.createElement('canvas'); c2.style.cssText = 'opacity:0;transition:opacity 1.2s'; cvs.parentNode.replaceChild(c2, cvs);
+      var g = c2.getContext('2d'); if (!g) return;
+      var im2 = new Image(), W2 = 0, H2 = 0, d2 = 1, m2 = { x: -9999, y: -9999 }, gl2 = 0, on2 = 0, run2 = false;
+      var draw2 = function () {
+        g.setTransform(d2, 0, 0, d2, 0, 0); g.clearRect(0, 0, W2, H2);
+        if (!im2.complete || !im2.width) return;
+        var k = W2 / im2.width; g.imageSmoothingEnabled = false; g.drawImage(im2, 0, H2 - im2.height * k, W2, im2.height * k);
+        if (gl2 > .01) {
+          g.globalCompositeOperation = 'source-atop';
+          var gr = g.createRadialGradient(m2.x, m2.y, 0, m2.x, m2.y, 190);
+          gr.addColorStop(0, 'rgba(240,246,255,' + gl2 + ')'); gr.addColorStop(.35, 'rgba(110,160,255,' + (.9 * gl2) + ')'); gr.addColorStop(1, 'rgba(70,110,255,0)');
+          g.fillStyle = gr; g.fillRect(0, 0, W2, H2); g.globalCompositeOperation = 'source-over';
+        }
+      };
+      var size2 = function () { var r = art.getBoundingClientRect(); d2 = Math.min(devicePixelRatio || 1, 1.5); W2 = r.width; H2 = r.height; c2.width = Math.round(W2 * d2); c2.height = Math.round(H2 * d2); c2.style.cssText += ';position:absolute;inset:0;width:100%;height:100%'; draw2(); };
+      var loop2 = function () { gl2 += ((on2 ? 1 : 0) - gl2) * .15; draw2(); if (on2 || gl2 > .01) requestAnimationFrame(loop2); else run2 = false; };
+      im2.onload = function () { size2(); requestAnimationFrame(function () { c2.style.opacity = 1; }); };
+      im2.src = 'img/hands-dots.png';
+      addEventListener('resize', size2);
+      hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); m2.x = e.clientX - r.left; m2.y = e.clientY - r.top; on2 = 1; if (!run2) { run2 = true; requestAnimationFrame(loop2); } });
+      hero.addEventListener('pointerleave', function () { on2 = 0; });
+    };
+    if (!gl) heroFallback(); else {
       var im = new Image(), W = 0, H = 0, dpr = 1, sc = 1, N = 0, src = null, U = {}, pbuf = null;
       var mouse = { x: -9999, y: -9999 }, sm = { x: -9999, y: -9999 }, inside = 0, glowV = 0, t0 = 0, ready = false, heroVisible = true, heroLoop = true;
       var mk = function (t, s) { var sh = gl.createShader(t); gl.shaderSource(sh, s); gl.compileShader(sh); return sh; };
@@ -1018,6 +1088,7 @@
         '}'].join('\n')));
       gl.attachShader(prog, mk(gl.FRAGMENT_SHADER, 'precision mediump float; varying vec4 v_col; void main() { gl_FragColor = v_col; }'));
       gl.linkProgram(prog); gl.useProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { heroFallback(); } else {
       ['u_res', 'u_mouse', 'u_T', 'u_dpr', 'u_pt', 'u_glow', 'u_sweep', 'u_wave'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
       var homeB = gl.createBuffer(), rndB = gl.createBuffer();
       var size = function () {
@@ -1059,6 +1130,7 @@
         gl.drawArrays(gl.POINTS, 0, N);
         requestAnimationFrame(frame);
       };
+      }
     }
   }
 })();
