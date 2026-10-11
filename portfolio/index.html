@@ -338,6 +338,67 @@
   .qa[open] summary::after { transform: rotate(45deg); }
   .qa p { margin: 0 0 20px; font-size: 16px; line-height: 1.6; max-width: 70ch; }
 
+
+  /* Страницы по адресу #/... */
+  [hidden] { display: none !important; }
+  main > .page-in { animation: pageIn .55s var(--ease) both; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  header nav a.on { color: var(--ink); }
+  header nav a.on::after { transform: scaleX(1); }
+  .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; align-items: center; justify-content: center; }
+  .burger svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; }
+  .menu { display: none; }
+  @media (max-width: 860px) {
+    .burger { display: inline-flex; margin-left: auto; }
+    header .wrap { gap: 12px; }
+    .menu.open { display: grid; gap: 4px; padding: 8px 20px 18px; border-top: 1px solid var(--line); }
+    .menu a { text-decoration: none; color: var(--text); font: 500 17px var(--f-body); padding: 10px 0; }
+    .menu a.on { color: var(--ink); }
+    .menu a::after { display: none; }
+  }
+
+  .sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .sections a { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px 20px 24px; transition: transform .35s var(--ease), border-color .3s; }
+  .sections a:hover { transform: translateY(-4px); border-color: rgb(122 167 255 / .45); }
+  .sections h3 { margin-bottom: 8px; font-size: 18px; color: var(--ink); }
+  .sections h3::after { content: ' ›'; color: var(--accent-2); }
+  .sections p { margin: 0; font-size: 15px; }
+  @media (max-width: 1000px) { .sections { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .sections { grid-template-columns: 1fr; } }
+
+  .order { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto; }
+  @media (max-width: 900px) { .order { grid-template-columns: 1fr; } }
+  .form { display: grid; gap: 16px; padding: 28px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); }
+  .form label { display: grid; gap: 8px; font: 500 14px var(--f-body); color: var(--ink); }
+  .form input[type=text], .form textarea { width: 100%; font: 400 16px var(--f-body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 13px 16px; transition: border-color .25s; }
+  .form textarea { min-height: 110px; resize: vertical; }
+  .form input:focus, .form textarea:focus { outline: none; border-color: var(--accent); }
+  .form .err { border-color: #ff6b6b !important; }
+  .form .agree.err { color: #ff6b6b; }
+  .form .lb { font: 500 14px var(--f-body); color: var(--ink); }
+  .form .filter { margin: 0; }
+  .form .agree { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; color: var(--text); }
+  .form .agree input { margin-top: 3px; accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+  .form .agree a, .policy a { color: var(--accent-2); }
+  .form .btn { justify-self: start; border: 0; cursor: pointer; font-family: var(--f-body); }
+  .done { display: grid; gap: 10px; }
+  .done .links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .done button.link { background: transparent; cursor: pointer; }
+  .done pre { margin: 0; white-space: pre-wrap; font: 400 14px/1.5 var(--f-body); color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+
+  .guide { margin: 14px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 15px; color: var(--text); }
+  .guide li::marker { color: var(--accent-2); }
+  .tip { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgb(255 255 255 / .12); }
+  .tip b { font: 600 16px var(--f-head); color: var(--ink); }
+  .policy { max-width: 760px; }
+  .policy h3 { margin: 30px 0 8px; font-size: 18px; color: var(--ink); }
+  .policy p, .policy li { font-size: 15px; }
+  .policy .muted { font-size: 14px; }
+
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  footer nav a { color: var(--muted); text-decoration: none; }
+  footer nav a:hover { color: var(--ink); }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .rv, .hero .tagline, .hero .from, .hero .actions { opacity: 1; transform: none; }
@@ -350,21 +411,32 @@
 
 <header>
   <div class="wrap">
-    <a href="#" class="logo"><b>Степан и Дмитрий</b><span>Сайты · боты · приложения</span></a>
+    <a href="#/" class="logo"><b>Степан и Дмитрий</b><span>Сайты · боты · приложения</span></a>
     <nav>
-      <a href="#works">Работы</a>
-      <a href="#prices">Цены</a>
-      <a href="#how">Как работаем</a>
-      <a href="#reviews">Отзывы</a>
-      <a href="#faq">Вопросы</a>
-      <a href="#contacts">Контакты</a>
+      <a href="#/works">Работы</a>
+      <a href="#/prices">Цены</a>
+      <a href="#/how">Как работаем</a>
+      <a href="#/reviews">Отзывы</a>
+      <a href="#/faq">Вопросы</a>
+      <a href="#/contacts">Контакты</a>
     </nav>
-    <a href="https://t.me/stepan_devs" class="btn" target="_blank" rel="noopener">Написать</a>
+    <button type="button" class="burger" aria-label="Меню" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 18 18"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
+    <a href="#/order" class="btn">Заказать</a>
   </div>
+  <nav class="menu" id="menu">
+    <a href="#/">Главная</a>
+    <a href="#/works">Работы</a>
+    <a href="#/prices">Цены</a>
+    <a href="#/how">Как работаем</a>
+    <a href="#/reviews">Отзывы</a>
+    <a href="#/faq">Вопросы</a>
+    <a href="#/contacts">Контакты</a>
+    <a href="#/order">Оставить заявку</a>
+  </nav>
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" data-page="home">
     <div class="hero-art" aria-hidden="true"><canvas></canvas></div>
     <div class="hero-text">
       <div class="tagline">сайты под ключ · Telegram-боты · приложения</div>
@@ -372,24 +444,24 @@
       <p class="from">Привет, мы Степан и Дмитрий из Кирова. Делаем сайты, Telegram-боты, онлайн-запись и приложения под задачи вашего бизнеса. Клиенты находят вас, а заявки сразу приходят вам.</p>
       <div class="actions">
         <a href="https://t.me/stepan_devs" class="btn" target="_blank" rel="noopener">Написать в Telegram</a>
-        <a href="#works" class="link">Смотреть работы ›</a>
+        <a href="#/works" class="link">Смотреть работы ›</a>
       </div>
     </div>
     <div class="bar" aria-hidden="true"></div>
   </section>
 
-  <section id="offer">
+  <section id="offer" data-page="home">
     <div class="wrap">
       <div class="offer"><b>Цены в 2 раза ниже рынка Кирова.</b> Сайт-визитка в студиях стоит от 20 000 ₽, у нас от 10 000 ₽. Работаем вдвоём, без офиса и менеджеров, поэтому вы не переплачиваете за них, а сайт готов быстрее.</div>
     </div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="marquee-track">
+  <div class="marquee" aria-hidden="true" data-page="home"><div class="marquee-track">
     <span>Кафе<i></i>Салоны красоты<i></i>Клиники<i></i>Барбершопы<i></i>Студии<i></i>Доставка еды<i></i>Фитнес<i></i>Магазины<i></i>Мастера<i></i></span>
     <span>Кафе<i></i>Салоны красоты<i></i>Клиники<i></i>Барбершопы<i></i>Студии<i></i>Доставка еды<i></i>Фитнес<i></i>Магазины<i></i>Мастера<i></i></span>
   </div></div>
 
-  <section id="works">
+  <section id="works" data-page="works">
     <div class="wrap">
       <h2>Наши работы</h2>
       <div class="filter" role="group" aria-label="Фильтр работ">
@@ -467,7 +539,7 @@
     </div>
   </section>
 
-  <section id="prices" class="pricelist">
+  <section id="prices" class="pricelist" data-page="prices">
     <div class="wrap">
       <h2>Что делаем и сколько стоит</h2>
       <div class="calc">
@@ -502,13 +574,13 @@
           <div class="month" data-role="month"></div>
           <hr>
           <p class="nt" style="margin:0">Зачёркнутая цена средняя по студиям Кирова. Работаем официально через самозанятость, чек приходит через «Мой налог». Цену называем до начала работы.</p>
-          <a class="btn light" data-role="go" href="https://t.me/stepan_devs" target="_blank" rel="noopener">Обсудить проект →</a>
+          <a class="btn light" data-role="go" href="#/order">Обсудить проект →</a>
         </aside>
       </div>
     </div>
   </section>
 
-  <section id="how">
+  <section id="how" data-page="how">
     <div class="wrap">
       <h2>Как работаем</h2>
       <div class="info">
@@ -522,7 +594,21 @@
     </div>
   </section>
 
-  <section class="scene" aria-hidden="true">
+  <section id="sections" data-page="home">
+    <div class="wrap">
+      <h2>Что есть на сайте</h2>
+      <div class="sections">
+        <a href="#/works"><h3>Работы</h3><p>Настоящие сайты клиентов, демо и приложения</p></a>
+        <a href="#/prices"><h3>Цены</h3><p>Отметьте нужное и сразу увидите сумму</p></a>
+        <a href="#/how"><h3>Как работаем</h3><p>Шесть шагов от знакомства до запуска</p></a>
+        <a href="#/reviews"><h3>Отзывы</h3><p>Что говорят клиенты после запуска</p></a>
+        <a href="#/faq"><h3>Вопросы</h3><p>Цены, сроки, оплата и доступы</p></a>
+        <a href="#/order"><h3>Оставить заявку</h3><p>Две минуты, ответим в тот же день</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" aria-hidden="true" data-page="home">
     <div class="scene-card rv">
       <svg viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -544,7 +630,7 @@
     </div>
   </section>
 
-  <section id="reviews">
+  <section id="reviews" data-page="reviews">
     <div class="wrap">
       <h2>Отзывы</h2>
       <div class="reviews">
@@ -562,7 +648,7 @@
     </div>
   </section>
 
-  <section id="faq">
+  <section id="faq" data-page="faq">
     <div class="wrap">
       <h2>Частые вопросы</h2>
       <div class="qas">
@@ -576,7 +662,7 @@
     </div>
   </section>
 
-  <section id="contacts">
+  <section id="contacts" data-page="contacts">
     <div class="wrap side">
       <h2>Напишите нам</h2>
       <p>Опишите в двух словах, чем занимаетесь и что хотите. Отвечаем в тот же день.</p>
@@ -591,11 +677,88 @@
       </div>
     </div>
   </section>
+  <section id="order" data-page="order contacts" hidden>
+    <div class="wrap">
+      <h2>Оставить заявку</h2>
+      <div class="order">
+        <form class="form" novalidate>
+          <label>Как вас зовут<input type="text" name="name" autocomplete="name" maxlength="80"></label>
+          <label>Telegram или телефон<input type="text" name="contact" autocomplete="tel" maxlength="80" placeholder="@username или +7 ..."></label>
+          <div class="lb">Что нужно</div>
+          <div class="filter" role="group" aria-label="Что нужно" data-role="need"></div>
+          <label>Пример сайта, который нравится<input type="text" name="example" maxlength="300" placeholder="Ссылка и что в нём нравится, если есть"></label>
+          <label>Пару слов о бизнесе<textarea name="about" maxlength="1000" placeholder="Чем занимаетесь и что хотите получить"></textarea></label>
+          <label class="agree"><input type="checkbox" name="agree"><span>Согласен с <a href="#/privacy">политикой конфиденциальности</a></span></label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <button type="submit" class="btn">Отправить заявку</button>
+        </form>
+        <aside class="calc-total" aria-live="polite">
+          <div data-role="before">
+            <div class="lb">Что написать в заявке</div>
+            <ol class="guide">
+              <li>Чем занимаетесь и в каком городе.</li>
+              <li>Пример сайта, который нравится. Ссылку вставьте в поле слева и напишите, что в нём нравится.</li>
+              <li>Что уже есть: группа VK, старый сайт, логотип, фото.</li>
+              <li>Сроки, если они есть.</li>
+            </ol>
+            <div data-role="tips"></div>
+            <p class="nt" style="margin:18px 0 0">Отметьте услуги слева, и здесь появятся подсказки по каждой. Не знаете, что писать? Оставьте имя и контакт, остальное спросим сами. Заявка сразу приходит нам в Telegram.</p>
+          </div>
+          <div class="done" data-role="sent" hidden>
+            <div class="lb">Заявка отправлена</div>
+            <p class="nt" style="margin:0">Спасибо! Напишем вам в тот же день.</p>
+          </div>
+          <div class="done" data-role="done" hidden>
+            <div class="lb">Не получилось отправить</div>
+            <p class="nt" style="margin:0">Отправьте этот текст нам сами, одной кнопкой.</p>
+            <pre data-role="text"></pre>
+            <div class="links">
+              <a class="btn light" data-role="tg" href="https://t.me/stepan_devs" target="_blank" rel="noopener">Отправить в Telegram →</a>
+              <button type="button" class="link" data-role="copy">Скопировать текст</button>
+              <a class="link" data-role="mail" href="mailto:hersone237@gmail.com">На почту</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy" data-page="privacy" hidden>
+    <div class="wrap policy">
+      <h2>Политика конфиденциальности</h2>
+      <p class="muted">Редакция от 11 октября 2026 года</p>
+      <h3>1. Кто мы</h3>
+      <p>Сайт suslovdev.ru (далее «Сайт») ведёт Степан Суслов, самозанятый, Киров. Он же оператор персональных данных. Связаться: почта hersone237@gmail.com, Telegram @stepan_devs.</p>
+      <h3>2. Какие данные мы получаем</h3>
+      <p>Имя, Telegram или телефон, описание задачи и выбранные услуги. Их вы оставляете в форме заявки или сами пишете нам в Telegram, ВКонтакте или на почту.</p>
+      <h3>3. Что делает форма заявки</h3>
+      <p>После нажатия «Отправить заявку» данные проходят через сервер Сайта (хостинг Vercel) и приходят нам сообщением в Telegram-бот. На самом Сайте и в базах данных заявки не хранятся. Если отправить не получилось, форма покажет текст заявки, и вы отправите его нам сами.</p>
+      <h3>4. Зачем нам данные</h3>
+      <p>Чтобы ответить на заявку, обсудить проект, назвать цену и срок, сделать работу и выдать чек через «Мой налог».</p>
+      <h3>5. Основание</h3>
+      <p>Ваше согласие. Вы даёте его, отмечая галочку в форме заявки или отправляя нам сообщение с контактами.</p>
+      <h3>6. Сколько храним</h3>
+      <p>Переписку храним, пока идёт работа над проектом и поддержка сайта. По вашей просьбе удаляем её в течение 10 дней.</p>
+      <h3>7. Кому передаём</h3>
+      <p>Никому не продаём и не передаём, кроме случаев, которые требует закон. Заявки из формы проходят через Vercel и Telegram, остальные сообщения через сервисы, которые вы выбрали сами: Telegram, ВКонтакте, Gmail.</p>
+      <h3>8. Cookie и аналитика</h3>
+      <p>Сайт не ставит cookie и не подключает счётчики. Шрифты загружаются с Google Fonts, хостинг Vercel. Эти сервисы видят технические данные запроса, например IP-адрес.</p>
+      <h3>9. Ваши права</h3>
+      <p>Вы вправе узнать, какие данные у нас есть, исправить их, удалить или отозвать согласие. Напишите на hersone237@gmail.com или в Telegram @stepan_devs, ответим в течение 10 дней.</p>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <a href="#" class="logo"><b>Степан и Дмитрий</b></a>
+    <a href="#/" class="logo"><b>Степан и Дмитрий</b></a>
+    <nav>
+      <a href="#/works">Работы</a>
+      <a href="#/prices">Цены</a>
+      <a href="#/faq">Вопросы</a>
+      <a href="#/order">Заявка</a>
+      <a href="#/privacy">Политика конфиденциальности</a>
+    </nav>
     <span>Киров · 2026</span>
   </div>
 </footer>
@@ -622,7 +785,7 @@
   }
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
   // Появление блоков
-  var sel = 'h2, .offer, .scene-card, .filter, .calc-total, .card, .prices .item, .pricelist .note, .pricelist .center, .info > div, .review, #contacts .side';
+  var sel = 'h2, .offer, .scene-card, .filter, .calc-total, .card, .prices .item, .pricelist .note, .pricelist .center, .info > div, .review, #contacts .side, .sections a, .form, .order .calc-total, .policy > *';
   var els = document.querySelectorAll(sel);
   var groups = new Map();
   els.forEach(function (el) {
@@ -951,6 +1114,7 @@
   var lapVisible = true, lapLoop = true, lapStatic = false, lastNow = 0, slow = 0, nFrames = 0;
   function frame(now) {
     if (!lapVisible) { lapLoop = false; return; }
+    if (!cw) { size(); initPattern(); if (!cw) { lapLoop = false; return; } }
     if (lastNow && !swapped) { slow = slow * .92 + (now - lastNow) * .08; nFrames++; if (nFrames > 25 && slow > 48 && dprCap > 1) { dprCap = 1; size(); initPattern(); nFrames = -99999; } }
     lastNow = now;
     if (!t0) t0 = now;
@@ -977,7 +1141,7 @@
     requestAnimationFrame(frame);
   }
 
-  size(); initPattern();
+  if (lap.offsetWidth) { size(); initPattern(); }
   requestAnimationFrame(frame);
   new IntersectionObserver(function (es) { lapVisible = es[0].isIntersecting; if (lapVisible && !lapLoop) { lapLoop = true; requestAnimationFrame(frame); } }, { rootMargin: '150px' }).observe(lap);
   if (reduce) { started = true; t0 = -1e9; }
@@ -1040,8 +1204,6 @@
       $('std').textContent = fmt(std) + ' ₽';
       $('save').textContent = std > our ? 'Экономия ' + fmt(std - our) + ' ₽' : '';
       $('month').textContent = month ? '+ поддержка ' + fmt(month) + ' ₽ в месяц' : '';
-      var msg = names.length ? 'Здравствуйте! Хочу обсудить: ' + names.join(', ') + '. Ориентир: от ' + fmt(our) + ' ₽.' : 'Здравствуйте! Хочу обсудить сайт.';
-      $('go').href = 'https://t.me/stepan_devs?text=' + encodeURIComponent(msg);
     };
     opts.forEach(function (o) {
       o.addEventListener('click', function () { o.setAttribute('aria-checked', o.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); update(); });
@@ -1171,6 +1333,149 @@
       }
     }
   }
+})();
+</script>
+<script>
+(function () {
+  // Страницы по адресу #/имя: показываем только блоки с нужным data-page
+  var pages = { home: '', works: 'Наши работы', prices: 'Цены', how: 'Как работаем', reviews: 'Отзывы', faq: 'Частые вопросы', contacts: 'Контакты', order: 'Оставить заявку', privacy: 'Политика конфиденциальности' };
+  var baseTitle = document.title;
+  var blocks = [].slice.call(document.querySelectorAll('main > [data-page]'));
+  var links = [].slice.call(document.querySelectorAll('header nav a, .menu a'));
+  var menu = document.getElementById('menu'), burger = document.querySelector('.burger');
+
+  function route() {
+    var h = location.hash.replace(/^#\/?/, '');
+    if (!pages.hasOwnProperty(h)) h = 'home';
+    // старые ссылки вида #works и неизвестные адреса приводим к #/...
+    var want = h === 'home' ? '#/' : '#/' + h;
+    if (location.hash && location.hash !== want) history.replaceState(null, '', want);
+    blocks.forEach(function (b) {
+      var on = b.dataset.page.split(' ').indexOf(h) > -1;
+      b.hidden = !on; b.classList.remove('page-in');
+      if (on) { void b.offsetWidth; b.classList.add('page-in'); }
+    });
+    document.title = h === 'home' ? baseTitle : pages[h] + ' | Степан и Дмитрий';
+    links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === want); });
+    menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    dispatchEvent(new Event('resize')); dispatchEvent(new Event('scroll'));
+  }
+  addEventListener('hashchange', route);
+  route();
+
+  burger.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Заявка: собираем текст, отправляет его сам посетитель
+  var form = document.querySelector('#order form');
+  if (!form) return;
+  var $ = function (r) { return document.querySelector('#order [data-role="' + r + '"]'); };
+  var opts = [].slice.call(document.querySelectorAll('.opt'));
+  var chips = opts.map(function (o) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = o.dataset.name; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { press(b, b.getAttribute('aria-pressed') !== 'true'); reset(); });
+    $('need').appendChild(b);
+    return b;
+  });
+  var tips = {
+    'Онлайн-запись': ['Список услуг, их длительность и цены.', 'Мастера, если к ним записываются отдельно.', 'График работы и шаг записи, например каждые 30 минут.', 'Где будет запись: ваш сайт, группа VK или отдельная страница.', 'Куда присылать записи: Telegram или почта.'],
+    'Сайт-визитка': ['Услуги и цены, которые показать на сайте.', 'Адрес, телефон, часы работы, соцсети.', 'Фото работ, помещения или команды. Логотип и фирменные цвета, если есть.', 'Пример сайта, который нравится.'],
+    'Сайт с онлайн-записью': ['Услуги, цены, контакты и фото, как для визитки.', 'Длительность услуг, мастера и график работы.', 'Кто будет менять расписание и получать уведомления о записях.', 'Пример сайта, который нравится.'],
+    'Telegram-бот': ['Что делает бот: отвечает на вопросы, принимает заявки, записывает или присылает уведомления.', 'Частые вопросы клиентов и ответы на них.', 'Кому бот присылает заявки.', 'Пример бота, который нравится, если есть.'],
+    'Доработка сайта': ['Ссылка на ваш сайт.', 'Что изменить или добавить. Если что-то сломалось, напишите, на какой странице и что происходит.', 'На чём сделан сайт, если знаете: Tilda, WordPress или свой код.', 'Есть ли у вас доступ к сайту и хостингу.'],
+    'Домен и запуск': ['Какой адрес сайта хотите, два или три варианта.', 'Есть ли уже домен и где он куплен.', 'Где сейчас лежит сайт, если он готов.'],
+    'Поддержка': ['Ссылка на сайт.', 'Что меняете чаще всего: цены, фото, расписание или акции.', 'Сколько правок нужно примерно в месяц.']
+  };
+  function renderTips() {
+    var box = $('tips'); box.innerHTML = '';
+    chips.forEach(function (b) {
+      if (b.getAttribute('aria-pressed') !== 'true' || !tips[b.textContent]) return;
+      var d = document.createElement('div'); d.className = 'tip';
+      var h = document.createElement('b'); h.textContent = b.textContent; d.appendChild(h);
+      var ol = document.createElement('ol'); ol.className = 'guide';
+      tips[b.textContent].forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ol.appendChild(li); });
+      d.appendChild(ol); box.appendChild(d);
+    });
+  }
+  function press(b, on) { b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.classList.toggle('on', on); if (chips) renderTips(); }
+  var go = document.querySelector('[data-role="go"]');
+  if (go) go.addEventListener('click', function () {
+    chips.forEach(function (b, i) { press(b, opts[i].getAttribute('aria-checked') === 'true'); });
+    reset();
+  });
+
+  function reset() { $('done').hidden = true; $('sent').hidden = true; $('before').hidden = false; }
+  form.addEventListener('input', function (e) { e.target.classList.remove('err'); reset(); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements, bad = null;
+    ['name', 'contact'].forEach(function (n) {
+      var empty = !f[n].value.trim();
+      f[n].classList.toggle('err', empty);
+      if (empty && !bad) bad = f[n];
+    });
+    if (bad) { bad.focus(); return; }
+    if (!f.agree.checked) { f.agree.focus(); f.agree.parentNode.classList.add('err'); return; }
+    f.agree.parentNode.classList.remove('err');
+
+    var names = [], sum = 0, month = 0;
+    chips.forEach(function (b, i) {
+      if (b.getAttribute('aria-pressed') !== 'true') return;
+      names.push(b.textContent);
+      if (+opts[i].dataset.month) month += +opts[i].dataset.our; else sum += +opts[i].dataset.our;
+    });
+    var fmt = function (n) { return n.toLocaleString('ru-RU'); };
+    var lines = ['Здравствуйте! Заявка с сайта.', 'Имя: ' + f.name.value.trim(), 'Контакт: ' + f.contact.value.trim()];
+    if (names.length) lines.push('Нужно: ' + names.join(', '));
+    if (sum) lines.push('Ориентир: от ' + fmt(sum) + ' ₽' + (month ? ' + поддержка от ' + fmt(month) + ' ₽ в месяц' : ''));
+    if (f.example.value.trim()) lines.push('Пример сайта: ' + f.example.value.trim());
+    if (f.about.value.trim()) lines.push('О бизнесе: ' + f.about.value.trim());
+    var text = lines.join('\n');
+
+    var submit = form.querySelector('button[type=submit]');
+    var show = function (role) {
+      $('before').hidden = true; $(role).hidden = false;
+      $(role).scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      submit.disabled = false; submit.textContent = 'Отправить заявку';
+    };
+    // запасной вариант, если сервер не ответил: текст заявки и кнопка «Отправить в Telegram»
+    var fallback = function () {
+      $('text').textContent = text;
+      $('tg').href = 'https://t.me/stepan_devs?text=' + encodeURIComponent(text);
+      $('mail').href = 'mailto:hersone237@gmail.com?subject=' + encodeURIComponent('Заявка с сайта') + '&body=' + encodeURIComponent(text);
+      $('copy').textContent = 'Скопировать текст';
+      show('done');
+    };
+    submit.disabled = true; submit.textContent = 'Отправляем…';
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: f.name.value, contact: f.contact.value, about: f.about.value, example: f.example.value, need: names,
+        estimate: sum ? 'от ' + fmt(sum) + ' ₽' + (month ? ' + поддержка от ' + fmt(month) + ' ₽ в месяц' : '') : '',
+        consent: true, website: f.website.value
+      })
+    }).then(function (r) {
+      if (!r.ok) return fallback();
+      form.reset(); chips.forEach(function (b) { press(b, false); });
+      show('sent');
+    }, fallback);
+  });
+
+  $('copy').addEventListener('click', function () {
+    var b = this, text = $('text').textContent;
+    var ok = function () { b.textContent = 'Скопировано'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(ok, fallback); else fallback();
+    function fallback() {
+      var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); ok(); } catch (e) {} t.remove();
+    }
+  });
 })();
 </script>
 </body>
