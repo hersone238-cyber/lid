@@ -684,6 +684,7 @@
         <form class="form" novalidate>
           <label>Как вас зовут<input type="text" name="name" autocomplete="name" maxlength="80"></label>
           <label>Telegram или телефон<input type="text" name="contact" autocomplete="tel" maxlength="80" placeholder="@username или +7 ..."></label>
+          <label>Ваш бизнес<input type="text" name="biz" maxlength="200" placeholder="Название или ссылка: VK, Instagram, Авито, 2ГИС"></label>
           <div class="lb">Что нужно</div>
           <div class="filter" role="group" aria-label="Что нужно" data-role="need"></div>
           <label>Пример сайта, который нравится<input type="text" name="example" maxlength="300" placeholder="Ссылка и что в нём нравится, если есть"></label>
@@ -1414,7 +1415,7 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var f = form.elements, bad = null;
-    ['name', 'contact'].forEach(function (n) {
+    ['name', 'contact', 'biz'].forEach(function (n) {
       var empty = !f[n].value.trim();
       f[n].classList.toggle('err', empty);
       if (empty && !bad) bad = f[n];
@@ -1430,7 +1431,7 @@
       if (+opts[i].dataset.month) month += +opts[i].dataset.our; else sum += +opts[i].dataset.our;
     });
     var fmt = function (n) { return n.toLocaleString('ru-RU'); };
-    var lines = ['Здравствуйте! Заявка с сайта.', 'Имя: ' + f.name.value.trim(), 'Контакт: ' + f.contact.value.trim()];
+    var lines = ['Здравствуйте! Заявка с сайта.', 'Имя: ' + f.name.value.trim(), 'Контакт: ' + f.contact.value.trim(), 'Бизнес: ' + f.biz.value.trim()];
     if (names.length) lines.push('Нужно: ' + names.join(', '));
     if (sum) lines.push('Ориентир: от ' + fmt(sum) + ' ₽' + (month ? ' + поддержка от ' + fmt(month) + ' ₽ в месяц' : ''));
     if (f.example.value.trim()) lines.push('Пример сайта: ' + f.example.value.trim());
@@ -1456,7 +1457,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: f.name.value, contact: f.contact.value, about: f.about.value, example: f.example.value, need: names,
+        name: f.name.value, contact: f.contact.value, biz: f.biz.value, about: f.about.value, example: f.example.value, need: names,
         estimate: sum ? 'от ' + fmt(sum) + ' ₽' + (month ? ' + поддержка от ' + fmt(month) + ' ₽ в месяц' : '') : '',
         consent: true, website: f.website.value
       })
