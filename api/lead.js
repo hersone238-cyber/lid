@@ -56,14 +56,31 @@ module.exports = async function handler(req, res) {
     (about ? `\n\n💬 ${esc(about)}` : '') +
     (flags.length ? `\n\n⚠️ ${flags.map(esc).join(', ')}` : '');
 
-  const sent = await Promise.all(chats.map((chat_id) =>
-    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id, text, parse_mode: 'HTML', disable_web_page_preview: true }),
-    }).then((r) => r.ok).catch(() => false)
-  ));
+  const tg = (method, params) => fetch(`https://api.telegram.org/bot${token}/${method}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  }).then((r) => r.json()).catch(() => ({ ok: false }));
 
-  if (!sent.some(Boolean)) return res.status(502).json({ error: 'Не получилось отправить' });
+  const results = await Promise.all(chats.map((chat_id) =>
+    tg('sendMessage', { chat_id, text, parse_mode: 'HTML', disable_web_page_preview: true })
+  ));
+  const sent = results.filter((r) => r.ok).map((r) => `${r.result.chat.id}:${r.result.message_id}`);
+
+  // Кнопки «Беру» и «Написать». В callback_data — все копии заявки, чтобы api/bot.js отметил её у всех.
+  if (sent.length) {
+    let data = 't|' + sent[0];
+    for (const m of sent.slice(1)) if ((data + ';' + m).length <= 64) data += ';' + m;
+    const write = user ? `https://t.me/${user[1]}`
+      : digits.length >= 10 ? `https://t.me/+${digits.replace(/^8/, '7')}` : null;
+    const keyboard = [[{ text: '✋ Беру', callback_data: data }]];
+    if (write) keyboard.push([{ text: '✉️ Написать', url: write }]);
+    await Promise.all(sent.map((m) => {
+      const [chat_id, message_id] = m.split(':');
+      return tg('editMessageReplyMarkup', { chat_id, message_id: +message_id, reply_markup: { inline_keyboard: keyboard } });
+    }));
+  }
+
+  if (!sent.length) return res.status(502).json({ error: 'Не получилось отправить' });
   return res.status(200).json({ ok: true });
 };
