@@ -2,20 +2,9 @@
   "redirects": [
     {
       "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.suslovdev.ru"
-        }
-      ],
+      "has": [{ "type": "host", "value": "www.suslovdev.ru" }],
       "destination": "/portfolio/",
       "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/profil54/api/:path*",
-      "destination": "https://profil54-mebel.vercel.app/api/:path*"
     }
   ]
 }
