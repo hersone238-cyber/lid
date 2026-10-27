@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мебель на заказ в Новосибирске напрямую с производства | ПРОФИЛЬ-54</title>
+<meta name="description" content="Кухни, шкафы и корпусная мебель на заказ в Новосибирске. Собственное производство, без наценки салона. Бесплатный замер и 3D-проект в подарок.">
+<meta property="og:title" content="Мебель на заказ в Новосибирске напрямую с производства">
+<meta property="og:description" content="Кухни и шкафы без наценки салона. Бесплатный замер, 3D-проект в подарок.">
+<meta property="og:image" content="img/kitchen-1.webp">
+<meta name="theme-color" content="#1d1b19">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4efe8; --paper:#fbf8f4; --ink:#1d1b19; --muted:#6d655c; --line:#e2d9cd;
+  --wood:#a8693a; --wood-d:#8a5329; --dark:#1d1b19; --dark-2:#2a2724;
+  --r:18px; --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font:400 17px/1.6 Onest,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:Manrope,sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.sec{padding:96px 0}
+.lead{color:var(--muted);font-size:18px;max-width:620px}
+.tag{display:inline-block;font:600 13px/1 Onest;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:14px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 28px;border-radius:999px;font:600 16px Onest;cursor:pointer;border:0;transition:transform .16s ease,background-color .2s ease}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-main{background:var(--wood);color:#fff}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px)}
+.btn-dark{background:var(--ink);color:#fff}
+@media (hover:hover){
+  .btn-main:hover{background:var(--wood-d)}
+  .btn-ghost:hover{background:rgba(255,255,255,.22)}
+  .btn-dark:hover{background:#3a3632}
+}
+
+/* header */
+.hd{position:fixed;inset:0 0 auto;z-index:20;transition:background-color .25s ease,box-shadow .25s ease}
+.hd.on{background:rgba(29,27,25,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;color:#fff}
+.logo{font:800 20px Manrope;letter-spacing:-.01em}
+.logo span{color:#d9a777}
+.nav{display:flex;gap:28px;font-size:15px}
+.nav a{opacity:.8;transition:opacity .2s}
+.nav a:hover{opacity:1}
+.hd-phone{font:600 16px Onest;white-space:nowrap}
+@media (max-width:900px){.nav{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--dark)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,16,.55) 0%,rgba(20,18,16,.1) 35%,rgba(20,18,16,.85) 100%)}
+.hero .wrap{position:relative;z-index:1;padding-bottom:72px;padding-top:120px;width:100%}
+.hero h1{font-size:clamp(38px,6.4vw,76px);max-width:900px;margin-bottom:20px}
+.hero p{font-size:clamp(17px,2vw,20px);max-width:600px;opacity:.9;margin-bottom:32px}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.chips span{font-size:14px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+
+/* benefits */
+.ben{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.ben div{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.ben b{display:block;font:800 22px/1.2 Manrope;margin-bottom:8px}
+.ben p{color:var(--muted);font-size:15px}
+@media (max-width:900px){.ben{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.ben{grid-template-columns:1fr}}
+
+/* works */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 24px}
+.filters button{height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font:500 15px Onest;color:var(--ink);cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
+.filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{position:relative;border-radius:var(--r);overflow:hidden;background:#ddd;cursor:zoom-in;aspect-ratio:4/5}
+.card.wide{grid-column:span 2;aspect-ratio:auto}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.card figcaption{position:absolute;left:12px;bottom:12px;font-size:14px;font-weight:500;color:#fff;background:rgba(20,18,16,.6);backdrop-filter:blur(6px);padding:6px 12px;border-radius:999px}
+@media (hover:hover){.card:hover img{transform:scale(1.04)}}
+.card.hide{display:none}
+@media (max-width:820px){.grid{grid-template-columns:1fr 1fr}.card.wide{grid-column:span 2}}
+@media (max-width:520px){.grid{gap:10px}}
+
+/* direct */
+.dark{background:var(--dark);color:#f2ece4}
+.dark .lead{color:#b9b0a5}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.cmp > div{border-radius:var(--r);padding:30px}
+.cmp .them{background:var(--dark-2)}
+.cmp .us{background:var(--wood);color:#fff}
+.cmp h3{font-size:22px;margin-bottom:18px}
+.cmp li{list-style:none;padding:12px 0;border-top:1px solid rgba(255,255,255,.12);font-size:16px}
+.cmp .them li{color:#b9b0a5}
+@media (max-width:760px){.cmp{grid-template-columns:1fr}}
+
+.shop{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-top:80px}
+.shop-ph{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.shop-ph img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;width:100%}
+.shop-ph img:first-child{grid-row:span 2;aspect-ratio:auto;height:100%}
+.shop p{color:#b9b0a5;margin-top:14px}
+@media (max-width:820px){.shop{grid-template-columns:1fr;gap:28px}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;counter-reset:s}
+.steps div{counter-increment:s;padding:28px 24px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r)}
+.steps div:before{content:"0" counter(s);display:block;font:800 15px Manrope;color:var(--wood);margin-bottom:28px}
+.steps b{display:block;font:700 19px/1.25 Manrope;margin-bottom:8px}
+.steps p{color:var(--muted);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* story */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.story-ph{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.story-ph img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;width:100%}
+.story blockquote{font:700 clamp(22px,2.6vw,30px)/1.3 Manrope;letter-spacing:-.01em;margin:6px 0 18px}
+.story p{color:var(--muted)}
+@media (max-width:820px){.story{grid-template-columns:1fr;gap:28px}}
+
+/* faq */
+.faq{margin-top:32px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font:700 19px/1.3 Manrope;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-70%) rotate(45deg);transition:transform .2s ease}
+.faq details[open] summary:after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{padding:0 0 22px;color:var(--muted);max-width:760px}
+
+/* contacts */
+.cta{border-radius:28px;background:var(--dark);color:#fff;padding:56px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;overflow:hidden;position:relative}
+.cta h2{color:#fff}
+.cta .lead{color:#b9b0a5;margin-bottom:28px}
+.cta .acts{display:flex;flex-wrap:wrap;gap:12px}
+.info{display:grid;gap:18px}
+.info div{padding:18px 20px;border-radius:14px;background:var(--dark-2)}
+.info small{display:block;color:#9a9086;font-size:13px;margin-bottom:4px}
+.info b{font:700 18px Manrope}
+@media (max-width:860px){.cta{grid-template-columns:1fr;padding:36px 22px}}
+
+.ft{padding:36px 0 110px;color:var(--muted);font-size:14px}
+.ft .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* mobile bar */
+.mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:none;gap:8px;transform:translateY(140%);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.mbar.on{transform:none}
+.mbar .btn{flex:1;height:52px;padding:0 12px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+@media (max-width:760px){.mbar{display:flex}.hd-phone{display:none}}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(15,14,13,.94);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.lb.on{opacity:1;pointer-events:auto}
+.lb img{max-width:92vw;max-height:86vh;border-radius:10px;object-fit:contain}
+.lb button{position:absolute;width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:26px;cursor:pointer}
+.lb .x{top:16px;right:16px}
+.lb .pv{left:16px;top:50%;transform:translateY(-50%)}
+.lb .nx{right:16px;top:50%;transform:translateY(-50%)}
+.lb .cap{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#ddd;font-size:15px}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hd" id="hd">
+  <div class="wrap">
+    <a href="#top" class="logo">ПРОФИЛЬ<span>-54</span></a>
+    <nav class="nav">
+      <a href="#works">Работы</a>
+      <a href="#direct">Почему напрямую</a>
+      <a href="#steps">Как работаем</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="hd-phone" href="tel:+79134870048">+7 913 487-00-48</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <img src="img/kitchen-2.webp" alt="Кухня на заказ со светлыми фасадами и каменным фартуком" fetchpriority="high">
+  <div class="wrap">
+    <h1>Кухни и шкафы на заказ в Новосибирске напрямую с производства</h1>
+    <p>Делаем мебель сами, в своём цеху. Вы платите за материалы и работу, без наценки салона.</p>
+    <div class="acts">
+      <a class="btn btn-main" href="https://vk.me/mebnvsbk" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.8 17.3c-5.5 0-8.6-3.8-8.7-10h2.8c.1 4.6 2.1 6.5 3.7 6.9V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6a7.7 7.7 0 0 1-3.5 5 7.9 7.9 0 0 1 4.1 5h-2.9a5 5 0 0 0-4.1-3.6v3.6h-.4z"/></svg>
+        Написать в VK
+      </a>
+      <a class="btn btn-ghost" href="tel:+79134870048">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+        Позвонить
+      </a>
+    </div>
+    <div class="chips">
+      <span>Бесплатный замер</span>
+      <span>3D-проект в подарок</span>
+      <span>Гарантия на мебель и фурнитуру</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <span class="tag rv">Что вы получаете</span>
+    <h2 class="rv">Мебель под ваши размеры и ваш бюджет</h2>
+    <div class="ben">
+      <div class="rv"><b>Своё производство</b><p>Пилим, кромим и собираем сами. Многие салоны заказывают мебель у таких цехов, как наш.</p></div>
+      <div class="rv"><b>Цена без посредника</b><p>Наценка салона доходит до 50–100%. У нас вы её не платите.</p></div>
+      <div class="rv"><b>Нестандартные размеры</b><p>Ниши, скосы, короба и трубы. Подгоняем мебель под комнату, а не наоборот.</p></div>
+      <div class="rv"><b>Контроль на каждом этапе</b><p>По запросу покажем, как идёт работа над вашим заказом прямо в цеху.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="works" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag rv">Наши работы</span>
+    <h2 class="rv">Сделано и установлено в Новосибирске</h2>
+    <p class="lead rv">Реальные фото с объектов, без рендеров. Нажмите на фото, чтобы открыть крупно.</p>
+    <div class="filters rv" id="filters">
+      <button class="on" data-f="all">Все</button>
+      <button data-f="kitchen">Кухни</button>
+      <button data-f="wardrobe">Шкафы</button>
+      <button data-f="bath">Санузлы</button>
+    </div>
+    <div class="grid" id="grid">
+      <figure class="card wide rv" data-c="kitchen"><img src="img/kitchen-1.webp" alt="Прямая кухня до потолка со встроенной техникой" loading="lazy"><figcaption>Кухня до потолка</figcaption></figure>
+      <figure class="card rv" data-c="wardrobe"><img src="img/hall-1.webp" alt="Шкаф-купе в прихожую с зеркальными дверями" loading="lazy"><figcaption>Шкаф-купе в прихожую</figcaption></figure>
+      <figure class="card rv" data-c="wardrobe"><img src="img/bedroom-1.webp" alt="Белый распашной шкаф в спальню" loading="lazy"><figcaption>Шкаф в спальню</figcaption></figure>
+      <figure class="card rv" data-c="bath"><img src="img/bath-2.webp" alt="Шкаф в санузле с подсветкой ниши" loading="lazy"><figcaption>Шкаф в санузел с подсветкой</figcaption></figure>
+      <figure class="card rv" data-c="wardrobe"><img src="img/hall-2.webp" alt="Наполнение шкафа-купе: полки и штанга" loading="lazy"><figcaption>Наполнение купе</figcaption></figure>
+      <figure class="card wide rv" data-c="kitchen"><img src="img/kitchen-3.webp" alt="Кухня с пеналами под технику и каменным фартуком" loading="lazy"><figcaption>Кухня с пеналами под технику</figcaption></figure>
+      <figure class="card rv" data-c="wardrobe"><img src="img/bedroom-2.webp" alt="Открытый шкаф с полками и штангой" loading="lazy"><figcaption>Внутри шкафа в спальню</figcaption></figure>
+      <figure class="card rv" data-c="bath"><img src="img/bath-1.webp" alt="Закрытый шкаф над инсталляцией в санузле" loading="lazy"><figcaption>Скрыли трубы и счётчики</figcaption></figure>
+      <figure class="card rv" data-c="bath"><img src="img/bath-3.webp" alt="Открытый шкаф в санузле: полки и доступ к коммуникациям" loading="lazy"><figcaption>Доступ к коммуникациям</figcaption></figure>
+      <figure class="card rv" data-c="kitchen"><img src="img/kitchen-2.webp" alt="Светлая кухня с каменным фартуком, вид от входа" loading="lazy"><figcaption>Кухня с каменным фартуком</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark" id="direct">
+  <div class="wrap">
+    <span class="tag rv">Почему напрямую</span>
+    <h2 class="rv">Та же мебель, что в салоне, только без переплаты</h2>
+    <p class="lead rv">Салоны часто не производят мебель сами. Они заказывают её у цехов вроде нашего и добавляют свою комиссию.</p>
+    <div class="cmp">
+      <div class="them rv">
+        <h3>Через салон</h3>
+        <ul>
+          <li>Платите за аренду шоурума и зарплаты менеджеров</li>
+          <li>Наценка до 50–100% сверху</li>
+          <li>Сроки зависят от «согласований с поставщиком»</li>
+          <li>Не видите, кто и как делает вашу мебель</li>
+        </ul>
+      </div>
+      <div class="us rv">
+        <h3>Напрямую у нас</h3>
+        <ul>
+          <li>Платите только за материалы и работу</li>
+          <li>Говорите с теми, кто делает мебель</li>
+          <li>Точные сроки, потому что всё делаем сами</li>
+          <li>Можно приехать в цех и посмотреть на свой заказ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shop">
+      <div class="shop-ph rv">
+        <img src="img/shop-1.webp" alt="Цех по производству мебели" loading="lazy">
+        <img src="img/shop-2.webp" alt="Раскроенные детали из ЛДСП" loading="lazy">
+        <img src="img/shop-3.webp" alt="Собранные корпуса шкафа перед отправкой" loading="lazy">
+      </div>
+      <div class="rv">
+        <span class="tag">Наш цех</span>
+        <h2>Здесь пыльно и шумно. Зато всё под контролем</h2>
+        <p>Каждый лист ЛДСП, МДФ или массива проходит через руки мастера. Распил, кромка, сборка корпусов и проверка фурнитуры делаются у нас, а не на чужом складе.</p>
+        <p>Не экономим на материалах и фурнитуре: мебель должна служить долго, а не до конца гарантии.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="steps">
+  <div class="wrap">
+    <span class="tag rv">Как работаем</span>
+    <h2 class="rv">От первого сообщения до установки</h2>
+    <div class="steps">
+      <div class="rv"><b>Пишете или звоните</b><p>Расскажите, что нужно: кухня, шкаф, прихожая. Можно прислать фото помещения.</p></div>
+      <div class="rv"><b>Бесплатный замер</b><p>Приезжаем, снимаем точные размеры и обсуждаем материалы и бюджет.</p></div>
+      <div class="rv"><b>3D-проект в подарок</b><p>Рисуем мебель в вашем интерьере. Вы видите результат до начала работ.</p></div>
+      <div class="rv"><b>Производство и установка</b><p>Делаем в своём цеху, привозим и собираем. Даём гарантию на мебель и фурнитуру.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap story">
+    <div class="story-ph rv">
+      <img src="img/hall-1.webp" alt="Шкаф-купе в прихожей у соседа" loading="lazy">
+      <img src="img/bedroom-1.webp" alt="Шкаф в спальне клиента" loading="lazy">
+    </div>
+    <div class="rv">
+      <span class="tag">Из нашей практики</span>
+      <blockquote>Приехали на замер шкафа в спальню, а сосед напротив сразу позвал к себе делать прихожую.</blockquote>
+      <p>Оба шкафа поставили в одну субботу: утром спальня, днём прихожая. Для нас это лучшая оценка работы: клиент доволен настолько, что сосед звонит в тот же день.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag rv">Вопросы</span>
+    <h2 class="rv">Частые вопросы</h2>
+    <div class="faq rv">
+      <details><summary>Сколько стоит кухня или шкаф?</summary><p>Цена зависит от размеров, материалов и фурнитуры. Напишите нам размеры или фото помещения, и мы сделаем предварительный расчёт. Точную цену назовём после бесплатного замера.</p></details>
+      <details><summary>Замер правда бесплатный?</summary><p>Да. Приезжаем, снимаем размеры и консультируем по материалам. Вас это ни к чему не обязывает.</p></details>
+      <details><summary>Что входит в 3D-проект?</summary><p>Мы рисуем мебель в вашем помещении с выбранными цветами и фасадами. Так вы видите, как всё будет выглядеть, до начала производства.</p></details>
+      <details><summary>Делаете мебель нестандартных размеров?</summary><p>Да, это основная наша работа. Ниши, скосы, короба, мебель до потолка и под трубы.</p></details>
+      <details><summary>Какая гарантия?</summary><p>Даём гарантию на всю мебель и фурнитуру. Срок обсуждаем и фиксируем при заказе.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <div>
+        <h2>Расскажите, какая мебель вам нужна</h2>
+        <p class="lead">Ответим в рабочее время, сделаем расчёт и договоримся о бесплатном замере.</p>
+        <div class="acts">
+          <a class="btn btn-main" href="https://vk.me/mebnvsbk" target="_blank" rel="noopener">Написать в VK</a>
+          <a class="btn btn-ghost" href="tel:+79134870048">+7 913 487-00-48</a>
+        </div>
+      </div>
+      <div class="info">
+        <div><small>Телефон</small><b><a href="tel:+79134870048">+7 913 487-00-48</a></b></div>
+        <div><small>Где мы</small><b>Новосибирск, Первомайский район</b></div>
+        <div><small>Группа ВКонтакте</small><b><a href="https://vk.ru/mebnvsbk" target="_blank" rel="noopener">vk.ru/mebnvsbk</a></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="wrap">
+    <span>© 2026 ПРОФИЛЬ-54. Мебель на заказ в Новосибирске</span>
+    <span>Собственное производство</span>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a class="btn btn-main" href="https://vk.me/mebnvsbk" target="_blank" rel="noopener">Написать в VK</a>
+  <a class="btn btn-dark" href="tel:+79134870048">Позвонить</a>
+</div>
+
+<div class="lb" id="lb" aria-hidden="true">
+  <img alt="">
+  <button class="x" aria-label="Закрыть">×</button>
+  <button class="pv" aria-label="Назад">‹</button>
+  <button class="nx" aria-label="Вперёд">›</button>
+  <div class="cap"></div>
+</div>
+
+<script>
+const hd=document.getElementById('hd'),mbar=document.getElementById('mbar');
+const onScroll=()=>{const y=scrollY;hd.classList.toggle('on',y>40);mbar.classList.toggle('on',y>innerHeight*.6)};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+const cards=[...document.querySelectorAll('.card')];
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+  cards.forEach(c=>c.classList.toggle('hide',b.dataset.f!=='all'&&c.dataset.c!==b.dataset.f));
+});
+
+const lb=document.getElementById('lb'),lbImg=lb.querySelector('img'),lbCap=lb.querySelector('.cap');let cur=0;
+const vis=()=>cards.filter(c=>!c.classList.contains('hide'));
+const show=i=>{const v=vis();cur=(i+v.length)%v.length;const im=v[cur].querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lbCap.textContent=v[cur].querySelector('figcaption').textContent};
+cards.forEach(c=>c.addEventListener('click',()=>{show(vis().indexOf(c));lb.classList.add('on');lb.setAttribute('aria-hidden','false')}));
+const close=()=>{lb.classList.remove('on');lb.setAttribute('aria-hidden','true')};
+lb.querySelector('.x').onclick=close;
+lb.querySelector('.pv').onclick=e=>{e.stopPropagation();show(cur-1)};
+lb.querySelector('.nx').onclick=e=>{e.stopPropagation();show(cur+1)};
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+</script>
+</body>
+</html>
