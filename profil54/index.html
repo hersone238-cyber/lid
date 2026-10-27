@@ -77,7 +77,7 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 24px}
 .filters button{height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font:500 15px Onest;color:var(--ink);cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
 .filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;grid-auto-flow:dense}
 .card{position:relative;border-radius:var(--r);overflow:hidden;background:#ddd;cursor:zoom-in;aspect-ratio:4/5}
 .card.wide{grid-column:span 2;aspect-ratio:auto}
 .card img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
@@ -162,6 +162,51 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
 .lb .nx{right:16px;top:50%;transform:translateY(-50%)}
 .lb .cap{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#ddd;font-size:15px}
 
+/* forms */
+.lform,.rform{display:grid;gap:12px;margin-top:4px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lform input:not([type=checkbox]):not([type=radio]),.lform textarea,.rform input:not([type=checkbox]),.rform textarea{width:100%;font:400 16px Onest,sans-serif;padding:15px 16px;border-radius:14px;border:1px solid transparent;outline:none;transition:border-color .2s}
+.lform input:not([type=checkbox]):not([type=radio]),.lform textarea{background:var(--dark-2);color:#fff;border-color:#3a3632}
+.lform input::placeholder,.lform textarea::placeholder{color:#8f867c}
+.lform input:focus,.lform textarea:focus{border-color:#d9a777}
+.rform{max-width:620px;margin-top:20px}
+.rform input:not([type=checkbox]),.rform textarea{background:var(--paper);color:var(--ink);border-color:var(--line)}
+.rform input:focus,.rform textarea:focus{border-color:var(--wood)}
+textarea{resize:vertical}
+.needs{display:flex;flex-wrap:wrap;gap:8px}
+.needs input{position:absolute;opacity:0;pointer-events:none}
+.needs span{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid #4a4540;color:#d8d0c6;font-size:15px;cursor:pointer;transition:background-color .2s,border-color .2s}
+.needs input:checked+span{background:#d9a777;border-color:#d9a777;color:#1d1b19}
+.needs input:focus-visible+span{outline:2px solid #d9a777;outline-offset:2px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.45;cursor:pointer}
+.chk input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--wood)}
+.cta .chk{color:#b9b0a5}
+.cta .chk a,.alt a{color:#d9a777}
+.rform .chk{color:var(--muted)}
+.chk a{color:var(--wood)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fmsg{font-size:15px;min-height:1.2em;margin:0}
+.fmsg.err{color:#e0806a}.fmsg.ok{color:#7fc49a}
+.rform .fmsg.err{color:#b4442c}.rform .fmsg.ok{color:#2f7d4f}
+.alt{margin-top:18px;color:#b9b0a5;font-size:15px}
+.lform .btn,.rform .btn{justify-self:start}
+.btn[disabled]{opacity:.6;pointer-events:none}
+@media (max-width:520px){.row2{grid-template-columns:1fr}.lform .btn,.rform .btn{justify-self:stretch}}
+/* reviews */
+.revs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:32px 0 24px}
+.revs:empty{display:none}
+.rev{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.rev .st{color:var(--wood);letter-spacing:2px;margin-bottom:10px}
+.rev p{margin-bottom:14px}
+.rev b{font:700 16px Manrope}
+.rev small{color:var(--muted);margin-left:8px}
+#revs-empty{margin:20px 0 24px}
+.stars{display:flex;gap:4px}
+.stars button{font-size:30px;line-height:1;background:none;border:0;color:#d5cabd;cursor:pointer;padding:2px}
+.stars button.on{color:var(--wood)}
+.ft a{color:inherit}
+
+[hidden]{display:none!important}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}.rv{opacity:1;transform:none}}
@@ -179,25 +224,24 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
       <a href="#faq">Вопросы</a>
       <a href="#contacts">Контакты</a>
     </nav>
-    <a class="hd-phone" href="tel:+79134870048">+7 913 487-00-48</a>
+    <a class="hd-phone" href="tel:+79134870048" data-tel data-phone>+7 913 487-00-48</a>
   </div>
 </header>
 
 <section class="hero" id="top">
   <img src="img/kitchen-2.webp" alt="Кухня на заказ со светлыми фасадами и каменным фартуком" fetchpriority="high">
   <div class="wrap">
-    <h1>Кухни и шкафы на заказ в Новосибирске напрямую с производства</h1>
-    <p>Делаем мебель сами, в своём цеху. Вы платите за материалы и работу, без наценки салона.</p>
+    <h1 data-s="title">Кухни и шкафы на заказ в Новосибирске напрямую с производства</h1>
+    <p data-s="subtitle">Делаем мебель сами, в своём цеху. Вы платите за материалы и работу, без наценки салона.</p>
     <div class="acts">
-      <a class="btn btn-main" href="https://t.me/profil54_bot?start=site" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.3-.2 1.6l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.6zM9.4 14.1l8.5-5.4c.4-.3.8-.1.5.2l-7 6.4-.3 3.3-1.7-4.5z"/></svg>
+      <a class="btn btn-main" href="#form">
         Записаться на замер
       </a>
-      <a class="btn btn-ghost" href="https://vk.me/mebnvsbk" target="_blank" rel="noopener">
+      <a class="btn btn-ghost" href="https://vk.me/mebnvsbk" data-vkme target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.8 17.3c-5.5 0-8.6-3.8-8.7-10h2.8c.1 4.6 2.1 6.5 3.7 6.9V7.3h2.6v4c1.6-.2 3.3-2 3.8-4h2.6a7.7 7.7 0 0 1-3.5 5 7.9 7.9 0 0 1 4.1 5h-2.9a5 5 0 0 0-4.1-3.6v3.6h-.4z"/></svg>
         Написать в VK
       </a>
-      <a class="btn btn-ghost" href="tel:+79134870048">
+      <a class="btn btn-ghost" href="tel:+79134870048" data-tel>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
         Позвонить
       </a>
@@ -318,6 +362,27 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
   </div>
 </section>
 
+<section class="sec" id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag rv">Отзывы</span>
+    <h2 class="rv">Что говорят клиенты</h2>
+    <div class="revs" id="revs"></div>
+    <p class="lead rv" id="revs-empty">Заказывали у нас мебель? Расскажите, как всё прошло. Отзыв появится на сайте после проверки.</p>
+    <button class="btn btn-dark rv" id="rev-open" type="button">Оставить отзыв</button>
+    <form class="rform" id="rform" hidden novalidate>
+      <div class="stars" id="stars" role="radiogroup" aria-label="Оценка">
+        <button type="button" data-v="1" aria-label="1">★</button><button type="button" data-v="2" aria-label="2">★</button><button type="button" data-v="3" aria-label="3">★</button><button type="button" data-v="4" aria-label="4">★</button><button type="button" data-v="5" aria-label="5">★</button>
+      </div>
+      <input name="name" placeholder="Ваше имя" maxlength="60" autocomplete="given-name" required>
+      <textarea name="text" placeholder="Что заказывали и как всё прошло" maxlength="1000" rows="4" required></textarea>
+      <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="chk"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank">политику конфиденциальности</a></span></label>
+      <button class="btn btn-main" type="submit">Отправить отзыв</button>
+      <p class="fmsg" role="status"></p>
+    </form>
+  </div>
+</section>
+
 <section class="sec" id="faq" style="padding-top:0">
   <div class="wrap">
     <span class="tag rv">Вопросы</span>
@@ -334,20 +399,35 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
 
 <section class="sec" id="contacts" style="padding-top:0">
   <div class="wrap">
-    <div class="cta rv">
+    <div class="cta rv" id="form">
       <div>
-        <h2>Расскажите, какая мебель вам нужна</h2>
-        <p class="lead">Оставьте номер в Telegram, и мы перезвоним, чтобы договориться о бесплатном замере.</p>
-        <div class="acts">
-          <a class="btn btn-main" href="https://t.me/profil54_bot?start=site" target="_blank" rel="noopener">Записаться на замер</a>
-          <a class="btn btn-ghost" href="https://vk.me/mebnvsbk" target="_blank" rel="noopener">Написать в VK</a>
-          <a class="btn btn-ghost" href="tel:+79134870048">+7 913 487-00-48</a>
-        </div>
+        <h2>Запишитесь на бесплатный замер</h2>
+        <p class="lead">Оставьте имя и телефон, и мы перезвоним, чтобы договориться о времени.</p>
+        <form class="lform" id="lform" novalidate>
+          <div class="row2">
+            <input name="name" placeholder="Ваше имя" maxlength="60" autocomplete="given-name" required>
+            <input name="phone" type="tel" placeholder="Телефон" maxlength="30" autocomplete="tel" required>
+          </div>
+          <div class="needs" id="needs">
+            <label><input type="radio" name="need" value="Кухня"><span>Кухня</span></label>
+            <label><input type="radio" name="need" value="Шкаф"><span>Шкаф</span></label>
+            <label><input type="radio" name="need" value="Прихожая"><span>Прихожая</span></label>
+            <label><input type="radio" name="need" value="Мебель в санузел"><span>В санузел</span></label>
+            <label><input type="radio" name="need" value="Другое"><span>Другое</span></label>
+          </div>
+          <textarea name="comment" placeholder="Комментарий: размеры, пожелания, удобное время для звонка" maxlength="500" rows="3"></textarea>
+          <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="chk"><input type="checkbox" name="consent"> <span>Даю <a href="consent.html" target="_blank">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank">политику конфиденциальности</a></span></label>
+          <button class="btn btn-main" type="submit">Отправить заявку</button>
+          <p class="fmsg" role="status"></p>
+        </form>
+        <p class="alt">Удобнее в мессенджере? <a href="https://t.me/profil54_bot?start=site" target="_blank" rel="noopener">Запишитесь через Telegram</a> или <a href="https://vk.me/mebnvsbk" data-vkme target="_blank" rel="noopener">напишите в VK</a>.</p>
       </div>
       <div class="info">
-        <div><small>Телефон</small><b><a href="tel:+79134870048">+7 913 487-00-48</a></b></div>
-        <div><small>Где мы</small><b>Новосибирск, Первомайский район</b></div>
-        <div><small>Группа ВКонтакте</small><b><a href="https://vk.ru/mebnvsbk" target="_blank" rel="noopener">vk.ru/mebnvsbk</a></b></div>
+        <div><small>Телефон</small><b><a href="tel:+79134870048" data-tel data-phone>+7 913 487-00-48</a></b></div>
+        <div data-wrap="address"><small>Где мы</small><b data-s="address">Новосибирск, Первомайский район</b></div>
+        <div data-wrap="hours" hidden><small>Режим работы</small><b data-s="hours"></b></div>
+        <div data-wrap="vk"><small>Группа ВКонтакте</small><b><a href="https://vk.ru/mebnvsbk" target="_blank" rel="noopener" data-vk>vk.ru/mebnvsbk</a></b></div>
       </div>
     </div>
   </div>
@@ -356,13 +436,13 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
 <footer class="ft">
   <div class="wrap">
     <span>© 2026 ПРОФИЛЬ-54. Мебель на заказ в Новосибирске</span>
-    <span>Собственное производство</span>
+    <span>Верин Михаил Сергеевич, ИНН 223802099975 · <a href="privacy.html">Политика конфиденциальности</a></span>
   </div>
 </footer>
 
 <div class="mbar" id="mbar">
-  <a class="btn btn-main" href="https://t.me/profil54_bot?start=site" target="_blank" rel="noopener">Записаться</a>
-  <a class="btn btn-dark" href="tel:+79134870048">Позвонить</a>
+  <a class="btn btn-main" href="#form">Записаться</a>
+  <a class="btn btn-dark" href="tel:+79134870048" data-tel>Позвонить</a>
 </div>
 
 <div class="lb" id="lb" aria-hidden="true">
@@ -374,30 +454,132 @@ h2{font-size:clamp(30px,4.4vw,48px);margin-bottom:14px}
 </div>
 
 <script>
-const hd=document.getElementById('hd'),mbar=document.getElementById('mbar');
+// Пути относительные: сайт работает и в корне домена, и в папке /profil54/ на suslovdev.ru
+const API='api/';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const hd=$('#hd'),mbar=$('#mbar');
 const onScroll=()=>{const y=scrollY;hd.classList.toggle('on',y>40);mbar.classList.toggle('on',y>innerHeight*.6)};
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const watch=root=>root.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
+watch(document);
 
-const cards=[...document.querySelectorAll('.card')];
-document.getElementById('filters').addEventListener('click',e=>{
+// ---------- работы: фильтр и просмотр ----------
+const grid=$('#grid'),filters=$('#filters');
+const cards=()=>[...grid.querySelectorAll('.card')];
+let filter='all';
+const applyFilter=()=>cards().forEach(c=>c.classList.toggle('hide',filter!=='all'&&c.dataset.c!==filter));
+filters.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
-  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
-  cards.forEach(c=>c.classList.toggle('hide',b.dataset.f!=='all'&&c.dataset.c!==b.dataset.f));
+  filter=b.dataset.f;
+  filters.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  applyFilter();
 });
 
-const lb=document.getElementById('lb'),lbImg=lb.querySelector('img'),lbCap=lb.querySelector('.cap');let cur=0;
-const vis=()=>cards.filter(c=>!c.classList.contains('hide'));
-const show=i=>{const v=vis();cur=(i+v.length)%v.length;const im=v[cur].querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lbCap.textContent=v[cur].querySelector('figcaption').textContent};
-cards.forEach(c=>c.addEventListener('click',()=>{show(vis().indexOf(c));lb.classList.add('on');lb.setAttribute('aria-hidden','false')}));
+const lb=$('#lb'),lbImg=lb.querySelector('img'),lbCap=lb.querySelector('.cap');let cur=0;
+const vis=()=>cards().filter(c=>!c.classList.contains('hide'));
+const show=i=>{const v=vis();cur=(i+v.length)%v.length;const im=v[cur].querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lbCap.textContent=v[cur].querySelector('figcaption')?.textContent||''};
+grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;show(vis().indexOf(c));lb.classList.add('on');lb.setAttribute('aria-hidden','false')});
 const close=()=>{lb.classList.remove('on');lb.setAttribute('aria-hidden','true')};
 lb.querySelector('.x').onclick=close;
 lb.querySelector('.pv').onclick=e=>{e.stopPropagation();show(cur-1)};
 lb.querySelector('.nx').onclick=e=>{e.stopPropagation();show(cur+1)};
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
 addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+
+// ---------- данные из админ-панели ----------
+const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n};
+
+function renderWorks(works,cats){
+  if(!works.length)return;
+  grid.replaceChildren(...works.map((w,i)=>{
+    const f=el('figure','card rv'+(i%5===0?' wide':''));f.dataset.c=w.cat;
+    const img=el('img');img.src=w.src;img.alt=w.caption||'Наша работа';img.loading='lazy';
+    f.append(img);if(w.caption)f.append(el('figcaption',null,w.caption));
+    return f;
+  }));
+  const used=cats.filter(c=>works.some(w=>w.cat===c.id));
+  if(!used.some(c=>c.id===filter))filter='all';
+  const all=el('button',filter==='all'?'on':'','Все');all.dataset.f='all';
+  filters.replaceChildren(all,...used.map(c=>{const b=el('button',filter===c.id?'on':'',c.name);b.dataset.f=c.id;return b}));
+  filters.hidden=used.length<2;
+  applyFilter();watch(grid);
+}
+
+function renderSettings(st){
+  $$('[data-s]').forEach(n=>{const v=st[n.dataset.s];if(v!=null&&v!=='')n.textContent=v});
+  $$('[data-wrap]').forEach(n=>{n.hidden=!st[n.dataset.wrap]});
+  if(st.phone){
+    const tel='tel:+'+st.phone.replace(/\D/g,'').replace(/^8(?=\d{10}$)/,'7');
+    $$('[data-tel]').forEach(a=>a.href=tel);
+    $$('[data-phone]').forEach(a=>a.textContent=st.phone);
+  }
+  if(st.vk){
+    const vk=$('[data-vk]');vk.href=st.vk;vk.textContent=st.vk.replace(/^https?:\/\/(m\.)?/,'');
+    const slug=st.vk.split('/').filter(Boolean).pop();
+    $$('[data-vkme]').forEach(a=>a.href='https://vk.me/'+slug);
+  }
+}
+
+function renderReviews(list){
+  const box=$('#revs');
+  box.replaceChildren(...list.map(r=>{
+    const c=el('div','rev rv');
+    c.append(el('div','st','★'.repeat(r.rating)+'☆'.repeat(5-r.rating)),el('p',null,r.text));
+    const who=el('div');who.append(el('b',null,r.name),el('small',null,r.date.split('-').reverse().join('.')));
+    c.append(who);return c;
+  }));
+  $('#revs-empty').hidden=list.length>0;
+  watch(box);
+}
+
+fetch(API+'state').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  renderSettings(d.settings);renderWorks(d.works,d.categories);renderReviews(d.reviews);
+}).catch(()=>{});
+
+// ---------- формы ----------
+async function submit(form,url,data,okText){
+  const msg=form.querySelector('.fmsg'),btn=form.querySelector('[type=submit]');
+  msg.className='fmsg';msg.textContent='';
+  btn.disabled=true;
+  try{
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(j.error||'Не получилось отправить, попробуйте ещё раз');
+    form.reset();msg.classList.add('ok');msg.textContent=okText;return true;
+  }catch(e){msg.classList.add('err');msg.textContent=e.message==='Failed to fetch'?'Нет связи. Проверьте интернет и попробуйте ещё раз':e.message}
+  finally{btn.disabled=false}
+}
+const fail=(form,text)=>{const m=form.querySelector('.fmsg');m.className='fmsg err';m.textContent=text};
+
+const lform=$('#lform');
+lform.addEventListener('submit',e=>{
+  e.preventDefault();const f=lform.elements;
+  if(f.name.value.trim().length<2)return fail(lform,'Напишите, как к вам обращаться');
+  if(f.phone.value.replace(/\D/g,'').length<10)return fail(lform,'Проверьте номер телефона');
+  if(!f.consent.checked)return fail(lform,'Отметьте согласие на обработку данных');
+  submit(lform,API+'lead',{name:f.name.value,phone:f.phone.value,need:(lform.querySelector('[name=need]:checked')||{}).value||'',comment:f.comment.value,website:f.website.value,consent:true},
+    'Спасибо! Заявка отправлена, мы перезвоним вам в ближайшее время.');
+});
+
+const rform=$('#rform');let rating=5;
+const paint=()=>$$('#stars button').forEach(b=>b.classList.toggle('on',+b.dataset.v<=rating));paint();
+$('#stars').addEventListener('click',e=>{const b=e.target.closest('button');if(b){rating=+b.dataset.v;paint()}});
+$('#rev-open').addEventListener('click',e=>{rform.hidden=false;e.currentTarget.hidden=true;rform.elements.name.focus()});
+rform.addEventListener('submit',e=>{
+  e.preventDefault();const f=rform.elements;
+  if(f.name.value.trim().length<2)return fail(rform,'Напишите ваше имя');
+  if(f.text.value.trim().length<10)return fail(rform,'Напишите отзыв чуть подробнее');
+  if(!f.consent.checked)return fail(rform,'Отметьте согласие на обработку данных');
+  submit(rform,API+'review',{name:f.name.value,text:f.text.value,rating,website:f.website.value,consent:true},
+    'Спасибо за отзыв! Он появится на сайте после проверки.').then(ok=>{if(ok){rating=5;paint()}});
+});
+
+// ---------- статистика посещений ----------
+let vid;try{vid=localStorage.getItem('vid');if(!vid){vid=(Math.random().toString(36).slice(2)+'00000000').slice(0,12);localStorage.setItem('vid',vid)}}catch(e){vid=(Math.random().toString(36).slice(2)+'00000000').slice(0,12)}
+const hit=()=>{if(!document.hidden)fetch(API+'hit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({vid}),keepalive:true}).catch(()=>{})};
+hit();setInterval(hit,60000);
 </script>
 </body>
 </html>
