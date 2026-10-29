@@ -805,7 +805,7 @@
           <label>Чем занимаетесь<input type="text" name="role" maxlength="80" placeholder="Например: мастер по ресницам или кондитер"></label>
           <div class="lb">Оценка</div>
           <div class="rate" role="group" aria-label="Оценка" data-role="rate"></div>
-          <label>Ваш отзыв<textarea name="text" maxlength="800" placeholder="Что сделали, как прошла работа, что получилось"></textarea></label>
+          <label>Ваш отзыв<textarea name="text" maxlength="800" placeholder="Что сделали, как прошла работа, что получилось. Минимум 10 символов"></textarea></label>
           <label class="agree"><input type="checkbox" name="consent"><span>Даю согласие на обработку моих персональных данных</span></label>
           <label class="agree"><input type="checkbox" name="publish"><span>Согласен, что имя и отзыв будут опубликованы на сайте</span></label>
           <p class="docs"><a href="#/consent">Текст согласия</a> · <a href="#/privacy">Политика конфиденциальности</a></p>
@@ -1631,7 +1631,7 @@
     e.preventDefault();
     var f = form.elements, bad = null;
     ['name', 'text'].forEach(function (n) {
-      var empty = !f[n].value.trim();
+      var empty = n === 'text' ? f[n].value.replace(/\s/g, '').length < 10 : !f[n].value.trim();
       f[n].classList.toggle('err', empty);
       if (empty && !bad) bad = f[n];
     });
