@@ -188,6 +188,14 @@
   .review p { margin: 0 0 18px; color: var(--ink); font-size: 17px; line-height: 1.5; }
   .review .who { font: 600 14px var(--f-body); color: var(--ink); }
   .review .who span { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 13px; }
+  .review-cta { text-align: center; margin-top: 28px; }
+  .rate { display: flex; gap: 6px; }
+  .rate button { font-size: 30px; line-height: 1; padding: 4px 6px; border: 0; background: transparent; color: var(--line); cursor: pointer; transition: color .2s, transform .2s var(--ease); }
+  .rate button.on { color: #f5c451; }
+  .rate button:hover { transform: scale(1.12); }
+  .rate.err { outline: 1px solid #ff6b6b; border-radius: 12px; }
+  .form .docs { margin: -6px 0 0 26px; font-size: 13px; color: var(--muted); }
+  .form .docs a { color: var(--accent-2); }
 
   /* Контакты */
   #contacts { padding-bottom: 40px; }
@@ -680,6 +688,7 @@
           <div class="who">Елена<span>кондитер, торты на заказ</span></div>
         </div>
       </div>
+      <div class="review-cta"><a class="btn light" href="#/review">Оставить отзыв →</a></div>
     </div>
   </section>
 
@@ -762,7 +771,7 @@
   <section id="privacy" data-page="privacy" hidden>
     <div class="wrap policy">
       <h2>Политика конфиденциальности</h2>
-      <p class="muted">Редакция от 11 октября 2026 года</p>
+      <p class="muted">Редакция от 29 октября 2026 года</p>
       <h3>1. Кто я</h3>
       <p>Сайт suslovdev.ru (далее «Сайт») ведёт Степан Суслов, самозанятый, Киров. Он же оператор персональных данных. Связаться: почта hersone237@gmail.com, Telegram @stepan_devs.</p>
       <h3>2. Какие данные я получаю</h3>
@@ -772,7 +781,7 @@
       <h3>4. Зачем мне данные</h3>
       <p>Чтобы ответить на заявку, обсудить проект, назвать цену и срок, сделать работу и выдать чек через «Мой налог».</p>
       <h3>5. Основание</h3>
-      <p>Ваше согласие. Вы даёте его, отмечая галочку в форме заявки или отправляя мне сообщение с контактами.</p>
+      <p>Ваше согласие. Вы даёте его, отмечая галочку в форме заявки или отзыва либо отправляя мне сообщение с контактами. Текст согласия: <a href="#/consent">Согласие на обработку персональных данных</a>.</p>
       <h3>6. Сколько храню</h3>
       <p>Переписку храню, пока идёт работа над проектом и поддержка сайта. По вашей просьбе удаляю её в течение 10 дней.</p>
       <h3>7. Кому передаю</h3>
@@ -781,6 +790,74 @@
       <p>Сайт не ставит cookie и не подключает счётчики. Шрифты загружаются с Google Fonts, хостинг Vercel. Эти сервисы видят технические данные запроса, например IP-адрес.</p>
       <h3>9. Ваши права</h3>
       <p>Вы вправе узнать, какие данные у меня есть, исправить их, удалить или отозвать согласие. Напишите на hersone237@gmail.com или в Telegram @stepan_devs, отвечу в течение 10 дней.</p>
+      <h3>10. Отзывы</h3>
+      <p>Форма отзыва собирает имя, сферу деятельности, оценку и текст. Отзыв сначала приходит мне в Telegram-бот и не появляется на Сайте автоматически. Если я его публикую, на Сайте показываются имя, сфера деятельности, оценка и текст, которые вы указали. Публикуя отзыв, вы отмечаете отдельное согласие на размещение.</p>
+      <p>Чтобы убрать отзыв с Сайта, напишите на hersone237@gmail.com или в Telegram @stepan_devs. Удалю в течение 10 дней. Если вы отозвали согласие, непубликованный отзыв я тоже удаляю.</p>
+    </div>
+  </section>
+
+  <section id="review" data-page="review" hidden>
+    <div class="wrap">
+      <h2>Оставить отзыв</h2>
+      <div class="order">
+        <form class="form" novalidate>
+          <label>Как вас зовут<input type="text" name="name" autocomplete="given-name" maxlength="60"></label>
+          <label>Чем занимаетесь<input type="text" name="role" maxlength="80" placeholder="Например: мастер по ресницам или кондитер"></label>
+          <div class="lb">Оценка</div>
+          <div class="rate" role="group" aria-label="Оценка" data-role="rate"></div>
+          <label>Ваш отзыв<textarea name="text" maxlength="800" placeholder="Что сделали, как прошла работа, что получилось"></textarea></label>
+          <label class="agree"><input type="checkbox" name="consent"><span>Даю согласие на обработку моих персональных данных</span></label>
+          <label class="agree"><input type="checkbox" name="publish"><span>Согласен, что имя и отзыв будут опубликованы на сайте</span></label>
+          <p class="docs"><a href="#/consent">Текст согласия</a> · <a href="#/privacy">Политика конфиденциальности</a></p>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <button type="submit" class="btn">Отправить отзыв</button>
+        </form>
+        <aside class="calc-total" aria-live="polite">
+          <div data-role="before">
+            <div class="lb">Как это работает</div>
+            <ol class="guide">
+              <li>Отзыв приходит мне, на сайте он сам не появится.</li>
+              <li>Я читаю его и добавляю в раздел «Отзывы».</li>
+              <li>Телефон и почта не нужны, только имя и текст.</li>
+              <li>Убрать отзыв можно в любой момент, написав мне.</li>
+            </ol>
+          </div>
+          <div class="done" data-role="sent" hidden>
+            <div class="lb">Отзыв отправлен</div>
+            <p class="nt" style="margin:0">Спасибо! Прочитаю его и добавлю на сайт.</p>
+          </div>
+          <div class="done" data-role="done" hidden>
+            <div class="lb">Не получилось отправить</div>
+            <p class="nt" style="margin:0">Отправьте этот текст мне сами, одной кнопкой.</p>
+            <pre data-role="text"></pre>
+            <div class="links">
+              <a class="btn light" data-role="tg" href="https://t.me/stepan_devs" target="_blank" rel="noopener">Отправить в Telegram →</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="consent" data-page="consent" hidden>
+    <div class="wrap policy">
+      <h2>Согласие на обработку персональных данных</h2>
+      <p class="muted">Редакция от 29 октября 2026 года</p>
+      <h3>1. Кому я даю согласие</h3>
+      <p>Оператору персональных данных Степану Суслову, самозанятому, Киров, который ведёт сайт suslovdev.ru. Связаться: почта hersone237@gmail.com, Telegram @stepan_devs.</p>
+      <h3>2. Какие данные я передаю</h3>
+      <p>Имя, сферу деятельности, оценку и текст отзыва. Если я оставляю заявку, то также Telegram или телефон, название бизнеса и описание задачи. Другие данные я не передаю.</p>
+      <h3>3. Для чего</h3>
+      <p>Чтобы оператор получил мой отзыв или заявку, прочитал их и ответил. Если я отметил отдельное согласие на публикацию, оператор размещает мои имя, сферу деятельности, оценку и текст отзыва в разделе «Отзывы» на сайте suslovdev.ru, доступном всем посетителям.</p>
+      <h3>4. Что делает оператор с данными</h3>
+      <p>Собирает, записывает, хранит, использует, публикует (только отзыв, и только с моего согласия на публикацию), удаляет. Данные проходят через сервер сайта на хостинге Vercel и приходят оператору в Telegram. Оператор не продаёт данные и не передаёт их третьим лицам, кроме случаев, которые требует закон.</p>
+      <h3>5. Срок</h3>
+      <p>Согласие действует, пока оператор хранит мои данные: отзыв остаётся на сайте и в переписке до моего отзыва согласия, заявка хранится, пока идёт работа над проектом и поддержка сайта.</p>
+      <h3>6. Как отозвать согласие</h3>
+      <p>Написать на hersone237@gmail.com или в Telegram @stepan_devs. Оператор удалит данные и уберёт отзыв с сайта в течение 10 дней. Отзыв согласия не влияет на законность обработки до этого момента.</p>
+      <h3>7. Как я даю согласие</h3>
+      <p>Отмечаю галочку «Даю согласие на обработку моих персональных данных» в форме отзыва или заявки и нажимаю кнопку отправки. Согласие на публикацию отзыва даётся отдельной галочкой. Без неё отзыв не публикуется.</p>
+      <p>Подробнее о том, как оператор обращается с данными: <a href="#/privacy">Политика конфиденциальности</a>.</p>
     </div>
   </section>
 </main>
@@ -794,6 +871,7 @@
       <a href="#/faq">Вопросы</a>
       <a href="#/order">Заявка</a>
       <a href="#/privacy">Политика конфиденциальности</a>
+      <a href="#/consent">Согласие на обработку данных</a>
     </nav>
     <span>Киров · 2026</span>
   </div>
@@ -1379,7 +1457,7 @@
 <script>
 (function () {
   // Главная одна длинная страница, отдельно открываются только заявка и политика
-  var pages = { home: '', order: 'Оставить заявку', privacy: 'Политика конфиденциальности' };
+  var pages = { home: '', order: 'Оставить заявку', privacy: 'Политика конфиденциальности', review: 'Оставить отзыв', consent: 'Согласие на обработку данных' };
   var homeIds = ['works', 'prices', 'how', 'reviews', 'faq', 'contacts'];
   var baseTitle = document.title, current = '';
   var blocks = [].slice.call(document.querySelectorAll('main > [data-page]'));
@@ -1529,6 +1607,68 @@
       var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
       try { document.execCommand('copy'); ok(); } catch (e) {} t.remove();
     }
+  });
+})();
+</script>
+<script>
+(function () {
+  // Отзыв: уходит мне в Telegram-бот, на сайт попадает только после моей проверки
+  var form = document.querySelector('#review form');
+  if (!form) return;
+  var $ = function (r) { return document.querySelector('#review [data-role="' + r + '"]'); };
+  var rate = $('rate'), value = 0, stars = [];
+  for (var i = 1; i <= 5; i++) (function (n) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = '★'; b.setAttribute('aria-label', n + ' / 5'); b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { value = n; paint(); rate.classList.remove('err'); reset(); });
+    rate.appendChild(b); stars.push(b);
+  })(i);
+  function paint() { stars.forEach(function (b, k) { var on = k < value; b.classList.toggle('on', on); b.setAttribute('aria-pressed', k === value - 1 ? 'true' : 'false'); }); }
+  function reset() { $('done').hidden = true; $('sent').hidden = true; $('before').hidden = false; }
+  form.addEventListener('input', function (e) { e.target.classList.remove('err'); var a = e.target.closest('.agree'); if (a) a.classList.remove('err'); reset(); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements, bad = null;
+    ['name', 'text'].forEach(function (n) {
+      var empty = !f[n].value.trim();
+      f[n].classList.toggle('err', empty);
+      if (empty && !bad) bad = f[n];
+    });
+    rate.classList.toggle('err', !value);
+    if (!value && !bad) bad = stars[0];
+    ['consent', 'publish'].forEach(function (n) {
+      var no = !f[n].checked;
+      f[n].closest('.agree').classList.toggle('err', no);
+      if (no && !bad) bad = f[n];
+    });
+    if (bad) { bad.focus(); return; }
+
+    var text = 'Отзыв: ' + value + '/5\n' + f.name.value.trim() + (f.role.value.trim() ? ', ' + f.role.value.trim() : '') + '\n\n' + f.text.value.trim();
+    var submit = form.querySelector('button[type=submit]');
+    var show = function (role) {
+      $('before').hidden = true; $(role).hidden = false;
+      $(role).scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      submit.disabled = false; submit.textContent = t('Отправить отзыв');
+    };
+    var fallback = function () {
+      $('text').textContent = text;
+      $('tg').href = 'https://t.me/stepan_devs?text=' + encodeURIComponent(text);
+      show('done');
+    };
+    submit.disabled = true; submit.textContent = t('Отправка…');
+    fetch('/api/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: f.name.value, role: f.role.value, rating: value, text: f.text.value,
+        consent: true, publish: true, website: f.website.value
+      })
+    }).then(function (r) {
+      if (!r.ok) return fallback();
+      form.reset(); value = 0; paint();
+      show('sent');
+    }, fallback);
   });
 })();
 </script>
