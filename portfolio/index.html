@@ -256,7 +256,8 @@
 
   /* Бегущая строка */
   .marquee { overflow: hidden; padding: 34px 0 6px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
-  .marquee-track { display: flex; width: max-content; animation: scrollx 38s linear infinite; will-change: transform; }
+  .marquee-track { display: flex; width: max-content; animation: scrollx 38s linear infinite; }
+  .marquee.off .marquee-track { animation-play-state: paused; }
   .marquee-track span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font: 600 clamp(22px, 3.4vw, 38px) var(--f-head); letter-spacing: -.03em; color: transparent; -webkit-text-stroke: 1px rgb(255 255 255 / .38); white-space: nowrap; transition: color .3s; }
   .marquee-track i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); flex: none; }
   @keyframes scrollx { to { transform: translateX(-50%); } }
@@ -437,7 +438,7 @@
   /* Первый экран без карточки: фон на всю ширину, текст по сетке сайта */
   .hero { max-width: none; width: 100%; margin: 0; border: 0; border-radius: 0; background: transparent; padding-left: max(20px, calc((100% - 1120px) / 2)); padding-right: max(20px, calc((100% - 1120px) / 2)); }
   .hero::before { background: radial-gradient(45% 60% at 80% 10%, rgb(77 124 255 / .26), transparent 70%), radial-gradient(40% 50% at 10% 90%, rgb(139 92 246 / .14), transparent 70%); }
-  .hero-art { -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .hero-art.nomask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
   @media (max-width: 640px) { .hero { border-radius: 0; padding-left: 20px; padding-right: 20px; } }
   .lang { position: relative; }
   .lang-btn { display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px 0 11px; font: 600 13px var(--f-body); letter-spacing: .04em; color: var(--ink); background: rgb(255 255 255 / .04); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; transition: border-color .25s, background .25s; }
@@ -1505,6 +1506,10 @@
     list._pickFirst(); addEventListener('resize', check);
   }
 
+  // Бегущая строка стоит, когда её не видно
+  var mq = document.querySelector('.marquee');
+  if (mq && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { mq.classList.toggle('off', !es[0].isIntersecting); }).observe(mq);
+
   // Фильтр работ
   var cards = [].slice.call(document.querySelectorAll('.cards .card'));
   var fb = [].slice.call(document.querySelectorAll('.filter button'));
@@ -1528,6 +1533,7 @@
     var cvs = art.querySelector('canvas'), gl = null;
     try { if (location.search.indexOf('nogl') > -1) throw 0; gl = cvs.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false }); } catch (e) { gl = null; }
     var heroFallback = function () {
+      art.classList.add('nomask');
       var c2 = document.createElement('canvas'); c2.style.cssText = 'opacity:0;transition:opacity 1.2s'; cvs.parentNode.replaceChild(c2, cvs);
       var g = c2.getContext('2d'); if (!g) return;
       var im2 = new Image(), W2 = 0, H2 = 0, d2 = 1, m2 = { x: -9999, y: -9999 }, gl2 = 0, on2 = 0, run2 = false;
@@ -1574,7 +1580,8 @@
         '  c = mix(c, vec3(.47, .67, 1.0), k * .85) + .16 * k;',
         '  float sw = max(0.0, 1.0 - abs(a_home.x - u_sweep) / 110.0); sw *= sw * step(0.999, p) * u_wave;',
         '  c = mix(c, vec3(.59, .75, 1.0), sw * .7) + .08 * sw;',
-        '  float a = p * smoothstep(0.0, .35, a_home.y / u_res.y);',
+        '  float ex = pos.x / u_res.x;',
+        '  float a = p * smoothstep(0.0, .35, a_home.y / u_res.y) * smoothstep(0.0, .08, ex) * smoothstep(1.0, .92, ex);',
         '  gl_Position = vec4(pos.x / u_res.x * 2.0 - 1.0, 1.0 - pos.y / u_res.y * 2.0, 0.0, 1.0);',
         '  gl_PointSize = max(1.0, ceil(u_pt * u_dpr));',
         '  v_col = vec4(min(c, vec3(1.0)) * a, a);',
