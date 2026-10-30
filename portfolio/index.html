@@ -498,6 +498,36 @@
   .rv { transition-duration: .6s; }
   @media (prefers-reduced-motion: reduce) { .card .tilt { transform: none !important; } }
 
+  /* Мои работы: слайдер, одна работа на экран */
+  .slider { position: relative; }
+  .cards { display: flex; grid-template-columns: none; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; overscroll-behavior-x: contain; scrollbar-width: none; padding-bottom: 4px; }
+  .cards::-webkit-scrollbar { display: none; }
+  .cards > .card { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: 1.6fr 1fr; column-gap: 36px; align-items: center; padding: 16px 36px 16px 16px; }
+  .cards > .card:hover { transform: none; }
+  .cards > .card > .shot { grid-row: 1 / span 5; }
+  .cards > .card > :not(.shot):not(.accent) { padding: 0; }
+  .cards > .card .tag { margin-top: 0; justify-self: start; }
+  .cards > .card .links { justify-self: start; }
+  .cards > .card h3 { font-size: clamp(22px, 2.4vw, 30px); }
+  .cards > .card .shot.phone { aspect-ratio: 16 / 11; }
+  .cards > .card .shot.phone img { width: 34%; }
+  .sl-nav { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+  .sl-nav .cnt { margin-right: auto; font: 500 15px var(--f-body); color: var(--text); font-variant-numeric: tabular-nums; }
+  .sl-nav .cnt b { color: #fff; font-size: 22px; }
+  .sl-nav .bar2 { flex: 0 1 220px; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; margin-right: 12px; }
+  .sl-nav .bar2 i { display: block; height: 100%; background: var(--grad); transform-origin: left; transition: transform .5s var(--ease); }
+  .sl-nav button { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); background: rgb(255 255 255 / .04); color: #fff; font-size: 20px; cursor: pointer; transition: background .25s, border-color .25s, opacity .25s, transform .25s var(--ease); }
+  .sl-nav button:hover:not(:disabled) { background: rgb(139 92 246 / .2); border-color: rgb(167 139 250 / .55); transform: translateY(-2px); }
+  .sl-nav button:disabled { opacity: .3; cursor: default; }
+  @media (max-width: 1000px) {
+    .cards > .card { grid-template-columns: 1fr; padding: 14px 14px 24px; flex-basis: 88%; }
+    .cards > .card > .shot { grid-row: auto; }
+    .cards > .card > :not(.shot):not(.accent) { padding: 0 10px; }
+    .cards > .card .tag { margin-top: 18px; }
+    .sl-nav button { width: 44px; height: 44px; }
+    .sl-nav .bar2 { display: none; }
+  }
+
   /* Вау на первом экране: искра между пальцами, вспышка фона, заголовок из размытия */
   .hero-art .spark { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #fff; opacity: 0; pointer-events: none; background: radial-gradient(circle, #fff 0 18%, rgb(150 180 255 / .9) 30%, rgb(139 92 246 / .35) 55%, transparent 72%); width: 90px; height: 90px; margin: -45px 0 0 -45px; will-change: transform, opacity; }
   .hero-art .spark::after { content: ''; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; will-change: transform, opacity; border-radius: 50%; border: 2px solid rgb(167 139 250 / .9); opacity: 0; }
@@ -1476,6 +1506,31 @@
     update();
   }
 
+  // Слайдер работ: стрелки, счётчик, полоса прогресса
+  var list = document.querySelector('.cards');
+  if (list) {
+    var nav = document.createElement('div'); nav.className = 'sl-nav';
+    nav.innerHTML = '<span class="cnt"><b>1</b> / 1</span><span class="bar2"><i></i></span><button type="button" class="prev" aria-label="Назад">←</button><button type="button" class="next" aria-label="Вперёд">→</button>';
+    list.after(nav);
+    var vis = function () { return [].slice.call(list.querySelectorAll('.card')).filter(function (c) { return !c.classList.contains('off'); }); };
+    var idx = function () { var v = vis(), x = list.scrollLeft, best = 0; v.forEach(function (c, i) { if (Math.abs(c.offsetLeft - list.offsetLeft - x) < Math.abs(v[best].offsetLeft - list.offsetLeft - x)) best = i; }); return best; };
+    var go = function (d) { var v = vis(), n = Math.max(0, Math.min(v.length - 1, idx() + d)); list.scrollTo({ left: v[n].offsetLeft - list.offsetLeft }); };
+    var upd = function () {
+      var v = vis(), n = v.length ? idx() : 0, end = list.scrollLeft + list.clientWidth >= list.scrollWidth - 4;
+      if (end) n = v.length - 1;
+      nav.querySelector('.cnt').innerHTML = '<b>' + (n + 1) + '</b> / ' + v.length;
+      nav.querySelector('.bar2 i').style.transform = 'scaleX(' + (v.length ? (n + 1) / v.length : 0) + ')';
+      nav.querySelector('.prev').disabled = n === 0; nav.querySelector('.next').disabled = n >= v.length - 1;
+    };
+    nav.querySelector('.prev').addEventListener('click', function () { go(-1); });
+    nav.querySelector('.next').addEventListener('click', function () { go(1); });
+    list.addEventListener('scroll', function () { requestAnimationFrame(upd); }, { passive: true });
+    list.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') { go(1); e.preventDefault(); } if (e.key === 'ArrowLeft') { go(-1); e.preventDefault(); } });
+    list.tabIndex = 0;
+    list._pickFirst = function () { list.scrollTo({ left: 0, behavior: 'instant' }); upd(); };
+    upd(); addEventListener('resize', upd);
+  }
+
   // Фильтр работ
   var cards = [].slice.call(document.querySelectorAll('.cards .card'));
   var fb = [].slice.call(document.querySelectorAll('.filter button'));
@@ -1489,6 +1544,7 @@
         c.classList.remove('pop');
         if (show) { void c.offsetWidth; c.classList.add('pop'); c.classList.add('in'); }
       });
+      if (list && list._pickFirst) list._pickFirst();
     });
   });
 
