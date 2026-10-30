@@ -104,30 +104,30 @@ h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px}
 
 /* prices */
 .dark{color:var(--ink)}
-.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-.pr{background:var(--gl);border:1px solid var(--gl-b);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);box-shadow:var(--gl-sh);border-radius:var(--r);padding:30px 26px;display:flex;flex-direction:column}
-.pr.hit{background:linear-gradient(145deg,rgba(240,138,108,.85),rgba(224,96,122,.85));color:#fff;border-color:rgba(255,255,255,.45)}
-.pr .lbl{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-bottom:12px}
-.pr h3{font-size:22px;margin-bottom:10px}
-.pr .cost{font:700 28px Unbounded;margin:6px 0 4px}
-.pr .time{font-size:14px;opacity:.75;margin-bottom:16px}
-.pr p{font-size:15px;opacity:.85;flex:1}
-.extra{margin-top:16px;background:var(--gl);border:1px solid var(--gl-b);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--gl-sh);border-radius:var(--r);padding:26px}
-.extra h3{font-size:18px;margin-bottom:12px}
+.plist{margin-top:36px;border-radius:28px;padding:10px 30px 26px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;border-bottom:1px solid rgba(43,30,51,.08)}
+.row h3{font-size:20px;margin-bottom:4px}
+.row p{color:var(--muted);font-size:15px}
+.row .cost{font:700 22px Unbounded;white-space:nowrap;text-align:right}
+.row .cost small{display:block;font:600 14px Nunito;color:var(--muted)}
+.row.hit h3:after{content:"хит";margin-left:10px;vertical-align:middle;font:800 12px Nunito;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#f08a6c,#e0607a);padding:3px 9px;border-radius:999px}
+.row.hit .cost{color:var(--acc-d)}
+.extra{padding-top:22px}
+.lbl{display:block;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
 .extra ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
-.extra li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid rgba(43,30,51,.08);font-size:15px}
+.extra li{display:flex;justify-content:space-between;gap:16px;padding:9px 0;font-size:15px}
 .extra li b{white-space:nowrap}
+@media (max-width:760px){.plist{padding:4px 20px 20px}.row{flex-direction:column;align-items:flex-start;gap:8px}.row .cost{text-align:left}.extra ul{grid-template-columns:1fr}}
 .pnote{margin-top:18px;font-size:14px;color:var(--muted)}
 @media (max-width:860px){.prices{grid-template-columns:1fr}.extra ul{grid-template-columns:1fr}}
 
 /* why */
-.why{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
-.why div{background:var(--gl);border:1px solid var(--gl-b);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);box-shadow:var(--gl-sh);border-radius:var(--r);padding:26px}
-.why .ic{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.7);display:grid;place-items:center;font-size:22px;margin-bottom:18px}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:40px}
+.why .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:24px;margin-bottom:16px;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .why b{display:block;font:700 17px/1.3 Unbounded;margin-bottom:8px}
 .why p{color:var(--muted);font-size:15px}
 @media (max-width:900px){.why{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.why{grid-template-columns:1fr}}
+@media (max-width:520px){.why{grid-template-columns:1fr;gap:24px}}
 
 /* cats */
 .cats{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
@@ -234,39 +234,21 @@ h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px}
     <span class="tag rv">Цены</span>
     <h2 class="rv">Сколько стоит груминг</h2>
     <p class="lead rv">Цена зависит от породы и веса питомца. Точную сумму покажет онлайн-запись после выбора породы.</p>
-    <div class="prices">
-      <div class="pr hit rv">
-        <span class="lbl">Чаще всего выбирают</span>
-        <h3>Полный комплекс</h3>
-        <div class="cost">2 000 – 6 000 ₽</div>
-        <div class="time">от 2 часов</div>
-        <p>Вычёсывание, купание, сушка компрессором, чистка глаз и ушей, когти, стрижка головы и тела, укладка.</p>
+    <div class="plist glass rv">
+      <div class="row hit"><div><h3>Полный комплекс</h3><p>Вычёсывание, купание, сушка, уши и глаза, когти, стрижка, укладка</p></div><div class="cost">2 000 – 6 000 ₽<small>от 2 часов</small></div></div>
+      <div class="row"><div><h3>Экспресс-линька</h3><p>Вычёсывание и выдув подшёрстка, купание, сушка, когти</p></div><div class="cost">1 700 – 4 500 ₽<small>от 1,5 часа</small></div></div>
+      <div class="row"><div><h3>Тримминг</h3><p>Ручная щипка шерсти, купание, сушка, окантовка, укладка</p></div><div class="cost">3 250 – 3 900 ₽<small>от 2,5 часа</small></div></div>
+      <div class="extra">
+        <span class="lbl">Дополнительно к комплексу</span>
+        <ul>
+          <li><span>Питательная маска</span><b>300 ₽</b></li>
+          <li><span>Пуделиные лапки</span><b>500–600 ₽</b></li>
+          <li><span>Окрашивание, 1 элемент</span><b>500 ₽</b></li>
+          <li><span>Чистка параанальных желез</span><b>400–600 ₽</b></li>
+          <li><span>Узор «шиншилла»</span><b>150 ₽</b></li>
+          <li><span>Стразы на ушки</span><b>100 ₽</b></li>
+        </ul>
       </div>
-      <div class="pr rv">
-        <span class="lbl">Для линяющих пород</span>
-        <h3>Экспресс-линька</h3>
-        <div class="cost">1 700 – 4 500 ₽</div>
-        <div class="time">от 1,5 часа</div>
-        <p>Вычёсывание и выдув подшёрстка, купание, сушка, чистка ушей и глаз, стрижка когтей.</p>
-      </div>
-      <div class="pr rv">
-        <span class="lbl">Для жесткошёрстных</span>
-        <h3>Тримминг</h3>
-        <div class="cost">3 250 – 3 900 ₽</div>
-        <div class="time">от 2,5 часа</div>
-        <p>Ручная щипка шерсти, купание, сушка, когти, окантовка лап, головы и тела, укладка.</p>
-      </div>
-    </div>
-    <div class="extra rv">
-      <h3>Дополнительно к комплексу</h3>
-      <ul>
-        <li><span>Питательная маска для шерсти</span><b>300 ₽</b></li>
-        <li><span>Пуделиные лапки</span><b>500–600 ₽</b></li>
-        <li><span>Окрашивание, 1 элемент</span><b>500 ₽</b></li>
-        <li><span>Чистка параанальных желез</span><b>400–600 ₽</b></li>
-        <li><span>Узор «шиншилла»</span><b>150 ₽</b></li>
-        <li><span>Стразы на ушки</span><b>100 ₽</b></li>
-      </ul>
     </div>
     <p class="pnote rv">Разбор колтунов и запущенная шерсть оплачиваются отдельно.</p>
   </div>
