@@ -254,7 +254,7 @@
 
   /* Бегущая строка */
   .marquee { overflow: hidden; padding: 34px 0 6px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
-  .marquee-track { display: flex; width: max-content; animation: scrollx 38s linear infinite; }
+  .marquee-track { display: flex; width: max-content; animation: scrollx 38s linear infinite; will-change: transform; }
   .marquee-track span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font: 600 clamp(22px, 3.4vw, 38px) var(--f-head); letter-spacing: -.03em; color: transparent; -webkit-text-stroke: 1px rgb(255 255 255 / .38); white-space: nowrap; transition: color .3s; }
   .marquee-track i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); flex: none; }
   @keyframes scrollx { to { transform: translateX(-50%); } }
@@ -911,8 +911,13 @@
   // Полоска прогресса и тень шапки
   var bar = document.createElement('div'); bar.className = 'progress'; document.body.appendChild(bar);
   var head = document.querySelector('header');
+  // высоту страницы считаем не на каждом скролле, а при изменении размеров: чтение scrollHeight заставляет браузер пересчитывать раскладку
+  var max = 0, sized = false;
+  function measure() { max = document.documentElement.scrollHeight - innerHeight; sized = true; }
+  addEventListener('resize', function () { sized = false; });
+  if ('ResizeObserver' in window) new ResizeObserver(function () { sized = false; }).observe(document.body);
   function onScroll() {
-    var max = document.documentElement.scrollHeight - innerHeight;
+    if (!sized) measure();
     bar.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
     head.classList.toggle('scrolled', scrollY > 10);
   }
@@ -1398,7 +1403,7 @@
     };
     if (!gl) heroFallback(); else {
       var im = new Image(), W = 0, H = 0, dpr = 1, sc = 1, N = 0, src = null, U = {}, pbuf = null;
-      var mouse = { x: -9999, y: -9999 }, sm = { x: -9999, y: -9999 }, inside = 0, glowV = 0, t0 = 0, ready = false, heroVisible = true, heroLoop = true;
+      var mouse = { x: -9999, y: -9999 }, sm = { x: -9999, y: -9999 }, inside = 0, glowV = 0, t0 = 0, ready = false, heroVisible = true, heroLoop = true, lastDraw = 0;
       var mk = function (t, s) { var sh = gl.createShader(t); gl.shaderSource(sh, s); gl.compileShader(sh); return sh; };
       var prog = gl.createProgram();
       gl.attachShader(prog, mk(gl.VERTEX_SHADER, [
@@ -1456,6 +1461,9 @@
         if (!heroVisible) { heroLoop = false; return; }
         if (!t0) t0 = now;
         var T = reduce ? 9 : (now - t0) / 1000;
+        // после сборки рук и без мыши рисуем 30 кадров/с вместо 60: волна медленная, разницы не видно, а видеочип отдыхает
+        if (T > 3.5 && !inside && glowV < .01 && now - lastDraw < 30) { requestAnimationFrame(frame); return; }
+        lastDraw = now;
         sm.x += (mouse.x - sm.x) * .2; sm.y += (mouse.y - sm.y) * .2;
         glowV += ((reduce ? 0 : inside) - glowV) * .12;
         gl.viewport(0, 0, cvs.width, cvs.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
