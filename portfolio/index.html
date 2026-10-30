@@ -497,6 +497,28 @@
   @media (max-width: 760px) { .refer { grid-template-columns: 1fr; gap: 14px; padding: 22px; } }
   .rv { transition-duration: .6s; }
   @media (prefers-reduced-motion: reduce) { .card .tilt { transform: none !important; } }
+
+  /* Вау на первом экране: искра между пальцами, вспышка фона, заголовок из размытия */
+  .hero-art .spark { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #fff; opacity: 0; pointer-events: none; box-shadow: 0 0 12px 4px #fff, 0 0 40px 14px rgb(122 167 255 / .9), 0 0 110px 40px rgb(139 92 246 / .55); }
+  .hero-art .spark::after { content: ''; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 2px solid rgb(167 139 250 / .9); opacity: 0; }
+  .hero-art .spark.go { animation: spark 1.6s var(--ease) both; }
+  .hero-art .spark.go::after { animation: sparkRing 1.6s var(--ease) both; }
+  @keyframes spark { 0% { opacity: 0; transform: scale(.2); } 12% { opacity: 1; transform: scale(1.6); } 30% { opacity: 1; transform: scale(.9); } 100% { opacity: .55; transform: scale(.7); } }
+  @keyframes sparkRing { 0% { opacity: .9; transform: scale(.5); } 100% { opacity: 0; transform: scale(28); } }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(40% 55% at 50% 85%, rgb(122 140 255 / .32), transparent 70%); opacity: 0; }
+  .hero.lit::after { animation: heroLit 2.4s var(--ease) both; }
+  @keyframes heroLit { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: .35; } }
+  .hero h1 .w > i { filter: blur(10px); animation-name: riseBlur; }
+  @keyframes riseBlur { to { transform: none; filter: none; } }
+
+  /* Скриншоты работ вырастают при прокрутке */
+  @supports (animation-timeline: view()) {
+    /* у карточки overflow: hidden, поэтому шкала прокрутки берётся с самой карточки */
+    .card { view-timeline: --card block; }
+    .card .shot { animation: shotGrow linear both; animation-timeline: --card; animation-range: entry 0% cover 40%; }
+    @keyframes shotGrow { from { scale: .82; opacity: .3; } to { scale: 1; opacity: 1; } }
+  }
+  @media (prefers-reduced-motion: reduce) { .card .shot { animation: none; } .hero h1 .w > i { filter: none; } }
 </style>
 </head>
 <body>
@@ -1502,6 +1524,7 @@
     };
     if (!gl) heroFallback(); else {
       var im = new Image(), W = 0, H = 0, dpr = 1, sc = 1, N = 0, src = null, U = {}, pbuf = null;
+      var spark = document.createElement('i'); spark.className = 'spark'; art.appendChild(spark);
       var mouse = { x: -9999, y: -9999 }, sm = { x: -9999, y: -9999 }, inside = 0, glowV = 0, t0 = 0, ready = false, heroVisible = true, heroLoop = true, lastDraw = 0;
       var mk = function (t, s) { var sh = gl.createShader(t); gl.shaderSource(sh, s); gl.compileShader(sh); return sh; };
       var prog = gl.createProgram();
@@ -1511,11 +1534,13 @@
         'varying vec4 v_col;',
         'void main() {',
         '  float side = a_home.x < u_res.x * .5 ? -1.0 : 1.0;',
-        '  vec2 start = a_home + vec2(side * (u_res.x * .28 + a_rnd.x * u_res.x * .3), (a_rnd.y - 3.0) * 18.0);',
-        '  float t = clamp((u_T - a_rnd.x * .9) / 1.9, 0.0, 1.0);',
+        '  vec2 start = vec2(fract(a_rnd.x * 7.31 + a_rnd.y * .37) * u_res.x, (fract(a_rnd.y * 3.17) * 1.6 - .9) * u_res.y) + vec2(side * u_res.x * .08, 0.0);',
+        '  float t = clamp((u_T - a_rnd.x * .45) / 1.15, 0.0, 1.0);',
         '  float p = 1.0 - pow(1.0 - t, 3.0);',
         '  vec2 pos = mix(start, a_home, p);',
         '  pos += vec2(sin(u_T * 1.3 + a_home.x * .011 + a_home.y * .017), cos(u_T * 1.1 + a_home.x * .015 - a_home.y * .012)) * 2.4 * u_pt * p * u_wave;',
+        '  vec2 dv = pos - u_mouse; float dl = length(dv) + .001;',
+        '  pos += dv / dl * pow(max(0.0, 1.0 - dl / 120.0), 2.0) * 46.0 * u_glow * p;',
         '  vec3 c = vec3(.93, .94, .96) * (.88 + .12 * sin(a_rnd.y));',
         '  float k = pow(max(0.0, 1.0 - distance(pos, u_mouse) / 190.0), 1.5) * u_glow;',
         '  c = mix(c, vec3(.47, .67, 1.0), k * .85) + .16 * k;',
@@ -1536,6 +1561,7 @@
         W = r.width; H = r.height; cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
         if (!src) return;
         sc = W / src.w; var oy = H - src.h * sc, pos = new Float32Array(N * 2);
+        spark.style.left = (src.tip[0] * sc) + 'px'; spark.style.top = (oy + src.tip[1] * sc) + 'px';
         for (var i = 0; i < N; i++) { pos[i * 2] = src.xs[i] * sc; pos[i * 2 + 1] = oy + src.ys[i] * sc; }
         gl.bindBuffer(gl.ARRAY_BUFFER, homeB); gl.bufferData(gl.ARRAY_BUFFER, pos, gl.STATIC_DRAW);
         var h0 = gl.getAttribLocation(prog, 'a_home'); gl.enableVertexAttribArray(h0); gl.vertexAttribPointer(h0, 2, gl.FLOAT, false, 0, 0);
@@ -1546,15 +1572,24 @@
         var d = c.getImageData(0, 0, o.width, o.height).data, xs = [], ys = [];
         for (var y = 0; y < o.height; y++) for (var x = 0; x < o.width; x++) if (d[(y * o.width + x) * 4 + 3] > 128) { xs.push(x); ys.push(y); }
         src = { w: o.width, h: o.height, xs: xs, ys: ys }; N = xs.length;
+        var lx = -1, ly = 0, rx = 1e9, ry = 0;
+        for (var j = 0; j < N; j++) { if (xs[j] < o.width / 2) { if (xs[j] > lx) { lx = xs[j]; ly = ys[j]; } } else if (xs[j] < rx) { rx = xs[j]; ry = ys[j]; } }
+        src.tip = [(lx + rx) / 2, (ly + ry) / 2];
         var rnd = new Float32Array(N * 2); for (var i = 0; i < N; i++) { rnd[i * 2] = Math.random(); rnd[i * 2 + 1] = Math.random() * 6.283; }
         gl.bindBuffer(gl.ARRAY_BUFFER, rndB); gl.bufferData(gl.ARRAY_BUFFER, rnd, gl.STATIC_DRAW);
         var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.enableVertexAttribArray(r0); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0);
         size(); ready = true; requestAnimationFrame(frame);
+        if (!reduce) { setTimeout(function () { spark.classList.add('go'); hero.classList.add('lit'); }, 1500); setInterval(function () { if (!heroVisible) return; spark.classList.remove('go'); void spark.offsetWidth; spark.classList.add('go'); }, 7000); }
       };
       im.src = 'img/hands-dots.png';
       addEventListener('resize', function () { if (ready) { size(); /* перепривязка буферов */ gl.bindBuffer(gl.ARRAY_BUFFER, rndB); var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0); } });
       hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; inside = 1; });
       hero.addEventListener('pointerleave', function () { inside = 0; });
+      // на телефоне точки разбегаются от пальца
+      var touch = function (e) { var p = e.touches[0], r = art.getBoundingClientRect(); if (!p) return; mouse.x = p.clientX - r.left; mouse.y = p.clientY - r.top; if (sm.x < -999) { sm.x = mouse.x; sm.y = mouse.y; } inside = 1; };
+      hero.addEventListener('touchstart', touch, { passive: true });
+      hero.addEventListener('touchmove', touch, { passive: true });
+      hero.addEventListener('touchend', function () { inside = 0; }, { passive: true });
       new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; if (heroVisible && !heroLoop && ready) { heroLoop = true; requestAnimationFrame(frame); } }, { rootMargin: '100px' }).observe(hero);
       var frame = function (now) {
         if (!heroVisible) { heroLoop = false; return; }
