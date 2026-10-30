@@ -207,7 +207,8 @@
   #contacts .side::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 60% at 15% 90%, rgb(122 167 255 / .22), transparent 70%), radial-gradient(50% 60% at 90% 10%, rgb(77 124 255 / .26), transparent 70%);  }
   #contacts h2 { margin: 0; color: #fff; }
   #contacts p { margin: 0; max-width: 520px; color: rgb(255 255 255 / .72); }
-  .contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 10px 0; }
+  .contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: min(100%, 860px); margin: 10px auto; text-align: center; }
+  @media (max-width: 700px) { .contacts { grid-template-columns: 1fr; width: min(100%, 340px); } }
   .contacts a { font: 500 16px var(--f-body); color: #fff; text-decoration: none; padding: 12px 20px; border: 1px solid rgb(255 255 255 / .22); border-radius: 999px; background: rgb(255 255 255 / .04); transition: background .25s, transform .25s var(--ease); }
   .contacts a:hover { background: rgb(255 255 255 / .12); transform: translateY(-2px); }
   .contacts small { display: block; font: 400 12px var(--f-body); color: rgb(255 255 255 / .55); margin-bottom: 1px; }
