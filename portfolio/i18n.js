@@ -252,6 +252,9 @@
   var qs = location.search.match(/[?&]lang=([a-z]{2})/), lang = qs && qs[1], saved = null;
   try { saved = localStorage.getItem('lang'); } catch (e) {}
   if (!lang) lang = saved;
+  // поисковым роботам всегда русская версия, иначе Google индексирует английскую
+  var bot = /bot|crawl|spider|slurp|yandex|google|bing|lighthouse|headless/i.test(navigator.userAgent);
+  if (!lang && bot) lang = 'ru';
   if (!lang) {
     var nav = (navigator.languages || [navigator.language || 'ru']).map(function (l) { return String(l).slice(0, 2).toLowerCase(); });
     lang = 'ru';
