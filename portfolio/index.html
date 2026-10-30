@@ -499,8 +499,8 @@
   @media (prefers-reduced-motion: reduce) { .card .tilt { transform: none !important; } }
 
   /* Вау на первом экране: искра между пальцами, вспышка фона, заголовок из размытия */
-  .hero-art .spark { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #fff; opacity: 0; pointer-events: none; box-shadow: 0 0 12px 4px #fff, 0 0 40px 14px rgb(122 167 255 / .9), 0 0 110px 40px rgb(139 92 246 / .55); }
-  .hero-art .spark::after { content: ''; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 2px solid rgb(167 139 250 / .9); opacity: 0; }
+  .hero-art .spark { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #fff; opacity: 0; pointer-events: none; background: radial-gradient(circle, #fff 0 18%, rgb(150 180 255 / .9) 30%, rgb(139 92 246 / .35) 55%, transparent 72%); width: 90px; height: 90px; margin: -45px 0 0 -45px; will-change: transform, opacity; }
+  .hero-art .spark::after { content: ''; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; will-change: transform, opacity; border-radius: 50%; border: 2px solid rgb(167 139 250 / .9); opacity: 0; }
   .hero-art .spark.go { animation: spark 1.6s var(--ease) both; }
   .hero-art .spark.go::after { animation: sparkRing 1.6s var(--ease) both; }
   @keyframes spark { 0% { opacity: 0; transform: scale(.2); } 12% { opacity: 1; transform: scale(1.6); } 30% { opacity: 1; transform: scale(.9); } 100% { opacity: .55; transform: scale(.7); } }
@@ -508,8 +508,6 @@
   .hero::after { content: ''; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(40% 55% at 50% 85%, rgb(122 140 255 / .32), transparent 70%); opacity: 0; }
   .hero.lit::after { animation: heroLit 2.4s var(--ease) both; }
   @keyframes heroLit { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: .35; } }
-  .hero h1 .w > i { filter: blur(10px); animation-name: riseBlur; }
-  @keyframes riseBlur { to { transform: none; filter: none; } }
 
   /* Скриншоты работ вырастают при прокрутке */
   @supports (animation-timeline: view()) {
@@ -518,7 +516,7 @@
     .card .shot { animation: shotGrow linear both; animation-timeline: --card; animation-range: entry 0% cover 40%; }
     @keyframes shotGrow { from { scale: .82; opacity: .3; } to { scale: 1; opacity: 1; } }
   }
-  @media (prefers-reduced-motion: reduce) { .card .shot { animation: none; } .hero h1 .w > i { filter: none; } }
+  @media (prefers-reduced-motion: reduce) { .card .shot { animation: none; } }
 </style>
 </head>
 <body>
@@ -1572,14 +1570,22 @@
         var d = c.getImageData(0, 0, o.width, o.height).data, xs = [], ys = [];
         for (var y = 0; y < o.height; y++) for (var x = 0; x < o.width; x++) if (d[(y * o.width + x) * 4 + 3] > 128) { xs.push(x); ys.push(y); }
         src = { w: o.width, h: o.height, xs: xs, ys: ys }; N = xs.length;
-        var lx = -1, ly = 0, rx = 1e9, ry = 0;
-        for (var j = 0; j < N; j++) { if (xs[j] < o.width / 2) { if (xs[j] > lx) { lx = xs[j]; ly = ys[j]; } } else if (xs[j] < rx) { rx = xs[j]; ry = ys[j]; } }
-        src.tip = [(lx + rx) / 2, (ly + ry) / 2];
+        // искра в середине самого широкого пустого промежутка между руками
+        var colN = new Uint16Array(o.width), colY = new Float32Array(o.width);
+        for (var j = 0; j < N; j++) { colN[xs[j]]++; colY[xs[j]] += ys[j]; }
+        var a0 = Math.round(o.width * .3), a1 = Math.round(o.width * .7), bs = a0, bl = 0, rs = -1;
+        for (var x2 = a0; x2 <= a1; x2++) {
+          if (!colN[x2] && x2 < a1) { if (rs < 0) rs = x2; }
+          else if (rs >= 0) { if (x2 - rs > bl) { bl = x2 - rs; bs = rs; } rs = -1; }
+        }
+        var lx = bs - 1, rx = bs + bl;
+        var yl = colN[lx] ? colY[lx] / colN[lx] : o.height / 2, yr = colN[rx] ? colY[rx] / colN[rx] : yl;
+        src.tip = [(lx + rx) / 2, (yl + yr) / 2];
         var rnd = new Float32Array(N * 2); for (var i = 0; i < N; i++) { rnd[i * 2] = Math.random(); rnd[i * 2 + 1] = Math.random() * 6.283; }
         gl.bindBuffer(gl.ARRAY_BUFFER, rndB); gl.bufferData(gl.ARRAY_BUFFER, rnd, gl.STATIC_DRAW);
         var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.enableVertexAttribArray(r0); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0);
         size(); ready = true; requestAnimationFrame(frame);
-        if (!reduce) { setTimeout(function () { spark.classList.add('go'); hero.classList.add('lit'); }, 1500); setInterval(function () { if (!heroVisible) return; spark.classList.remove('go'); void spark.offsetWidth; spark.classList.add('go'); }, 7000); }
+        if (!reduce) { setTimeout(function () { spark.classList.add('go'); hero.classList.add('lit'); }, 1700); setInterval(function () { if (!heroVisible) return; spark.classList.remove('go'); void spark.offsetWidth; spark.classList.add('go'); }, 7000); }
       };
       im.src = 'img/hands-dots.png';
       addEventListener('resize', function () { if (ready) { size(); /* перепривязка буферов */ gl.bindBuffer(gl.ARRAY_BUFFER, rndB); var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0); } });
