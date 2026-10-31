@@ -718,6 +718,24 @@
           <div class="links"><a class="link" href="../3d/" target="_blank" rel="noopener">Открыть сайт ›</a></div>
         </article>
 
+        <article class="card" data-cat="site">
+          <div class="accent"></div>
+          <a class="shot" href="../detailing/" target="_blank" rel="noopener"><img src="glyanets.webp" alt="Главная страница демо-сайта детейлинг-центра Глянец" width="1280" height="800" loading="lazy"></a>
+          <div class="tag">Демо</div>
+          <h3>«Глянец», сайт детейлинг-центра</h3>
+          <p>Фото-слайдер, карусель услуг с ценами, примерка цвета плёнки на 3D-машине, ползунок «до и после», вопросы и заявка. Студия вымышленная.</p>
+          <div class="links"><a class="link" href="../detailing/" target="_blank" rel="noopener">Открыть сайт ›</a></div>
+        </article>
+
+        <article class="card" data-cat="site">
+          <div class="accent"></div>
+          <a class="shot" href="../dashboard/" target="_blank" rel="noopener"><img src="glyanets-panel.webp" alt="Панель владельца детейлинг-центра Глянец: выручка, записи и сводка недели" width="1280" height="800" loading="lazy"></a>
+          <div class="tag">Демо</div>
+          <h3>«Глянец», панель владельца</h3>
+          <p>Выручка, записи на неделю, загрузка боксов, откуда приходят клиенты и сводка недели с подсказками, что сделать. Владелец видит бизнес на одном экране. Данные вымышленные.</p>
+          <div class="links"><a class="link" href="../dashboard/" target="_blank" rel="noopener">Открыть панель ›</a></div>
+        </article>
+
 
 
         <article class="card" data-cat="app">
@@ -1122,7 +1140,7 @@
   // Рамка браузера: адрес сайта в строке
   document.querySelectorAll('.shot:not(.phone)').forEach(function (s) {
     var h = s.getAttribute('href') || '';
-    s.setAttribute('data-url', /^http/.test(h) ? h.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : 'suslovdev.ru/3d');
+    s.setAttribute('data-url', /^http/.test(h) ? h.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : 'suslovdev.ru/' + h.replace(/^\.\.\//, '').replace(/\/$/, ''));
   });
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;

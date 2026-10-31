@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Глянец | Детейлинг-центр в Кирове (демо)</title>
+<meta name="description" content="Демо-сайт детейлинг-центра: защитная плёнка, керамика, полировка, мойка. Примерка цвета на 3D-модели. Студия вымышленная.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f1012">
+<link rel="preload" href="img/h1.jpg" as="image">
+<link rel="preload" href="fonts/unbounded-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Unbounded;font-weight:500;font-display:swap;src:url(fonts/unbounded-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-weight:700;font-display:swap;src:url(fonts/unbounded-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-weight:500;font-display:swap;src:url(fonts/unbounded-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Unbounded;font-weight:700;font-display:swap;src:url(fonts/unbounded-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;font-weight:400;font-display:swap;src:url(fonts/inter-cyrillic-400-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Inter;font-weight:500;font-display:swap;src:url(fonts/inter-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Inter;font-weight:600;font-display:swap;src:url(fonts/inter-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Inter;font-weight:400;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;font-weight:500;font-display:swap;src:url(fonts/inter-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;font-weight:600;font-display:swap;src:url(fonts/inter-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* Structure after XPEL / Porsche / Ceramic Pro: photo hero, photo cards, one accent, 3D only as a visualizer tool. */
+:root{--bg:#0f1012;--bg2:#17181b;--card:#1d1f23;--ink:#f5f5f3;--mut:#a3a5ab;--acc:#3d6bff;--acc-ink:#ffffff;--line:rgba(255,255,255,.1);--light:#f4f4f2;--dark-ink:#121315;--r:20px;--pad:clamp(20px,4vw,64px);--max:1360px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+.h{font-family:Unbounded,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;background:var(--acc);color:var(--acc-ink);font-weight:600;font-size:15px;transition:transform .2s,background .2s;cursor:pointer;border:0}
+.btn:hover{transform:translateY(-2px);background:#5a82ff}
+.btn.ghost{background:rgba(255,255,255,.1);color:#fff;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn.ghost:hover{background:rgba(255,255,255,.18)}
+.btn svg{width:18px;height:18px}
+
+/* header */
+header{position:fixed;inset:0 0 auto;z-index:40;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+header.solid{background:rgba(15,16,18,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px}
+.logo{font-family:Unbounded,sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--acc)}
+nav{display:flex;gap:28px;font-size:15px;color:#d8d9dc}
+nav a:hover{color:#fff}
+.hd-r{display:flex;align-items:center;gap:18px}
+.hd-r .tel{font-weight:600;font-size:15px}
+.hd .btn{min-height:44px;padding:0 20px;font-size:14px}
+@media(max-width:960px){nav,.hd-r .tel{display:none}}
+
+/* hero */
+.hero{position:relative;height:100svh;min-height:620px;overflow:hidden;background:#000}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease-out}
+.slide.on img{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 55%,rgba(0,0,0,0) 100%),linear-gradient(0deg,rgba(0,0,0,.55),transparent 40%)}
+.hero-c{position:absolute;left:0;right:0;bottom:clamp(90px,14vh,150px);z-index:2}
+.hero-c .eyebrow{color:#fff;opacity:.85;margin-bottom:18px}
+.hero h1{font-size:clamp(40px,6.4vw,96px);max-width:11ch;text-transform:uppercase}
+.hero p{margin-top:20px;max-width:480px;font-size:17px;color:#e2e3e6}
+.hero .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-ctl{position:absolute;left:0;right:0;bottom:36px;z-index:3}
+.bars{display:flex;gap:8px;align-items:center}
+.bars button{position:relative;width:64px;height:3px;border:0;background:rgba(255,255,255,.3);cursor:pointer;overflow:hidden;padding:0}
+.bars button::before{content:"";position:absolute;inset:-10px 0}
+.bars button i{position:absolute;left:0;top:0;bottom:0;width:0;background:#fff}
+.bars button.on i{animation:fill 6s linear forwards}
+@keyframes fill{to{width:100%}}
+.bars span{margin-left:14px;font-size:13px;color:#d0d1d4}
+
+/* trust */
+.trust{border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:36px;padding-bottom:36px}
+.trust b{display:block;font-family:Unbounded,sans-serif;font-weight:500;font-size:clamp(24px,2.6vw,36px);letter-spacing:-.02em}
+.trust span{color:var(--mut);font-size:14px}
+@media(max-width:760px){.trust .wrap{grid-template-columns:1fr 1fr}}
+
+/* section head */
+.sec{padding:clamp(80px,10vw,140px) 0}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,52px)}
+.sh h2{font-size:clamp(30px,3.8vw,54px);max-width:16ch;margin-top:14px}
+.sh p{max-width:380px;color:var(--mut)}
+.arrows{display:flex;gap:10px}
+.arrows button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.arrows button:hover{background:var(--card)}
+.arrows svg{width:18px;height:18px}
+
+/* services carousel */
+.rail{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 max(var(--pad),calc((100vw - var(--max))/2 + var(--pad))) 8px;scroll-padding-left:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)));scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.svc{flex:0 0 clamp(270px,30vw,400px);scroll-snap-align:start;border-radius:var(--r);overflow:hidden;background:var(--card);display:flex;flex-direction:column;transition:transform .3s}
+.svc:hover{transform:translateY(-4px)}
+.svc .im{aspect-ratio:4/3;overflow:hidden}
+.svc img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.svc:hover img{transform:scale(1.05)}
+.svc .tx{padding:22px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.svc h3{font-family:Unbounded,sans-serif;font-weight:500;font-size:20px;letter-spacing:-.01em}
+.svc p{color:var(--mut);font-size:15px;flex:1}
+.svc .pr{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:16px;border-top:1px solid var(--line);font-weight:600}
+.svc .pr span:last-child{color:var(--acc);display:flex;align-items:center;gap:6px;font-size:14px}
+
+/* visualizer */
+.viz{background:var(--light);color:var(--dark-ink)}
+.viz .sh p{color:#5c5e63}
+.viz .eyebrow{color:var(--acc)}
+.viz-box{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+.stagebox{position:relative;border-radius:var(--r);background:radial-gradient(80% 70% at 50% 60%,#ffffff 0%,#e3e4e6 100%);min-height:480px;overflow:hidden}
+model-viewer{position:absolute;inset:0;width:100%;height:100%;--poster-color:transparent;background:transparent}
+.stagebox .hint{position:absolute;left:20px;bottom:18px;font-size:13px;color:#6b6d72;display:flex;align-items:center;gap:8px}
+.panel{border-radius:var(--r);background:#fff;padding:28px;display:flex;flex-direction:column;gap:22px}
+.panel h3{font-family:Unbounded,sans-serif;font-weight:500;font-size:18px}
+.pick{display:flex;flex-wrap:wrap;gap:10px}
+.sw{width:44px;height:44px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #d4d5d8;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.sw:hover{transform:scale(1.08)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--acc)}
+.fin{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fin button{min-height:46px;border-radius:12px;border:1px solid #d4d5d8;background:#fff;font:inherit;font-weight:500;cursor:pointer}
+.fin button[aria-pressed="true"]{border-color:var(--acc);background:#eef2ff;color:#1d3fbf}
+.sum{margin-top:auto;padding-top:20px;border-top:1px solid #e6e7e9;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.sum small{display:block;color:#6b6d72;font-size:13px}
+.sum b{font-family:Unbounded,sans-serif;font-weight:500;font-size:22px}
+@media(max-width:900px){.viz-box{grid-template-columns:1fr}.stagebox{min-height:340px}}
+
+/* before/after */
+.ba{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/8;user-select:none;background:#000}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .before{clip-path:inset(0 calc(100% - var(--x,50%)) 0 0);filter:saturate(.35) brightness(.72) contrast(.85) blur(1.2px)}
+.ba .line{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none}
+.ba .knob{position:absolute;top:50%;left:var(--x,50%);width:52px;height:52px;border-radius:50%;background:#fff;color:#111;transform:translate(-50%,-50%);display:grid;place-items:center;pointer-events:none;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.ba .knob svg{width:22px;height:22px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.ba .tag{position:absolute;top:16px;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.55);font-size:13px;font-weight:600;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ba .t1{left:16px}.ba .t2{right:16px}
+@media(max-width:760px){.ba{aspect-ratio:4/3}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.st{background:var(--card);border-radius:var(--r);padding:26px}
+.st .n{width:40px;height:40px;border-radius:12px;background:rgba(61,107,255,.15);color:#8ea8ff;display:grid;place-items:center;font-weight:600;margin-bottom:40px}
+.st h3{font-family:Unbounded,sans-serif;font-weight:500;font-size:18px;margin-bottom:8px}
+.st p{color:var(--mut);font-size:15px}
+@media(max-width:960px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(30px,6vw,90px)}
+.faq h2{font-size:clamp(30px,3.8vw,54px);margin-top:14px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font-weight:600;font-size:18px}
+summary::-webkit-details-marker{display:none}
+summary i{flex:0 0 28px;height:28px;border-radius:50%;border:1px solid var(--line);position:relative}
+summary i::before,summary i::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:#fff;transform:translate(-50%,-50%)}
+summary i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s}
+details[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+details p{padding:0 40px 22px 0;color:var(--mut)}
+@media(max-width:860px){.faq{grid-template-columns:1fr}}
+
+/* cta */
+.cta{position:relative;border-radius:28px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end}
+.cta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.85),rgba(0,0,0,.2) 70%)}
+.cta-in{position:relative;z-index:2;padding:clamp(28px,4vw,56px);display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:end;width:100%}
+.cta h2{font-size:clamp(30px,4.4vw,62px);text-transform:uppercase}
+form{display:grid;gap:10px}
+label{font-size:13px;color:#d0d1d4}
+input[type=text],input[type=tel]{width:100%;min-height:52px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.35);color:#fff;font:inherit;padding:0 16px}
+input::placeholder{color:#9a9ca1}
+.ok{font-size:14px;color:#9fe6b4;min-height:20px}
+@media(max-width:860px){.cta-in{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);margin-top:clamp(80px,10vw,120px)}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;padding-top:44px;padding-bottom:44px;font-size:14px;color:var(--mut)}
+footer b{display:block;color:#fff;margin-bottom:8px}
+footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){footer .wrap{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header id="hd"><div class="wrap hd">
+  <a class="logo" href="#top"><i></i>Глянец</a>
+  <nav><a href="#svc">Услуги</a><a href="#viz">Примерить цвет</a><a href="#ba">До и после</a><a href="#faq">Вопросы</a></nav>
+  <div class="hd-r"><a class="tel" href="tel:+70000000000">+7 000 000-00-00</a><a class="btn" href="#cta">Записаться</a></div>
+</div></header>
+
+<section class="hero" id="top">
+  <div class="slide on"><img src="img/h1.jpg" alt="Чёрное купе в студии детейлинга"></div>
+  <div class="slide"><img src="img/h2.jpg" alt="Капли воды на краске после керамики" loading="lazy"></div>
+  <div class="slide"><img src="img/h3.jpg" alt="Мастер наносит защитную плёнку на бампер" loading="lazy"></div>
+  <div class="hero-c"><div class="wrap">
+    <p class="eyebrow">Детейлинг-центр в Кирове</p>
+    <h1 class="h">Броня и&nbsp;блеск для&nbsp;вашего авто</h1>
+    <p>Защитная плёнка, керамика и полировка. Замер краски бесплатно, гарантия до 5 лет.</p>
+    <div class="row"><a class="btn" href="#cta">Записаться на осмотр</a><a class="btn ghost" href="#viz">Примерить цвет плёнки</a></div>
+  </div></div>
+  <div class="hero-ctl"><div class="wrap bars" id="bars"><button class="on" aria-label="Слайд 1"><i></i></button><button aria-label="Слайд 2"><i></i></button><button aria-label="Слайд 3"><i></i></button><span id="slbl">Студия</span></div></div>
+</section>
+
+<section class="trust"><div class="wrap">
+  <div><b>1 200+</b><span>машин обработано</span></div>
+  <div><b>до 5 лет</b><span>гарантия на плёнку</span></div>
+  <div><b>30 точек</b><span>замер краски перед работой</span></div>
+  <div><b>7 дней</b><span>в неделю, 9:00–21:00</span></div>
+</div></section>
+
+<section class="sec" id="svc">
+  <div class="wrap sh"><div><p class="eyebrow">Услуги</p><h2 class="h">Всё для кузова в&nbsp;одном месте</h2></div>
+    <div class="arrows"><button id="prev" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button><button id="next" aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+  <div class="rail" id="rail">
+    <a class="svc" href="#cta"><div class="im"><img src="img/5.jpg" alt="Нанесение плёнки на бампер" loading="lazy"></div><div class="tx"><h3>Защитная плёнка</h3><p>Полиуретан 190 мкм на капот, бампер, фары или весь кузов. Самозатягивает мелкие царапины.</p><div class="pr"><span>от 45 000 ₽</span><span>Подробнее →</span></div></div></a>
+    <a class="svc" href="#cta"><div class="im"><img src="img/3.jpg" alt="Капли воды на керамике" loading="lazy"></div><div class="tx"><h3>Керамика 9H</h3><p>Твёрдый слой поверх лака. Вода скатывается, грязь смывается проще, цвет глубже.</p><div class="pr"><span>от 35 000 ₽</span><span>Подробнее →</span></div></div></a>
+    <a class="svc" href="#cta"><div class="im"><img src="img/4.jpg" alt="Полировка кузова" loading="lazy"></div><div class="tx"><h3>Полировка</h3><p>Убираем голограммы и мелкие царапины. Толщину лака замеряем до и после.</p><div class="pr"><span>от 18 000 ₽</span><span>Подробнее →</span></div></div></a>
+    <a class="svc" href="#cta"><div class="im"><img src="img/2.jpg" alt="Пена на капоте" loading="lazy"></div><div class="tx"><h3>Детейлинг-мойка</h3><p>Две фазы, очистка от битума и металла, сушка без разводов.</p><div class="pr"><span>от 3 500 ₽</span><span>Подробнее →</span></div></div></a>
+    <a class="svc" href="#cta"><div class="im"><img src="img/1.jpg" alt="Чёрное купе после комплекса" loading="lazy"></div><div class="tx"><h3>Полный комплекс</h3><p>Мойка, полировка, керамика и плёнка на зону риска. Скидка 15%.</p><div class="pr"><span>от 85 000 ₽</span><span>Подробнее →</span></div></div></a>
+  </div>
+</section>
+
+<section class="sec viz" id="viz"><div class="wrap">
+  <div class="sh"><div><p class="eyebrow">Визуализатор</p><h2 class="h">Примерьте цвет плёнки</h2></div><p>Цветная плёнка меняет цвет без перекраски и снимается без следов. Покрутите машину и выберите оттенок.</p></div>
+  <div class="viz-box">
+    <div class="stagebox">
+      <model-viewer id="car" src="car.glb" alt="3D-модель купе для примерки цвета" camera-orbit="-35deg 76deg 105%" field-of-view="28deg" exposure="1.1" shadow-intensity="1" shadow-softness=".8" interaction-prompt="none" disable-zoom disable-pan camera-controls touch-action="pan-y" auto-rotate rotation-per-second="10deg" environment-image="neutral" loading="lazy"></model-viewer>
+      <span class="hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>Тяните, чтобы повернуть</span>
+    </div>
+    <div class="panel">
+      <div><h3>Цвет</h3><p style="color:#6b6d72;font-size:14px;margin:4px 0 14px" id="cname">Обсидиан</p><div class="pick" id="pick"></div></div>
+      <div><h3 style="margin-bottom:12px">Фактура</h3><div class="fin" id="fin"><button aria-pressed="true" data-r=".08">Глянец</button><button aria-pressed="false" data-r=".55">Мат</button></div></div>
+      <div class="sum"><div><small>Цветная плёнка, весь кузов</small><b id="price">от 220 000 ₽</b></div><a class="btn" href="#cta">Хочу так</a></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="ba"><div class="wrap">
+  <div class="sh"><div><p class="eyebrow">До и после</p><h2 class="h">Разница видна сразу</h2></div><p>Двигайте ползунок. Слева краска до полировки, справа после. Пример для демонстрации.</p></div>
+  <div class="ba" id="baBox">
+    <img src="img/h1.jpg" alt="Автомобиль после полировки" loading="lazy">
+    <img class="before" src="img/h1.jpg" alt="Автомобиль до полировки" loading="lazy">
+    <span class="tag t1">До</span><span class="tag t2">После</span>
+    <span class="line"></span><span class="knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+    <input type="range" min="0" max="100" value="50" aria-label="Сравнение до и после" id="baR">
+  </div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap">
+  <div class="sh"><div><p class="eyebrow">Как мы работаем</p><h2 class="h">Четыре шага до выдачи</h2></div></div>
+  <div class="steps">
+    <div class="st"><span class="n">1</span><h3>Осмотр</h3><p>Замеряем толщину краски по 30 точкам и показываем дефекты при свете. Бесплатно.</p></div>
+    <div class="st"><span class="n">2</span><h3>Смета</h3><p>Фиксированная цена до начала работ. Сумма не меняется.</p></div>
+    <div class="st"><span class="n">3</span><h3>Работа</h3><p>Один мастер ведёт машину. Фото по этапам приходят в мессенджер.</p></div>
+    <div class="st"><span class="n">4</span><h3>Выдача</h3><p>Паспорт работ с замерами, письменная гарантия и инструкция по уходу.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq" style="padding-top:0"><div class="wrap faq">
+  <div><p class="eyebrow">Вопросы</p><h2 class="h">Частые вопросы</h2></div>
+  <div>
+    <details><summary>Сколько держится керамика?<i></i></summary><p>От 2 до 5 лет в зависимости от состава и ухода. Раз в год делаем бесплатный контрольный осмотр.</p></details>
+    <details><summary>Плёнку видно на машине?<i></i></summary><p>Прозрачная плёнка почти незаметна. Края заворачиваем за кромку детали, поэтому стыков не видно.</p></details>
+    <details><summary>Можно ли мыть машину на обычной мойке?<i></i></summary><p>Да, через 7 дней после нанесения. Мы дадим список бесконтактных моек и средств, которые не портят покрытие.</p></details>
+    <details><summary>Что если результат не понравится?<i></i></summary><p>Принимаете машину при свете вместе с мастером. Замечания исправляем бесплатно до выдачи.</p></details>
+  </div>
+</div></section>
+
+<section class="wrap" id="cta"><div class="cta">
+  <img src="img/h3.jpg" alt="" loading="lazy">
+  <div class="cta-in">
+    <h2 class="h">Запишитесь на бесплатный осмотр</h2>
+    <form id="form" novalidate>
+      <label for="fn">Имя</label><input id="fn" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+      <label for="fp">Телефон</label><input id="fp" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7">
+      <button class="btn" type="submit" style="margin-top:6px">Отправить заявку</button>
+      <p class="ok" id="ok" aria-live="polite"></p>
+    </form>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><b>Глянец</b>Демо-сайт, студия вымышленная.<br>Сделано Степаном Сусловым, <a href="https://suslovdev.ru">suslovdev.ru</a></div>
+  <div><b>Контакты</b>Киров, ул. Примерная, 1<br>+7 000 000-00-00<br>Ежедневно 9:00–21:00</div>
+  <div><b>3D-модель</b>«2015 Dodge Challenger LB★PERFORMANCE», Ddiaz Design, <a href="https://sketchfab.com/3d-models/2015-dodge-challenger-lbperformance-db846e9b985e4ae4934a5d9b6d1683f2" rel="noopener">Sketchfab</a>, <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>. Модель сжата и перекрашена.</div>
+</div></footer>
+
+<script type="module" src="vendor/model-viewer.min.js"></script>
+<script>
+// header
+const hd=document.getElementById('hd');
+const onScroll=()=>hd.classList.toggle('solid',scrollY>40);addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// hero slider
+const slides=[...document.querySelectorAll('.slide')],bars=[...document.querySelectorAll('#bars button')],LBL=['Студия','Керамика','Плёнка'];
+let cur=0,timer;
+function go(i){slides[cur].classList.remove('on');bars[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');
+  bars[cur].classList.remove('on');void bars[cur].offsetWidth;bars[cur].classList.add('on');document.getElementById('slbl').textContent=LBL[i];
+  clearTimeout(timer);timer=setTimeout(()=>go((cur+1)%slides.length),6000)}
+bars.forEach((b,i)=>b.addEventListener('click',()=>go(i)));
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches)timer=setTimeout(()=>go(1),6000);
+
+// rail arrows
+const rail=document.getElementById('rail');
+document.getElementById('prev').onclick=()=>rail.scrollBy({left:-rail.clientWidth*.8,behavior:'smooth'});
+document.getElementById('next').onclick=()=>rail.scrollBy({left:rail.clientWidth*.8,behavior:'smooth'});
+
+// visualizer
+const COLORS=[
+ {n:"Обсидиан",hex:"#141416",rgb:[0.01,0.01,0.012]},
+ {n:"Графит",hex:"#5b6570",rgb:[0.30,0.34,0.38]},
+ {n:"Арктика",hex:"#e9ecef",rgb:[0.85,0.87,0.9]},
+ {n:"Гоночный красный",hex:"#a8102a",rgb:[0.45,0.02,0.05]},
+ {n:"Нардо",hex:"#8a8d8f",rgb:[0.24,0.25,0.26]},
+ {n:"Лава",hex:"#f06a10",rgb:[0.95,0.17,0.01]},
+ {n:"Синий электрик",hex:"#2a4fd6",rgb:[0.02,0.08,0.6]},
+ {n:"Изумруд",hex:"#0f6b4a",rgb:[0.005,0.15,0.07]}
+];
+const car=document.getElementById('car'),pick=document.getElementById('pick');
+let paint=[],state={c:0,r:.08};
+pick.innerHTML=COLORS.map((c,i)=>`<button class="sw" style="background:${c.hex}" aria-label="${c.n}" aria-pressed="${i===0}" data-i="${i}"></button>`).join('');
+function apply(){paint.forEach(m=>{m.pbrMetallicRoughness.setBaseColorFactor([...COLORS[state.c].rgb,1]);m.pbrMetallicRoughness.setRoughnessFactor(state.r)})}
+car.addEventListener('load',()=>{
+  const mats=car.model.materials;paint=mats.filter(m=>m.name==='CarPaint');
+  mats.filter(m=>m.name==='Badges'||m.name==='plate').forEach(m=>{m.setAlphaMode('BLEND');m.pbrMetallicRoughness.setBaseColorFactor([0,0,0,0])});
+  apply();
+});
+pick.addEventListener('click',e=>{const b=e.target.closest('.sw');if(!b)return;state.c=+b.dataset.i;
+  [...pick.children].forEach(x=>x.setAttribute('aria-pressed',x===b));document.getElementById('cname').textContent=COLORS[state.c].n;apply()});
+document.getElementById('fin').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.r=+b.dataset.r;
+  [...b.parentNode.children].forEach(x=>x.setAttribute('aria-pressed',x===b));document.getElementById('price').textContent=state.r>.3?'от 240 000 ₽':'от 220 000 ₽';apply()});
+
+// before/after
+const baR=document.getElementById('baR'),baBox=document.getElementById('baBox');
+baR.addEventListener('input',()=>baBox.style.setProperty('--x',baR.value+'%'));
+
+// demo form
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();
+  const ok=document.getElementById('ok'),p=document.getElementById('fp').value.replace(/\D/g,'');
+  ok.style.color=p.length>=10?'#9fe6b4':'#ffb4b4';
+  ok.textContent=p.length>=10?'Это демо-сайт, заявка никуда не отправлена.':'Введите телефон полностью, 10–11 цифр.'});
+</script>
+</body>
+</html>
