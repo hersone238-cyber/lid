@@ -1515,7 +1515,8 @@
     }, { threshold: .4 });
     io.observe(lap);
   }
-  lap.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+  // эффект курсора только на компьютере с мышью
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) lap.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
   lap.addEventListener('pointerleave', function () { mouse.x = mouse.y = -9999; });
   btn.addEventListener('pointerenter', function () { hover = true; });
   btn.addEventListener('pointerleave', function () { hover = false; });
