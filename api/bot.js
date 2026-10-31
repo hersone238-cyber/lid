@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
     const info = await tg('getWebhookInfo', {});
     const current = info.ok ? info.result.url : '';
     // Не перехватываем бота, если он уже подключён к другому сайту.
-    if (current && current !== url) return res.status(409).send(`Бот уже подключён к ${current}. Ничего не менял.`);
+    if (current && current !== url) return res.status(409).send('Бот уже подключён. Ничего не менял.');
     const hook = await tg('setWebhook', { url, secret_token: secret(), allowed_updates: ['callback_query'] });
     return res.status(200).send(hook.ok ? `Готово. Бот подключён к ${url}` : `Ошибка: ${hook.description}`);
   }

@@ -2,6 +2,7 @@
 // Переменные окружения в Vercel те же, что у api/lead.js: BOT_TOKEN и LEAD_CHAT_IDS.
 
 const esc = (s) => String(s).replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
+const limited = require('./_limit');
 const clean = (v, max) => String(v == null ? '' : v).trim().slice(0, max);
 
 module.exports = async function handler(req, res) {
@@ -11,6 +12,7 @@ module.exports = async function handler(req, res) {
 
   // Поле-ловушка для ботов: человек его не видит и не заполняет.
   if (body.website) return res.status(200).json({ ok: true });
+  if (limited(req, 3)) return res.status(429).json({ error: 'Слишком много отправок, попробуйте позже' });
 
   const name = clean(body.name, 60);
   const role = clean(body.role, 80);
