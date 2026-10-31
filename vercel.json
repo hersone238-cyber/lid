@@ -5,7 +5,8 @@
       "has": [{ "type": "host", "value": "www.suslovdev.ru" }],
       "destination": "/portfolio/",
       "permanent": false
-    }
+    },
+    { "source": "/portfolio", "destination": "/portfolio/", "permanent": true }
   ],
   "headers": [
     {
