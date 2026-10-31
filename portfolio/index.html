@@ -195,6 +195,7 @@
   .info .tile b { font: 600 18px/1 var(--f-head); color: #07080b; }
   .info h3 { margin: 22px 0 8px; font-size: 18px; }
   .info p { margin: 0; font-size: 15px; }
+  @media (min-width: 1001px) { #how .info { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 1000px) { .info { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 640px) { .info { grid-template-columns: 1fr; } }
 
@@ -287,7 +288,6 @@
 
   /* Калькулятор цен */
   .calc { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; max-width: 1060px; margin: 0 auto; }
-  .opts { display: grid; gap: 12px; }
   .opt { position: relative; display: grid; grid-template-columns: 30px 1fr auto; gap: 4px 18px; align-items: start; text-align: left; width: 100%; padding: 20px 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); cursor: pointer; color: var(--text); font: inherit; transition: border-color .3s, background .3s, transform .3s var(--ease); overflow: hidden; }
   .opt:hover { transform: translateY(-2px); border-color: rgb(255 255 255 / .22); }
   .opt .box { grid-row: 1 / 3; width: 28px; height: 28px; border-radius: 9px; border: 1.5px solid rgb(255 255 255 / .28); display: grid; place-items: center; transition: background .25s, border-color .25s; margin-top: 2px; }
@@ -550,6 +550,30 @@
   .hero.lit::after { animation: heroLit 2.4s var(--ease) both; }
   @keyframes heroLit { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: .35; } }
 
+  /* Списки без карточек, как в демо GroomingStil */
+  .opts { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  #prices .opts .opt { background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 20px 4px; box-shadow: none; }
+  #prices .opts .opt:hover { transform: none; }
+  #prices .opts .opt::before { display: none; }
+  #prices .opts .opt .nm { font-size: 18px; }
+  #prices .opts .opt .ds { font-size: 14px; }
+  #prices .opts .opt[aria-checked="true"] .nm { color: #9dbcff; }
+  #how .info { gap: 32px; }
+  #how .info > div { background: transparent; border: 0; border-radius: 0; padding: 0; box-shadow: none; }
+  #how .info > div:hover { transform: none; }
+  #how .info > div::before, #how .info > div::after { display: none; }
+  #offer .offer { background: transparent; border: 0; padding: 0 20px; }
+  #offer .offer::before, #offer .offer::after { display: none; }
+  #stats .stats { background: transparent; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; gap: 0; }
+  #stats .stats > div { background: transparent; }
+  #prices.pricelist, #reviews { background: transparent; border: 0; border-radius: 0; }
+  #prices .refer { background: transparent; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; padding: 26px 4px; }
+  #prices .refer::after { display: none; }
+  #reviews .reviews { gap: 0 40px; }
+  #reviews .review { background: transparent; border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 26px 0; box-shadow: none; }
+  #reviews .review::before, #reviews .review::after { display: none; }
+  #faq .qas { gap: 0; border-top: 1px solid var(--line); }
+  #faq .qa { background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 0 4px; box-shadow: none; }
 </style>
 </head>
 <body>
@@ -785,12 +809,10 @@
     <div class="wrap">
       <h2>Как я работаю</h2>
       <div class="info">
-        <div><div class="tile" style="--c: var(--accent)"><b>1</b></div><h3>Знакомство</h3><p>Рассказываете, что сейчас неудобно и что хочется.</p></div>
-        <div><div class="tile" style="--c: var(--sand)"><b>2</b></div><h3>Пример под вас</h3><p>Бесплатно и до договорённостей. Не понравится — просто расходимся.</p></div>
-        <div><div class="tile" style="--c: var(--olive)"><b>3</b></div><h3>Цена и срок</h3><p>Сумма фиксируется до начала работы.</p></div>
-        <div><div class="tile" style="--c: var(--clay)"><b>4</b></div><h3>Запуск</h3><p>Показываю промежуточные версии, вношу правки.</p></div>
-        <div><div class="tile" style="--c: var(--ink)"><b>5</b></div><h3>Доступы вам</h3><p>Сайт и домен оформлены на вас, а не на меня.</p></div>
-        <div><div class="tile" style="--c: var(--ink)"><b>6</b></div><h3>Поддержка</h3><p>После запуска меняю цены, фото и расписание. Можно отказаться в любой месяц.</p></div>
+        <div><div class="tile" style="--c: var(--accent)"><b>1</b></div><h3>Знакомство</h3><p>Рассказываете о бизнесе и что хочется получить.</p></div>
+        <div><div class="tile" style="--c: var(--sand)"><b>2</b></div><h3>Пример под вас</h3><p>Делаю демо бесплатно. Не понравится, просто расходимся.</p></div>
+        <div><div class="tile" style="--c: var(--olive)"><b>3</b></div><h3>Цена и запуск</h3><p>Сумма фиксируется до начала работы. Показываю промежуточные версии и вношу правки.</p></div>
+        <div><div class="tile" style="--c: var(--clay)"><b>4</b></div><h3>Сайт ваш</h3><p>Сайт и домен оформлены на вас. Дальше могу поддерживать.</p></div>
       </div>
     </div>
   </section>
