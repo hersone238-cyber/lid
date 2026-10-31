@@ -381,13 +381,26 @@
   .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; align-items: center; justify-content: center; }
   .burger svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; }
   .menu { display: none; }
+  @media (prefers-reduced-motion: reduce) { .menu, .menu a { transition: none !important; } }
   @media (max-width: 860px) {
     .burger { display: inline-flex; margin-left: auto; }
     header .wrap { gap: 12px; }
-    .menu.open { display: grid; gap: 4px; padding: 8px 20px 18px; border-top: 1px solid var(--line); }
-    .menu a { text-decoration: none; color: var(--text); font: 500 17px var(--f-body); padding: 10px 0; }
+    .menu { position: absolute; left: 0; right: 0; top: 100%; display: grid; gap: 2px; padding: 10px 20px 22px; background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); box-shadow: 0 24px 48px rgb(0 0 0 / .45); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity .25s var(--ease), transform .35s var(--ease), visibility 0s .35s; }
+    .menu.open { opacity: 1; visibility: visible; transform: none; transition: opacity .25s var(--ease), transform .35s var(--ease); }
+    .menu a { text-decoration: none; color: var(--text); font: 500 18px var(--f-body); padding: 11px 0; opacity: 0; transform: translateY(-6px); transition: opacity .3s var(--ease), transform .3s var(--ease); }
+    .menu.open a { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 35ms + 60ms); }
+    header.menu-open { background: var(--bg); border-bottom-color: var(--line); }
+    .burger path { transition: transform .3s var(--ease), opacity .2s; transform-origin: 9px 9px; }
+    .burger[aria-expanded="true"] path { d: path("M4 4l10 10M4 14L14 4"); }
     .menu a.on { color: var(--ink); }
     .menu a::after { display: none; }
+    .logo b { white-space: nowrap; font-size: 20px; }
+  }
+  @media (max-width: 420px) {
+    .logo b { font-size: 17px; }
+    header .wrap { gap: 8px; }
+    header .wrap > .btn { padding: 10px 14px; font-size: 14px; }
+    header .lang-btn { padding: 0 9px; }
   }
 
   .sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -1649,9 +1662,11 @@
       im2.onload = function () { size2(); requestAnimationFrame(function () { c2.style.opacity = 1; }); };
       im2.src = 'img/hands-dots.png';
       addEventListener('resize', size2);
-      hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); m2.x = e.clientX - r.left; m2.y = e.clientY - r.top; on2 = 1; if (!run2) { run2 = true; requestAnimationFrame(loop2); } });
+      if (finePointer) hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); m2.x = e.clientX - r.left; m2.y = e.clientY - r.top; on2 = 1; if (!run2) { run2 = true; requestAnimationFrame(loop2); } });
       hero.addEventListener('pointerleave', function () { on2 = 0; });
     };
+    // эффект курсора только на компьютере с мышью
+    var finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (!gl) heroFallback(); else {
       var im = new Image(), W = 0, H = 0, dpr = 1, sc = 1, N = 0, src = null, U = {}, pbuf = null;
       var spark = document.createElement('i'); spark.className = 'spark'; art.appendChild(spark);
@@ -1723,13 +1738,8 @@
       im.src = 'img/hands-dots.png';
       addEventListener('lite', function () { if (ready) { size(); gl.bindBuffer(gl.ARRAY_BUFFER, rndB); var r1 = gl.getAttribLocation(prog, 'a_rnd'); gl.vertexAttribPointer(r1, 2, gl.FLOAT, false, 0, 0); } });
       addEventListener('resize', function () { if (ready) { size(); /* перепривязка буферов */ gl.bindBuffer(gl.ARRAY_BUFFER, rndB); var r0 = gl.getAttribLocation(prog, 'a_rnd'); gl.vertexAttribPointer(r0, 2, gl.FLOAT, false, 0, 0); } });
-      hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; inside = 1; });
+      if (finePointer) hero.addEventListener('pointermove', function (e) { var r = art.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; inside = 1; });
       hero.addEventListener('pointerleave', function () { inside = 0; });
-      // на телефоне точки разбегаются от пальца
-      var touch = function (e) { var p = e.touches[0], r = art.getBoundingClientRect(); if (!p) return; mouse.x = p.clientX - r.left; mouse.y = p.clientY - r.top; if (sm.x < -999) { sm.x = mouse.x; sm.y = mouse.y; } inside = 1; };
-      hero.addEventListener('touchstart', touch, { passive: true });
-      hero.addEventListener('touchmove', touch, { passive: true });
-      hero.addEventListener('touchend', function () { inside = 0; }, { passive: true });
       new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; if (heroVisible && !heroLoop && ready) { heroLoop = true; requestAnimationFrame(frame); } }, { rootMargin: '100px' }).observe(hero);
       var frame = function (now) {
         if (!heroVisible) { heroLoop = false; return; }
@@ -1781,7 +1791,7 @@
       dispatchEvent(new Event('resize'));
     }
     links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === want); });
-    menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); document.querySelector('header').classList.remove('menu-open');
     if (sec) document.getElementById(sec).scrollIntoView({ behavior: 'smooth' });
     else window.scrollTo({ top: 0, behavior: 'instant' });
     dispatchEvent(new Event('scroll'));
@@ -1794,10 +1804,14 @@
   });
   route();
 
-  burger.addEventListener('click', function () {
-    var open = menu.classList.toggle('open');
+  [].forEach.call(menu.querySelectorAll('a'), function (a, i) { a.style.setProperty('--i', i); });
+  function setMenu(open) {
+    menu.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+    document.querySelector('header').classList.toggle('menu-open', open);
+  }
+  burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
   // Заявка: собираем текст, отправляет его сам посетитель
   var form = document.querySelector('#order form');
