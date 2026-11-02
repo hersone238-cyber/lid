@@ -617,12 +617,23 @@
   .shot.phone { background: rgb(255 255 255 / .04); }
   .rv, .card { opacity: 1 !important; transform: none !important; }
   h3, .opt .nm, .qa summary, .prices .item span { letter-spacing: 0; }
-  .hero-works { position: absolute; right: max(20px, calc((100% - 1120px) / 2)); bottom: 0; width: min(560px, 46%); height: clamp(190px, 30vw, 330px); z-index: -1; pointer-events: none; }
-  .hero-works img { position: absolute; width: 74%; height: auto; border-radius: 10px 10px 0 0; border: 1px solid rgb(255 255 255 / .1); border-bottom: 0; box-shadow: 0 -10px 40px rgb(0 0 0 / .45); }
-  .hero-works img:nth-child(1) { left: 0; bottom: 0; z-index: 1; opacity: .55; }
-  .hero-works img:nth-child(2) { right: 0; bottom: 0; z-index: 2; opacity: .7; }
-  .hero-works img:nth-child(3) { left: 13%; bottom: -14%; z-index: 3; }
-  @media (max-width: 900px) { .hero-works { left: 20px; right: 20px; width: auto; } }
+  .hero-works { position: absolute; left: max(20px, calc((100% - 1120px) / 2)); right: max(20px, calc((100% - 1120px) / 2)); bottom: clamp(20px, 3vw, 40px); display: flex; z-index: -1; pointer-events: none; }
+  .hw { flex: 1 1 0; min-width: 0; margin: 0 -2.5%; border-radius: 12px; background: #1b1f2a; border: 1px solid rgb(255 255 255 / .1); box-shadow: 0 18px 40px rgb(0 0 0 / .5); overflow: hidden; transform-origin: 50% 50%; }
+  .hw-cap { position: absolute; left: 0; right: 0; bottom: calc(100% + clamp(28px, 5vw, 64px)); margin: 0; display: flex; align-items: center; gap: 14px; color: #8a93a8; font: 500 13px var(--f-body); letter-spacing: .02em; }
+  .hw-cap::after { content: ''; flex: 1; height: 1px; background: rgb(255 255 255 / .1); }
+  .hw-cap span:first-child { color: #c9d8f5; }
+  @media (min-width: 901px) { .hw-cap { display: none; } }
+  @media (max-width: 640px) { .hw-cap { font-size: 11px; gap: 8px; } .hw-cap span:last-child { display: none; } }
+  .hw-bar { display: flex; align-items: center; gap: 6px; padding: 8px 10px; }
+  .hw-bar i { width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; flex: none; }
+  .hw-bar i:nth-child(2) { background: #febc2e; } .hw-bar i:nth-child(3) { background: #28c840; }
+  .hw-bar span { flex: 1; min-width: 0; margin-left: 6px; padding: 4px 10px; border-radius: 6px; background: rgb(255 255 255 / .06); color: #c9d8f5; font: 500 12px var(--f-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hw img { display: block; width: 100%; aspect-ratio: 16 / 10; height: auto; object-fit: cover; object-position: 50% 0; }
+  .hw:nth-child(2) { transform: translateY(28px) rotate(-8deg); z-index: 1; }
+  .hw:nth-child(3) { transform: translateY(0) rotate(-2.5deg); z-index: 2; }
+  .hw:nth-child(4) { transform: translateY(0) rotate(2.5deg); z-index: 3; }
+  .hw:nth-child(5) { transform: translateY(28px) rotate(8deg); z-index: 2; }
+  @media (max-width: 640px) { .hw { border-radius: 6px; } .hw-bar { padding: 4px 5px; gap: 3px; } .hw-bar i { width: 5px; height: 5px; } .hw-bar span { font-size: 6px; padding: 1px 4px; margin-left: 2px; } }
 </style>
 </head>
 <body>
@@ -656,9 +667,11 @@
 <main>
   <section class="hero" data-page="home">
     <div class="hero-works" aria-hidden="true">
-      <img src="profil54.webp" alt="" width="1280" height="800">
-      <img src="glyanets.webp" alt="" width="1280" height="800">
-      <img src="elencake.webp" alt="" width="1280" height="800">
+      <p class="hw-cap"><span>Реальные проекты</span><span>мебель · детейлинг · панель владельца · кондитер</span></p>
+      <div class="hw"><div class="hw-bar"><i></i><i></i><i></i><span>suslovdev.ru · сайт от 7 000 ₽</span></div><img src="profil54.webp" alt="" width="1280" height="800"></div>
+      <div class="hw"><div class="hw-bar"><i></i><i></i><i></i><span>suslovdev.ru · демо под ваш бизнес</span></div><img src="glyanets.webp" alt="" width="1280" height="800"></div>
+      <div class="hw"><div class="hw-bar"><i></i><i></i><i></i><span>suslovdev.ru · заявки сразу в Telegram</span></div><img src="glyanets-panel.webp" alt="" width="1280" height="800"></div>
+      <div class="hw"><div class="hw-bar"><i></i><i></i><i></i><span>suslovdev.ru · запуск за неделю</span></div><img src="elencake.webp" alt="" width="1280" height="800"></div>
     </div>
     <div class="hero-text">
       <div class="badges"><div class="tagline live">Принимаю новые проекты</div></div>
