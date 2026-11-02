@@ -629,10 +629,16 @@
   .hw-bar i:nth-child(2) { background: #febc2e; } .hw-bar i:nth-child(3) { background: #28c840; }
   .hw-bar span { flex: 1; min-width: 0; margin-left: 6px; padding: 4px 10px; border-radius: 6px; background: rgb(255 255 255 / .06); color: #c9d8f5; font: 500 12px var(--f-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .hw img { display: block; width: 100%; aspect-ratio: 16 / 10; height: auto; object-fit: cover; object-position: 50% 0; }
-  .hw:nth-child(2) { transform: translateY(28px) rotate(-8deg); z-index: 1; }
-  .hw:nth-child(3) { transform: translateY(0) rotate(-2.5deg); z-index: 2; }
-  .hw:nth-child(4) { transform: translateY(0) rotate(2.5deg); z-index: 3; }
-  .hw:nth-child(5) { transform: translateY(28px) rotate(8deg); z-index: 2; }
+  .hw { transform: var(--to); animation: hwOut 1.3s cubic-bezier(.45, 0, .2, 1) both; }
+  .hw:nth-child(2) { --to: translateY(28px) rotate(-8deg); animation: none; z-index: 1; }
+  .hw:nth-child(3) { --to: rotate(-2.5deg); --from: translate(-91%, 22px) rotate(-7deg); animation-delay: 1.1s; z-index: 2; }
+  .hw:nth-child(4) { --to: rotate(2.5deg); --from: translate(-180%, 16px) rotate(-6deg); animation-delay: .75s; z-index: 3; }
+  .hw:nth-child(5) { --to: translateY(28px) rotate(8deg); --from: translate(-270%, 10px) rotate(-5deg); animation-delay: .4s; z-index: 4; }
+  @keyframes hwOut { from { transform: var(--from); } to { transform: var(--to); } }
+  @media (prefers-reduced-motion: reduce) { .hw { animation: none; } }
+  
+  
+  
   @media (max-width: 640px) { .hw { border-radius: 6px; } .hw-bar { padding: 4px 5px; gap: 3px; } .hw-bar i { width: 5px; height: 5px; } .hw-bar span { font-size: 6px; padding: 1px 4px; margin-left: 2px; } }
 </style>
 </head>
