@@ -641,6 +641,16 @@
   
   @media (max-width: 640px) { .hw { border-radius: 6px; } .hw-bar { padding: 4px 5px; gap: 3px; } .hw-bar i { width: 5px; height: 5px; } .hw-bar span { font-size: 6px; padding: 1px 4px; margin-left: 2px; } }
 </style>
+<style id="bg-works">
+  /* 4 works as a blurred full-hero backdrop, same tilt/slide animation */
+  .hero { overflow: hidden; }
+  .hero-works { left: -6%; right: -6%; top: 0; bottom: 0; align-items: center; filter: blur(1.5px) saturate(1.1); opacity: .9; transform: scale(1.55); transform-origin: 50% 50%; bottom: 0; }
+  .hero-works .hw-cap { display: none; }
+  .hw { margin: 0 -3%; box-shadow: 0 30px 70px rgb(0 0 0 / .55); }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-text::before { content: ''; position: absolute; inset: -40px -80px -40px -60px; z-index: -1; background: radial-gradient(70% 80% at 30% 50%, rgb(18 21 31 / .78), rgb(18 21 31 / .35) 70%, transparent); filter: blur(12px); }
+  @media (max-width: 900px) { .hero-works { transform: scale(2.4); opacity: .65; } }
+</style>
 </head>
 <body>
 
