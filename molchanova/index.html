@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Molchanova Cake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF8F4;
+    --surface: #FBEBE6;
+    --blush: #F4C6CF;
+    --rose: #E89AAB;
+    --rose-ink: #B4566E;
+    --mint: #DDEDE3;
+    --ink: #3B2420;
+    --muted: #7E625B;
+    --line: rgba(59, 36, 32, .12);
+    --ease: cubic-bezier(.16, 1, .3, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scrollbar-color: var(--blush) var(--bg); }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.65 Manrope, sans-serif; -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--blush); color: var(--ink); }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  :focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  h1, h2, h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; letter-spacing: -.01em; }
+  h2 { font-size: clamp(40px, 5vw, 64px); line-height: 1; text-wrap: balance; }
+  h1 i, h2 i { color: var(--rose-ink); }
+  section { padding: 120px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 56px; }
+  .head p { max-width: 40ch; color: var(--muted); }
+
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 17px 30px; background: var(--rose); color: #fff;
+    font-weight: 600; font-size: 15px; border-radius: 12px; box-shadow: 0 10px 24px -10px rgba(180, 86, 110, .55);
+    transition: background .4s var(--ease), gap .4s var(--ease), transform .4s var(--ease); }
+  .btn:hover { background: var(--rose-ink); gap: 18px; transform: translateY(-2px); }
+  .btn svg { width: 18px; height: 18px; }
+  .btn.soft { background: #fff; color: var(--ink); box-shadow: 0 6px 18px -10px rgba(59, 36, 32, .3); }
+  .btn.soft:hover { background: var(--blush); }
+
+  header { position: sticky; top: 0; z-index: 10; background: rgba(255, 248, 244, .85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; height: 76px; }
+  .logo { font: 500 28px/1 "Cormorant Garamond", serif; }
+  .logo i { color: var(--rose-ink); }
+  nav { display: flex; gap: 32px; font-size: 14px; color: var(--muted); }
+  nav a:hover { color: var(--ink); }
+  header .btn { padding: 11px 20px; font-size: 14px; border-radius: 10px; }
+
+  .hero-bg { background: linear-gradient(180deg, var(--surface), var(--bg)); }
+  .hero { display: grid; grid-template-columns: 1fr 480px; gap: 80px; align-items: center; padding: 72px 0 120px; }
+  h1 { font-size: clamp(52px, 6.6vw, 92px); line-height: .98; letter-spacing: -.02em; text-wrap: balance; }
+  .lead { max-width: 44ch; margin: 28px 0 40px; color: var(--muted); font-size: 18px; }
+  .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 44px; }
+  .badges span { padding: 8px 16px; background: #fff; border-radius: 999px; font-size: 13px; color: var(--muted); }
+  .badges span:nth-child(2) { background: var(--mint); }
+  .badges span:nth-child(3) { background: var(--blush); color: var(--ink); }
+  .hero .photo { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 240px 240px 24px 24px; background: var(--blush);
+    box-shadow: 0 40px 80px -40px rgba(180, 86, 110, .45); animation: reveal 1.4s var(--ease) both; }
+  .hero figcaption { display: flex; justify-content: space-between; margin-top: 16px; font-size: 13px; color: var(--muted); }
+  @keyframes reveal { from { clip-path: inset(100% 0 0 0 round 24px); } to { clip-path: inset(0 round 0); } }
+
+  .offer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 40px; }
+  .offer div { padding: 36px; border-radius: 16px; background: #fff; }
+  .offer div:nth-child(2) { background: var(--mint); }
+  .offer div:nth-child(3) { background: var(--blush); }
+  .offer h3 { font-size: 30px; margin-bottom: 10px; }
+  .offer p { color: var(--muted); }
+  .offer div:nth-child(3) p { color: var(--ink); }
+
+  .marquee { padding: 36px 0; overflow: hidden; background: var(--rose); color: #fff; }
+  .marquee-track { display: flex; gap: 56px; width: max-content; animation: run 40s linear infinite;
+    font: italic 500 40px/1 "Cormorant Garamond", serif; white-space: nowrap; }
+  .marquee-track span::after { content: "✿"; margin-left: 56px; font-style: normal; font-size: 24px; opacity: .7; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  .grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-auto-rows: 300px; gap: 16px; }
+  .grid figure { overflow: hidden; border-radius: 16px; background: var(--surface); }
+  .grid figure:first-child { grid-row: span 2; }
+  .grid img { transition: transform 1.2s var(--ease); }
+  .grid figure:hover img { transform: scale(1.04); }
+
+  .prices-bg { background: var(--surface); }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; padding: 26px 32px; margin-bottom: 12px; background: #fff; border-radius: 16px; }
+  .row h3 { font-size: 30px; }
+  .row p { color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .row b { font: 500 28px/1 "Cormorant Garamond", serif; color: var(--rose-ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .note { margin-top: 20px; color: var(--muted); font-size: 14px; }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .steps div { border-top: 2px solid var(--blush); padding-top: 24px; }
+  .steps h3 { font-size: 28px; margin-bottom: 8px; }
+  .steps p { color: var(--muted); font-size: 15px; }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .pics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .pics figure { aspect-ratio: 3 / 4; overflow: hidden; border-radius: 16px; }
+  .pics figure:last-child { margin-top: 64px; }
+  .about p { color: var(--muted); margin-top: 24px; max-width: 46ch; font-size: 17px; }
+
+  .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .reviews blockquote { background: #fff; padding: 36px; border-radius: 16px; box-shadow: 0 20px 40px -30px rgba(59, 36, 32, .35); }
+  .reviews q { display: block; font: italic 500 24px/1.35 "Cormorant Garamond", serif; quotes: none; }
+  .reviews cite { display: block; margin-top: 24px; font-style: normal; font-size: 14px; color: var(--muted); }
+
+  details { border-bottom: 1px solid var(--line); }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; font: 500 28px/1.2 "Cormorant Garamond", serif; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--rose-ink); transition: transform .4s var(--ease); }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); padding: 0 0 26px; max-width: 64ch; }
+
+  .contacts { position: relative; overflow: hidden; min-height: 100vh; padding: 80px max(48px, calc((100vw - 1184px) / 2));
+    display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center; isolation: isolate; }
+  .contacts::before { content: ""; position: absolute; inset: -40px; z-index: -1;
+    background: url(img/molchanova-4.jpg) center / cover; filter: blur(28px) saturate(1.1); }
+  .contacts::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(244, 198, 207, .72); }
+  .contacts h2 { font-size: clamp(48px, 7vw, 96px); }
+  .contacts p { color: var(--ink); margin: 20px 0 36px; max-width: 40ch; opacity: .8; }
+  .contacts figure { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 24px; transform: rotate(2deg);
+    box-shadow: 0 30px 60px -30px rgba(180, 86, 110, .6); }
+  footer .wrap { display: flex; justify-content: space-between; padding-top: 28px; padding-bottom: 28px; font-size: 13px; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { .hero .photo, .marquee-track { animation: none; } }
+  @media (max-width: 960px) {
+    .wrap { padding: 0 16px; }
+    nav { display: none; }
+    section { padding: 80px 0; }
+    .head { flex-direction: column; align-items: start; }
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 32px 0 64px; }
+    .hero figure { order: -1; }
+    .offer, .steps, .reviews, .about { grid-template-columns: 1fr; }
+    .about { gap: 48px; }
+    .grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+    .grid figure:first-child { grid-column: span 2; grid-row: span 2; }
+    .row { padding: 20px; }
+    .row h3 { font-size: 24px; }
+    .marquee-track { font-size: 30px; }
+    .contacts { min-height: 0; padding: 72px 16px 32px; grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .contacts p { margin: 20px auto 32px; }
+    .contacts figure { transform: none; }
+  }
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">Molchanova <i>Cake</i></a>
+    <nav><a href="#works">Работы</a><a href="#prices">Цены</a><a href="#how">Как заказать</a><a href="#faq">Вопросы</a></nav>
+    <a class="btn" href="#contacts">Заказать</a>
+  </div>
+</header>
+
+<div class="hero-bg">
+  <section class="wrap hero">
+    <div>
+      <h1>Торты на заказ в Кирове, <i>собранные под ваш праздник</i></h1>
+      <p class="lead">Свадебные, детские и праздничные торты ручной работы. Обсудим дизайн и начинку в сообщениях и приготовим к вашей дате.</p>
+      <div class="actions">
+        <a class="btn" href="#contacts">Обсудить заказ
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn soft" href="#works">Смотреть работы</a>
+      </div>
+      <div class="badges"><span>Ручная работа</span><span>Дизайн под повод</span><span>Киров</span></div>
+    </div>
+    <figure>
+      <div class="photo"><img src="img/molchanova-5.jpg" alt="Кондитер Молчанова с тортом-сердцем"></div>
+      <figcaption><span>Molchanova Cake</span><span>Каждый торт делаю сама</span></figcaption>
+    </figure>
+  </section>
+  <div class="wrap offer">
+    <div><h3>Дизайн под вас</h3><p>Возраст, тема, цвета, надпись. Собираю торт по вашей идее или предлагаю свою.</p></div>
+    <div><h3>Ягоды и крем</h3><p>Свежие ягоды, кремовые цветы, фигурки и топперы.</p></div>
+    <div><h3>Без посредников</h3><p>Вы пишете мне напрямую и сразу получаете ответ по цене и срокам.</p></div>
+  </div>
+</div>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>День рождения</span><span>Свадьба</span><span>Детский праздник</span><span>Юбилей</span><span>Бенто-торт</span><span>Капкейки</span><span>Трайфлы</span>
+    <span>День рождения</span><span>Свадьба</span><span>Детский праздник</span><span>Юбилей</span><span>Бенто-торт</span><span>Капкейки</span><span>Трайфлы</span>
+  </div>
+</div>
+
+<section class="wrap" id="works">
+  <div class="head"><h2>Мои <i>работы</i></h2><p>Часть тортов из группы. Больше работ во ВКонтакте.</p></div>
+  <div class="grid">
+    <figure><img src="img/molchanova-6.jpg" alt="Торт на 16 лет" loading="lazy"></figure>
+    <figure><img src="img/molchanova-9.jpg" alt="Торт на 18 лет" loading="lazy"></figure>
+    <figure><img src="img/molchanova-10.jpg" alt="Ягодный торт" loading="lazy"></figure>
+    <figure><img src="img/molchanova-8.jpg" alt="Торт с кремовыми цветами" loading="lazy"></figure>
+    <figure><img src="img/molchanova-7.jpg" alt="Наполеон с клубникой" loading="lazy"></figure>
+  </div>
+</section>
+
+<div class="prices-bg">
+  <section class="wrap" id="prices">
+    <div class="head"><h2>Цены</h2><p>Итог зависит от веса, начинки и декора. Точную цену назову после обсуждения.</p></div>
+    <div class="row"><div><h3>Бенто-торт</h3><p>Маленький торт в коробке, например «Спелый апельсин»</p></div><b>1 000 ₽</b></div>
+    <div class="row"><div><h3>Меренговый рулет</h3><p>С чёрной смородиной</p></div><b>1 400 ₽</b></div>
+    <div class="row"><div><h3>Набор трайфлов</h3><p>Ваниль и клубника, шоколад и карамель, с открыткой</p></div><b>600 ₽</b></div>
+    <div class="row"><div><h3>Торт на заказ</h3><p>Праздничный, детский, свадебный, прямоугольный с логотипом</p></div><b>по запросу</b></div>
+    <p class="note">Цены из постов во ВКонтакте. Актуальный прайс уточним.</p>
+  </section>
+</div>
+
+<section class="wrap" id="how">
+  <div class="head"><h2>Как <i>заказать</i></h2></div>
+  <div class="steps">
+    <div><h3>Пишете</h3><p>Повод, дата, примерный вес и пожелания по дизайну.</p></div>
+    <div><h3>Обсуждаем</h3><p>Подбираем начинку и декор, называю цену.</p></div>
+    <div><h3>Предоплата</h3><p>Закрепляю дату за вами.</p></div>
+    <div><h3>Забираете</h3><p>Торт готов к вашему дню.</p></div>
+  </div>
+</section>
+
+<section class="wrap about">
+  <div class="pics">
+    <figure><img src="img/molchanova-1.jpg" alt="Кондитер с ягодным тортом" loading="lazy"></figure>
+    <figure><img src="img/molchanova-2.jpg" alt="Кондитер с тортом в подарочной упаковке" loading="lazy"></figure>
+  </div>
+  <div>
+    <h2>Делаю торты <i>сама</i>, от коржа до последней ягоды</h2>
+    <p>Меня зовут … Молчанова. Пеку в Кирове и веду каждый заказ лично: от первого сообщения до момента, когда вы забираете торт.</p>
+  </div>
+</section>
+
+<section class="wrap" id="faq">
+  <div class="head"><h2>Частые <i>вопросы</i></h2></div>
+  <details><summary>За сколько дней заказывать торт?</summary><p>Срок уточним по вашим правилам.</p></details>
+  <details><summary>Какой минимальный вес?</summary><p>Ответ заполним по вашему прайсу.</p></details>
+  <details><summary>Есть ли доставка?</summary><p>Ответ заполним по вашим условиям.</p></details>
+  <details><summary>Можно ли сделать торт по фото?</summary><p>Пришлите фото-пример, обсудим, что повторить и что поменять под ваш повод.</p></details>
+</section>
+
+<section class="contacts" id="contacts">
+  <div>
+  <h2>Закажите <i>торт</i></h2>
+  <p>Напишите повод и дату. Отвечу и помогу выбрать начинку и дизайн.</p>
+  <a class="btn" href="https://vk.ru/id646632823">Написать во ВКонтакте
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <figure><img src="img/molchanova-4.jpg" alt="Кондитер украшает торт" loading="lazy"></figure>
+</section>
+<footer><div class="wrap"><span>Molchanova Cake, Киров</span><span>Сайт: suslovdev.ru</span></div></footer>
+</body>
+</html>
